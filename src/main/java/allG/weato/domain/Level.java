@@ -19,12 +19,31 @@ public class Level {
 
     private int exp;
 
-
+    public Level(){
+        level=1;
+        exp=0;
+    }
     public void levelUp(){
         level++;
     }
-    public void expPlus(int exp) {
+    public void addExp(int exp) {
         this.exp += exp;
+        levelChecker();
+    }
+
+    public void levelChecker(){
+        if(level==1&&exp>=25){
+            addExp(-25);
+            levelUp();
+        }
+        if(level==2&&exp>=80){
+            addExp(-80);
+            levelUp();
+        }
+        if(level==3&&exp>=150){
+            addExp(-150);
+            levelUp();
+        }
     }
 
 
