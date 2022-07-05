@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +21,8 @@ public class Comment {
 
     private LocalDateTime createdAt;
 
+    private int likeCount=0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -26,15 +31,29 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @OneToMany(mappedBy = "comment")
+    private List<CommentLike> commentLikeList = new ArrayList<>();
+
+    public void changeContent(String content){
+        this.content=content;
+        createdAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+    }
+
     public void setPost(Post post){
         this.post=post;
-        post.getCommentList().add(this);
     }
 
     public void setMember(Member member){
         this.member=member;
-        member.getCommentList().add(this);
     }
+
+    public void addLike(CommentLike commentLike){
+        getCommentLikeList().add(commentLike);
+        commentLike.setOwnComment(this);
+        likeCount++;
+    }
+
+
 
 
 

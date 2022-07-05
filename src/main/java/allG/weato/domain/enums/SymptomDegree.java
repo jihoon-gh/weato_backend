@@ -1,4 +1,4 @@
-package allG.weato.domain;
+package allG.weato.domain.enums;
 
 public enum SymptomDegree {
     SLIGHT, BELOWAVG,  ABOVEAVG, SEVERE

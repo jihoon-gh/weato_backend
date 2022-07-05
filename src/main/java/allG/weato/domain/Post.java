@@ -1,15 +1,19 @@
 package allG.weato.domain;
 
+import allG.weato.domain.enums.BoardType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Post {
 
     @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -21,38 +25,73 @@ public class Post {
 
     private LocalDateTime createAt;
 
-    @NotNull
+    private String title;
     private String content;
-
-
-    int likeCount ;
+    private int likeCount = 0 ;
     @ManyToOne(fetch = FetchType.LAZY) //멤버 - 게시글 외래키의 주인 > post
     @JoinColumn(name = "member_id")
     private Member member;
 
+
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL) //persist의 전파.
     private List<Comment> commentList = new ArrayList<>();
-
-    @ManyToOne(fetch = FetchType.LAZY) //북마크 - 게시글 외래키의 주인 -> post
-    @JoinColumn(name = "book_mark_id")
-    private BookMark bookMark;
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Attachment> attachmentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
-    private List<Like> likeList = new ArrayList<>();
+    private List<PostLike> postLikeList = new ArrayList<>();
 
-    //연관관계 메소드
-    public void setMember(Member member){
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "scrap_id")
+    private Scrap scrap;
+
+
+    public Post(String title, String content,BoardType boardType,LocalDateTime createAt){
+        this.title=title;
+        this.content=content;
+        this.boardType=boardType;
+        this.createAt=createAt;
+    }
+
+    //setter 대용 메소드
+    public void changeContent(String content){
+        this.content=content;
+        createAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+    }
+
+    public void changeTitle(String title)
+    {
+        this.title=title;
+        createAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+    }
+
+
+    //연관관계 편의 메소드
+    public void setOwner(Member member){
         this.member=member;
         member.getPostList().add(this);
+        member.getLevel().addExp(10);
     }
 
-    public void setBookMark(BookMark bookMark){
-        this.bookMark=bookMark;
-        bookMark.getPostList().add(this);
+    public void addComment(Comment comment){ // 완료
+        this.getCommentList().add(comment);
+        comment.setPost(this);
     }
 
+    public void addAttachments(Attachment attachment){ //완료
+        attachmentList.add(attachment);
+        attachment.setPost(this);
+    }
+
+    public void addLike(PostLike postLike) { //완료
+        this.postLikeList.add(postLike);
+        postLike.setOwnPost(this);
+        likeCount++;
+    }
+
+    public void scrapedBy(Scrap scrap){
+        this.scrap=scrap;
+    }
 
 }

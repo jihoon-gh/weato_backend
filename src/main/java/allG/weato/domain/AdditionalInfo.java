@@ -1,8 +1,8 @@
 package allG.weato.domain;
 
+import allG.weato.domain.enums.SymptomDegree;
 import lombok.Getter;
 import lombok.Setter;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 

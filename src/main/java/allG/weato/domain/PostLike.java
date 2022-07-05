@@ -1,18 +1,19 @@
 package allG.weato.domain;
 
 import lombok.Getter;
-import org.springframework.data.web.JsonPath;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-public class Like {
+public class PostLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_id")
+    @Column(name = "postlike_id")
     private Long id;
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -22,9 +23,14 @@ public class Like {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
-    private Comment comment;
 
+    public void setOwnPost(Post post){
+        this.post=post;
+    }
+
+    public void setOwner(Member member)
+    {
+        this.member=member;
+    }
 
 }
