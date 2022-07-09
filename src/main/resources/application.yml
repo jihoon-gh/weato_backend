@@ -4,10 +4,12 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+  profiles:
+    include: oauth
 
   jpa:
     hibernate:
-      ddl-auto: create #entity를 생성시점에 지우고 다 다시 생성
+      ddl-auto: create-drop #entity를 생성시점에 지우고 다 다시 생성
     properties:
       hibernate:
         #        show_sql: true
