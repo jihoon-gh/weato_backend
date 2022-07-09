@@ -1,5 +1,7 @@
 package allG.weato.domain;
 
+import allG.weato.domain.enums.Role;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +31,12 @@ public class Member {
     private String newsletterEmail;
 
     private LocalDateTime createAt;
+
+    private Role role;
+
+    private String birthyear;
+
+    private String gender;
 
     @OneToMany(mappedBy = "member")
     private List<Post> postList = new ArrayList<>();
@@ -72,13 +80,21 @@ public class Member {
     public Member(){ initMember();}
 
     //Constructor with Args
-    public Member(String name, String email, String password,LocalDateTime createAt){
+    @Builder
+    public Member(String name, String email,String gender,String birthyear, Role role){
         initMember();
         this.name=name;
         this.email=email;
-        this.password=password;
-        this.createAt = createAt;
+        this.role=role;
+        this.gender=gender;
+        this.birthyear=birthyear;
     }
+    public Member update(String name)
+    {
+        this.name = name;
+        return this;
+    }
+
 
     //init function with constructor of OneToOne things
     public void initMember(){
@@ -86,6 +102,11 @@ public class Member {
         BookMark bookMark = new BookMark();
         this.bookMark=bookMark;
         this.level=level;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public String getRoleKey(){
+        return this.role.getKey();
     }
 
     public void changePassword(String password){

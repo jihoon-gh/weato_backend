@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -16,6 +17,13 @@ public class MemberService {
 
     public Member findById(Long id){
       return memberRepository.findById(id).get();
+    }
+
+    public Member findByEmail(String email){
+      Optional<Member> member  = memberRepository.findByEmail(email);
+      Member findMember = member.get();
+      return findMember;
+
     }
 
     public List<Member> findAll(){
@@ -31,8 +39,8 @@ public class MemberService {
 
     public void validateDuplicateMember(Member member){
         List<Member> findMembersByName = memberRepository.findByName(member.getName());
-        List<Member> findMembersByEmail = memberRepository.findByEmail(member.getEmail());
-        if (findMembersByEmail.size()!=0&&findMembersByName.size()!=0){
+//        List<Member> findMembersByEmail = memberRepository.findAllByEmail();
+        if (findMembersByName.size()!=0){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
 
