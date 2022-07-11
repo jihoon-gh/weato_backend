@@ -16,6 +16,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+
     @GetMapping("/hello")
     public ResponseEntity<String> hello(){
         return ResponseEntity.ok("hello");

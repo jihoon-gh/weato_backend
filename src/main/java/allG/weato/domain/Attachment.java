@@ -1,5 +1,6 @@
 package allG.weato.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 public class Attachment {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attachment_id")
     private Long id;
@@ -17,6 +19,7 @@ public class Attachment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="post_id")
+    @JsonIgnore
     private Post post;
     
 

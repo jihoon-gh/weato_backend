@@ -1,6 +1,8 @@
 package allG.weato.domain;
 
 import allG.weato.domain.enums.BoardType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,8 +30,11 @@ public class Post {
     private String title;
     private String content;
     private int likeCount = 0 ;
+
+    private int views=0;
     @ManyToOne(fetch = FetchType.LAZY) //멤버 - 게시글 외래키의 주인 > post
     @JoinColumn(name = "member_id")
+    @JsonIgnore
     private Member member;
 
 
@@ -43,6 +48,7 @@ public class Post {
     private List<PostLike> postLikeList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "scrap_id")
     private Scrap scrap;
 
@@ -88,6 +94,10 @@ public class Post {
         this.postLikeList.add(postLike);
         postLike.setOwnPost(this);
         likeCount++;
+    }
+
+    public void addViews(){
+        views++;
     }
 
     public void scrapedBy(Scrap scrap){
