@@ -1,10 +1,8 @@
-package allG.weato.dto.create;
+package allG.weato.dto.post.create;
 
-import allG.weato.domain.Attachment;
 import allG.weato.domain.Post;
 import allG.weato.domain.enums.BoardType;
-import allG.weato.dto.AttachmentDto;
-import lombok.AllArgsConstructor;
+import allG.weato.dto.post.AttachmentDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;

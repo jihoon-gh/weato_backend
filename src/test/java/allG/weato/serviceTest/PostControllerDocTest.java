@@ -3,7 +3,7 @@ package allG.weato.serviceTest;
 
 import allG.weato.domain.Post;
 import allG.weato.domain.enums.BoardType;
-import allG.weato.dto.create.CreatePostResponse;
+import allG.weato.dto.post.create.CreatePostResponse;
 import allG.weato.service.PostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

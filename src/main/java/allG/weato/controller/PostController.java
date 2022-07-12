@@ -2,17 +2,17 @@ package allG.weato.controller;
 
 import allG.weato.config.auth.dto.SessionMember;
 import allG.weato.domain.Attachment;
-import allG.weato.domain.Comment;
 import allG.weato.domain.Member;
 import allG.weato.domain.Post;
-import allG.weato.dto.create.CreateCommentRequest;
-import allG.weato.dto.create.CreateCommentResponse;
-import allG.weato.dto.create.CreatePostRequest;
-import allG.weato.dto.create.CreatePostResponse;
-import allG.weato.dto.PostDetail;
-import allG.weato.dto.PostDto;
-import allG.weato.dto.update.UpdatePostRequest;
-import allG.weato.dto.update.UpdatePostResponse;
+import allG.weato.dto.post.create.CreatePostRequest;
+import allG.weato.dto.post.create.CreatePostResponse;
+import allG.weato.dto.post.retrieve.PostDetail;
+import allG.weato.dto.post.retrieve.PostDto;
+import allG.weato.dto.error.Error400;
+import allG.weato.dto.error.Error404;
+import allG.weato.dto.error.Error500;
+import allG.weato.dto.post.update.UpdatePostRequest;
+import allG.weato.dto.post.update.UpdatePostResponse;
 import allG.weato.service.MemberService;
 import allG.weato.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,12 +41,12 @@ public class PostController {
     private PostService postService1;
 
 
-    @Operation(summary = "get all posts", description = "모든 게시글 가져오기")
+    @Operation(summary = "get all posts", description = "게시글 전체조회")
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = "Ok", content = @Content(schema = @Schema(implementation = PostDto.class))),
-            @ApiResponse(responseCode = "400",description = "BAD REQUEST"),
-            @ApiResponse(responseCode = "404",description = "NOT FOUND"),
-            @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR")
+            @ApiResponse(responseCode = "400",description = "BAD REQUEST", content = @Content(schema = @Schema(implementation =Error400.class ))),
+            @ApiResponse(responseCode = "404",description = "NOT FOUND", content = @Content(schema = @Schema(implementation =Error404.class ))),
+            @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation =Error500.class )))
     })
     @GetMapping("/api/posts")
     public Result showPosts() {
@@ -59,8 +59,14 @@ public class PostController {
         return new Result(result.size(), result);
     }
 
+    @Operation(summary = "Create posts", description = "게시글 생성")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201",description = "created successfully", content = @Content(schema = @Schema(implementation =CreatePostResponse.class ))),
+            @ApiResponse(responseCode = "400",description = "BAD REQUEST", content = @Content(schema = @Schema(implementation = Error400.class ))),
+            @ApiResponse(responseCode = "404",description = "NOT FOUND", content = @Content(schema = @Schema(implementation =Error404.class ))),
+            @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = Error500.class )))
+    })
     @PostMapping("/api/posts")
-    @ResponseBody
     public CreatePostResponse createPost(@RequestBody @Valid CreatePostRequest request){
         SessionMember member = (SessionMember) httpSession.getAttribute("member");
         Member findMember = memberService.findByEmail(member.getEmail());
@@ -75,10 +81,19 @@ public class PostController {
         return response;
     }
 
+    @Operation(summary = "get specific post", description = "게시글 단건조회")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "Ok"),
+            @ApiResponse(responseCode = "400",description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404",description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR")
+    })
     @GetMapping("/api/posts/{id}")
     public PostDetail showPost(@PathVariable("id") Long id) {
       Post post = postService.findPostById(id);
-      post.addViews();
+      postService.addViews(post);
+
+      System.out.println("post.getViews() = " + post.getViews());
       PostDetail postDetail = new PostDetail(post);
       return postDetail;
     }
@@ -86,7 +101,6 @@ public class PostController {
 
 
     @PatchMapping("/api/posts/{id}")
-    @ResponseBody
     public UpdatePostResponse updatePost(@PathVariable("id") Long id, @RequestBody @Valid UpdatePostRequest request){
        if(request.getTitle()!=null&&request.getContent()==null){
            postService.updatePostTitle(id, request.getTitle());
@@ -97,8 +111,14 @@ public class PostController {
         UpdatePostResponse updatePostResponse = new UpdatePostResponse(id, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         return updatePostResponse;
     }
+    @Operation(summary = "delete post", description = "게시글 삭제")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204",description = "Ok"),
+            @ApiResponse(responseCode = "400",description = "BAD REQUEST", content = @Content(schema = @Schema(implementation = Error400.class ))),
+            @ApiResponse(responseCode = "404",description = "NOT FOUND", content = @Content(schema = @Schema(implementation =Error404.class ))),
+            @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = Error500.class )))
+    })
     @DeleteMapping("/api/posts/{id}")
-    @ResponseBody
     public String deletePost(@PathVariable("id") Long id)
     {
         Post post = postService.findPostById(id);

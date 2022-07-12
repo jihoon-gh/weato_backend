@@ -1,4 +1,4 @@
-package allG.weato.dto.update;
+package allG.weato.dto.post.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
