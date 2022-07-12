@@ -4,8 +4,10 @@ import allG.weato.config.auth.dto.SessionMember;
 import allG.weato.domain.Comment;
 import allG.weato.domain.Member;
 import allG.weato.domain.Post;
-import allG.weato.dto.create.CreateCommentRequest;
-import allG.weato.dto.create.CreateCommentResponse;
+import allG.weato.dto.comment.create.CreateCommentRequest;
+import allG.weato.dto.comment.create.CreateCommentResponse;
+import allG.weato.dto.comment.update.UpdatedCommentDto;
+import allG.weato.service.CommentService;
 import allG.weato.service.MemberService;
 import allG.weato.service.PostService;
 import lombok.AllArgsConstructor;
@@ -23,8 +25,9 @@ public class CommentsController {
     private final MemberService memberService;
     private final HttpSession httpSession;
 
+    private final CommentService commentService;
+
     @PostMapping("/api/post/{id}/comments")
-    @ResponseBody
     public CreateCommentResponse addComment(@PathVariable("id") Long id, @RequestBody @Valid CreateCommentRequest request)
     {
         SessionMember member = (SessionMember) httpSession.getAttribute("member");
@@ -32,11 +35,24 @@ public class CommentsController {
         Post post = postService.findPostById(id);
         Comment comment = new Comment();
         comment.changeContent(request.getContent());
-        post.addComment(comment);
-        findMember.addComment(comment);
+        postService.addComment(post,comment);
+        memberService.addComment(findMember,comment);
         return new CreateCommentResponse(comment);
     }
 
+    @PatchMapping("/api/post/{postId}/comments/{commentId}")
+    public UpdatedCommentDto updateComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId,String content){
+        commentService.updateComment(commentId,content);
+        Comment comment = commentService.findCommentById(commentId);
+        return new UpdatedCommentDto(comment);
+    }
+
+    @DeleteMapping("/api/post/{postId}/comments/{commentId}")
+    public void deleteComment(
+            @PathVariable("postId") Long postId,
+            @PathVariable("commentId") Long commentId){
+        commentService.deleteComment(commentId);
+    }
 
 
     @Data

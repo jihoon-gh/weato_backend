@@ -1,4 +1,4 @@
-package allG.weato.dto.create;
+package allG.weato.dto.comment.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCommentRequest {
-    private String author;
     private String content;
     private LocalDateTime createdAt;
 }

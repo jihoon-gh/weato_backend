@@ -1,4 +1,4 @@
-package allG.weato.dto;
+package allG.weato.dto.post.retrieve;
 
 import allG.weato.domain.Post;
 import lombok.Data;
@@ -16,11 +16,17 @@ public class PostDto {
 
     private int commentsCounter;
 
+    private int views;
+
+    private int likecounter;
+
     public PostDto(Post post) {
         id = post.getId();
         title = post.getTitle();
         createdAt = post.getCreateAt();
         author = post.getMember().getName();
         commentsCounter = post.getCommentList().size();
+        views= post.getViews();
+        likecounter=post.getLikeCount();
     }
 }

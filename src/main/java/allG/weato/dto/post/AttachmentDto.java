@@ -1,4 +1,4 @@
-package allG.weato.dto;
+package allG.weato.dto.post;
 
 import allG.weato.domain.Attachment;
 import lombok.Data;

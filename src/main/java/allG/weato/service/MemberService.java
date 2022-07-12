@@ -1,5 +1,6 @@
 package allG.weato.service;
 
+import allG.weato.domain.Comment;
 import allG.weato.domain.Member;
 import allG.weato.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +45,10 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
 
+    }
+
+    @Transactional
+    public void addComment(Member member, Comment comment) {
+        member.addComment(comment);
     }
 }

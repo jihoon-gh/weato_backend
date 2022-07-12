@@ -1,4 +1,4 @@
-package allG.weato.dto.create;
+package allG.weato.dto.comment.create;
 
 import allG.weato.domain.Comment;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package allG.weato.dto.create;
+package allG.weato.dto.post.create;
 
 import allG.weato.domain.enums.BoardType;
 import lombok.AllArgsConstructor;
@@ -17,20 +17,12 @@ import java.util.List;
 public class CreatePostRequest {
     @NotEmpty
     String content;
+
     @NotEmpty
     String title;
-    @NotEmpty
-    String author;
     LocalDateTime createAt;
 
     BoardType boardType;
     List<String> imageUrls = new ArrayList<>();
 
-    public CreatePostRequest(String content, String title, String author, LocalDateTime createAt, BoardType boardType){
-        this.content = content;
-        this.title = title;
-        this.author = author;
-        this.createAt = createAt;
-        this.boardType = boardType;
-    }
 }
