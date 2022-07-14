@@ -10,10 +10,14 @@ import allG.weato.dto.comment.update.UpdatedCommentDto;
 import allG.weato.service.CommentService;
 import allG.weato.service.MemberService;
 import allG.weato.service.PostService;
+import allG.weato.validation.CommonErrorCode;
+import allG.weato.validation.ErrorCode;
+import allG.weato.validation.RestException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -33,6 +37,7 @@ public class CommentsController {
         SessionMember member = (SessionMember) httpSession.getAttribute("member");
         Member findMember=memberService.findByEmail(member.getEmail());
         Post post = postService.findPostById(id);
+        if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
         Comment comment = new Comment();
         comment.changeContent(request.getContent());
         postService.addComment(post,comment);
@@ -42,8 +47,9 @@ public class CommentsController {
 
     @PatchMapping("/api/post/{postId}/comments/{commentId}")
     public UpdatedCommentDto updateComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId,String content){
-        commentService.updateComment(commentId,content);
         Comment comment = commentService.findCommentById(commentId);
+        if(comment==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+        commentService.updateComment(commentId,content);
         return new UpdatedCommentDto(comment);
     }
 
@@ -51,6 +57,8 @@ public class CommentsController {
     public void deleteComment(
             @PathVariable("postId") Long postId,
             @PathVariable("commentId") Long commentId){
+        Comment comment = commentService.findCommentById(commentId);
+        if(comment==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
         commentService.deleteComment(commentId);
     }
 

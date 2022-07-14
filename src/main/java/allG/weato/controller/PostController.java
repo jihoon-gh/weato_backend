@@ -15,6 +15,8 @@ import allG.weato.dto.post.update.UpdatePostRequest;
 import allG.weato.dto.post.update.UpdatePostResponse;
 import allG.weato.service.MemberService;
 import allG.weato.service.PostService;
+import allG.weato.validation.CommonErrorCode;
+import allG.weato.validation.RestException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -91,10 +93,10 @@ public class PostController {
     @GetMapping("/api/posts/{id}")
     public PostDetail showPost(@PathVariable("id") Long id) {
       Post post = postService.findPostById(id);
+      if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
       postService.addViews(post);
-
-      System.out.println("post.getViews() = " + post.getViews());
       PostDetail postDetail = new PostDetail(post);
+
       return postDetail;
     }
 
@@ -102,11 +104,13 @@ public class PostController {
 
     @PatchMapping("/api/posts/{id}")
     public UpdatePostResponse updatePost(@PathVariable("id") Long id, @RequestBody @Valid UpdatePostRequest request){
-       if(request.getTitle()!=null&&request.getContent()==null){
-           postService.updatePostTitle(id, request.getTitle());
+       Post post = postService.findPostById(id);
+       if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+        if(request.getTitle()!=null&&request.getContent()==null){
+           postService.updatePostTitle(post, request.getTitle());
        } else if (request.getContent() != null &&request.getTitle()==null) {
-           postService.updatePostContent(id, request.getContent());
-       }else postService.updatePost(id,request.getTitle(), request.getContent());
+           postService.updatePostContent(post, request.getContent());
+       }else postService.updatePost(post, request.getTitle(), request.getContent());
 
         UpdatePostResponse updatePostResponse = new UpdatePostResponse(id, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         return updatePostResponse;
@@ -122,6 +126,7 @@ public class PostController {
     public String deletePost(@PathVariable("id") Long id)
     {
         Post post = postService.findPostById(id);
+        if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
         postService.DeletePost(post);
         return "successfully deleted";
     }

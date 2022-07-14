@@ -43,14 +43,12 @@ public class PostService {
     }
 
     @Transactional
-    public void updatePostContent(Long id, String content) {
-        Post post = postRepository.findPostById(id);
+    public void updatePostContent(Post post, String content) {
         post.changeContent(content);
     }
 
     @Transactional
-    public void updatePostTitle(Long id, String title) {
-        Post post = postRepository.findPostById(id);
+    public void updatePostTitle(Post post, String title) {
         post.changeTitle(title);
     }
 
@@ -62,8 +60,8 @@ public class PostService {
 
     @Transactional
     @Modifying
-    public void updatePost(Long id, String title, String content) {
-        Post post = postRepository.findPostById(id);
+    public void updatePost(Post post, String title, String content) {
+
         post.changeTitle(title);
         post.changeContent(content);
     }

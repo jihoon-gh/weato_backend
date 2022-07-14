@@ -33,8 +33,13 @@ public class CommentService {
     @Transactional
     @Modifying
     public void deleteComment(Long id){
-        if(commentRepository.findCommentById(id)==null) throw new RuntimeException("존재하지 않는 댓글입니다.");
         commentRepository.deleteCommentById(id);
+    }
+
+    @Transactional
+    @Modifying
+    public void delete(Comment comment){
+        commentRepository.delete(comment);
     }
 }
 

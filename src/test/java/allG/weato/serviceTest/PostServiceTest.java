@@ -44,10 +44,11 @@ public class PostServiceTest {
         postService.join(post);
         em.flush();
         //when
-        postService.updatePost(post.getId(), "hello","this is test");
+        Post findPost = postService.findPostById(post.getId());
+        postService.updatePost(findPost, "hello","this is test");
         //then
-        assertThat(post.getContent()).isEqualTo("this is test");
-        assertThat(post.getTitle()).isEqualTo("hello");
+        assertThat(findPost.getContent()).isEqualTo("this is test");
+        assertThat(findPost.getTitle()).isEqualTo("hello");
     }
 
     @Test
