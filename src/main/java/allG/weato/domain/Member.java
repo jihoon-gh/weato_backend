@@ -1,5 +1,6 @@
 package allG.weato.domain;
 
+import allG.weato.config.apiConfig.ProviderType;
 import allG.weato.domain.enums.Role;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,6 +38,9 @@ public class Member {
     private String birthyear;
 
     private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private ProviderType providerType;
 
     @OneToMany(mappedBy = "member")
     private List<Post> postList = new ArrayList<>();

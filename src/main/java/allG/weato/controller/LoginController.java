@@ -32,7 +32,7 @@ public class LoginController {
         if(member!=null){
             model.addAttribute("memberName",member.getName());
         }
-        return "home";
+        return "/";
     }
 
 

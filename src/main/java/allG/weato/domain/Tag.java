@@ -1,10 +1,13 @@
 package allG.weato.domain;
 
 import allG.weato.domain.enums.TagType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,12 +25,20 @@ public class Tag {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "tag" )
+    @JsonIgnore
+    private List<Newsletter> newsletters = new ArrayList<>();
+
     public Tag(TagType tagType){
         this.tagType=tagType;
     }
 
     public void setOwner(Member member){
         this.member=member;
+    }
+
+    public void addNewsletter(Newsletter newsletter){
+        newsletters.add(newsletter);
     }
 
 }

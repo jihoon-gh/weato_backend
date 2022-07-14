@@ -7,6 +7,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class RestException extends RuntimeException {
-
     private final ErrorCode errorCode;
 }
