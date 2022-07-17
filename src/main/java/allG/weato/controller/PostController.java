@@ -4,6 +4,8 @@ import allG.weato.config.auth.dto.SessionMember;
 import allG.weato.domain.Attachment;
 import allG.weato.domain.Member;
 import allG.weato.domain.Post;
+import allG.weato.domain.PostLike;
+import allG.weato.dto.AddLikeDto;
 import allG.weato.dto.post.create.CreatePostRequest;
 import allG.weato.dto.post.create.CreatePostResponse;
 import allG.weato.dto.post.retrieve.PostDetail;
@@ -17,6 +19,7 @@ import allG.weato.service.MemberService;
 import allG.weato.service.PostService;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
+import com.sun.net.httpserver.HttpsExchange;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,8 +28,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -40,7 +48,6 @@ public class PostController {
     private final MemberService memberService;
     private final PostService postService;
     private final HttpSession httpSession;
-    private PostService postService1;
 
 
     @Operation(summary = "get all posts", description = "게시글 전체조회")
@@ -51,15 +58,25 @@ public class PostController {
             @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation =Error500.class )))
     })
     @GetMapping("/api/posts")
-    public Result showPosts() {
-        List<Post> posts = postService.findAll();
+    public ResultForPaging showPosts(@RequestParam("page") Integer page) {
 
+        Page<Post> findPosts = postService.findPostWithPaging(page);
+        if(findPosts.isEmpty()) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+        List<Post> posts = findPosts.getContent();
+        int lastPageNum = findPosts.getTotalPages();
+        int current = findPosts.getNumber();
+        int min = 1+current/10*10;
+        int max =10+current/10*10;
+        if(max>=lastPageNum) max = lastPageNum;
         List<PostDto> result = posts.stream()
                 .map(p -> new PostDto(p))
                 .collect(Collectors.toList());
 
-        return new Result(result.size(), result);
+        return new ResultForPaging(result, min, max, current);
     }
+
+
+
 
     @Operation(summary = "Create posts", description = "게시글 생성")
     @ApiResponses({
@@ -78,7 +95,7 @@ public class PostController {
             Attachment attachment = new Attachment(s);
             post.addAttachments(attachment);
         }
-        postService.join(post);
+        postService.save(post);
         CreatePostResponse response = new CreatePostResponse(post);
         return response;
     }
@@ -99,7 +116,6 @@ public class PostController {
 
       return postDetail;
     }
-
 
 
     @PatchMapping("/api/posts/{id}")
@@ -131,15 +147,33 @@ public class PostController {
         return "successfully deleted";
     }
 
+    @PostMapping("/api/posts/{postId}/likes")
+    public AddLikeDto likeToPost(@PathVariable("postId") Long id){
+
+        Post post = postService.findPostById(id);
+        SessionMember member = (SessionMember) httpSession.getAttribute("member");
+        Member findMember = memberService.findByEmail(member.getEmail());
+        if(findMember==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        PostLike postLike = new PostLike();
+        postService.addLike(findMember,post,postLike);
+        return new AddLikeDto(post.getId(),post.getLikeCount());
+
+    }
+
+//    @DeleteMapping("/api/posts/{postId}/likes")
+//    public
+
 
 
 
 
     @Data
     @AllArgsConstructor
-    static class Result<T>{
-        int count;
+    static class ResultForPaging<T>{
         private T data;
+        private int min;
+        private int max;
+        private int current;
     }
 }
 

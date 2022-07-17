@@ -1,7 +1,10 @@
 package allG.weato.service;
 
+import allG.weato.config.auth.dto.SessionMember;
 import allG.weato.domain.Comment;
 import allG.weato.domain.Member;
+import allG.weato.domain.Post;
+import allG.weato.domain.PostLike;
 import allG.weato.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,4 +54,5 @@ public class MemberService {
     public void addComment(Member member, Comment comment) {
         member.addComment(comment);
     }
+
 }

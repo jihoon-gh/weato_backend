@@ -23,6 +23,8 @@ public class Newsletter {
     private String title; //뉴스레터 제목
     private String content; //html 기반의 무언가..?....
     private LocalDateTime createdAt; //작성일시
+
+    private int likeCount = 0 ;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_mark_id")
     private BookMark bookMark;
@@ -40,6 +42,7 @@ public class Newsletter {
     public Newsletter(String title, String content, TagType tagType){
         this.title=title;
         this.content=content;
+        this.tagType=tagType;
         createdAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
     }
 
@@ -50,6 +53,18 @@ public class Newsletter {
     public void classifyByTag(Tag tag){
         this.tag=tag;
         tag.addNewsletter(this);
+    }
+
+    public void changeTitle(String title) {
+        this.title=title;
+    }
+
+    public void changeContent(String content){
+        this.content=content;
+    }
+
+    public void changeCreateAt(LocalDateTime updatedAt){
+        createdAt=updatedAt;
     }
 
 

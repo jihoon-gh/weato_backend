@@ -11,6 +11,8 @@ public enum CommonErrorCode implements ErrorCode{
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST,"invalied parmeter"),
     RESOURCE_NOT_FOUND(HttpStatus.NOT_FOUND,"resource not exist"),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"internal server error"),
+
+    NOT_AUTHORIZATED(HttpStatus.NOT_ACCEPTABLE,"no Authorization");
     ;
 
     private final HttpStatus httpStatus;
