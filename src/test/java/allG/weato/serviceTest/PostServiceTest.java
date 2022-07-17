@@ -27,7 +27,7 @@ public class PostServiceTest {
     public void createPost(){
         //given
         Post post = new Post();
-        postService.join(post);
+        postService.save(post);
         em.flush();
         //when
         Long findId = post.getId();
@@ -41,7 +41,7 @@ public class PostServiceTest {
     public void PostUpdateTest(){
         //given
         Post post = new Post();
-        postService.join(post);
+        postService.save(post);
         em.flush();
         //when
         Post findPost = postService.findPostById(post.getId());
@@ -57,7 +57,7 @@ public class PostServiceTest {
         Post post = new Post();
         post.changeContent("this is america");
         post.changeTitle("gambino");
-        postService.join(post);
+        postService.save(post);
         //when
         Post findPost1 = postService.findPostByTitle(post.getTitle());
         Post findPost2 = postService.findPostById(post.getId());
@@ -70,7 +70,7 @@ public class PostServiceTest {
     public void deleteTest(){
         //given
         Post post = new Post();
-        postService.join(post);
+        postService.save(post);
         Long testId =post.getId();
         System.out.println("testId = " + testId);
         em.flush();
@@ -85,7 +85,7 @@ public class PostServiceTest {
           Post post = new Post();
           Comment comment = new Comment();
           post.addComment(comment);
-          postService.join(post);
+          postService.save(post);
           em.flush();
           //when
           Post findPost = postService.findPostById(post.getId());
