@@ -56,7 +56,7 @@ public class PostService {
 
     public Page<Post> findPostPageWithBoardType(Integer page, BoardType boardType){
         PageRequest pageRequest = PageRequest.of(page,20,Sort.by(Sort.Direction.DESC,"createAt"));
-        return postRepository.findPostsByBoardType(pageRequest);
+        return postRepository.findPostsByBoardType(pageRequest,boardType);
     }
 
 
@@ -71,13 +71,11 @@ public class PostService {
     }
 
     @Transactional
-    public void addViews(Post post)
-    {
+    public void addViews(Post post) {
         post.addViews();
     }
 
     @Transactional
-    @Modifying
     public void updatePost(Post post, String title, String content) {
 
         post.changeTitle(title);
@@ -85,7 +83,6 @@ public class PostService {
     }
 
     @Transactional
-    @Modifying
     public void DeletePost(Post post) {
         postRepository.delete(post);
     }
@@ -94,6 +91,13 @@ public class PostService {
     public void addLike(Member member, Post post, PostLike postLike) {
         postLike.setOwner(member);
         post.addLike(postLike);
+    }
+
+    @Transactional
+    public void deleteLike(Member member, Post post, PostLike postLike){
+        member.deletePostLike(postLike);
+        post.deleteLike(postLike);
+        postRepository.deletePostLikeById(postLike.getId());
     }
 }
 

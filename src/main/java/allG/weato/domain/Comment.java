@@ -55,5 +55,11 @@ public class Comment {
         likeCount++;
     }
 
+    public void deleteLike(CommentLike commentLike){
+        commentLikeList.remove(commentLike);
+        commentLike.setOwner(null);
+        likeCount--;
+    }
+
 
 }

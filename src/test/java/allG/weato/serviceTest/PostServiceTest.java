@@ -1,29 +1,42 @@
 package allG.weato.serviceTest;
 
 import allG.weato.domain.Comment;
+import allG.weato.domain.Member;
 import allG.weato.domain.Post;
+import allG.weato.domain.PostLike;
 import allG.weato.repository.PostRepository;
+import allG.weato.service.MemberService;
 import allG.weato.service.PostService;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional
 @SpringBootTest
+@Service
+@Transactional
 public class PostServiceTest {
     @Autowired private PostService postService;
+    @Autowired private  PostRepository postRepository;
+    @Autowired private MemberService memberService;
     @PersistenceContext
     EntityManager em;
 
     @Test
+    @DisplayName("게시글 생성")
     public void createPost(){
         //given
         Post post = new Post();
@@ -38,6 +51,7 @@ public class PostServiceTest {
 
 
     @Test
+    @DisplayName("게시글 수정")
     public void PostUpdateTest(){
         //given
         Post post = new Post();
@@ -52,6 +66,7 @@ public class PostServiceTest {
     }
 
     @Test
+    @DisplayName("게시글 조회")
     public void postFindSaveTest(){
         //given
         Post post = new Post();
@@ -67,6 +82,7 @@ public class PostServiceTest {
     }
     
     @Test
+    @DisplayName("게시글 삭제")
     public void deleteTest(){
         //given
         Post post = new Post();
@@ -80,18 +96,79 @@ public class PostServiceTest {
         assertThat(postService.findPostById(testId)).isNull();
     }
     @Test
+    @DisplayName("댓글 생성")
     public void createCommentTest(){
         //given
           Post post = new Post();
           Comment comment = new Comment();
           post.addComment(comment);
           postService.save(post);
-          em.flush();
           //when
           Post findPost = postService.findPostById(post.getId());
           //then
           assertThat(findPost.getCommentList().size()).isEqualTo(1);
-  }
+    }
+
+    @Test
+    @DisplayName("좋아요 확인")
+    public void likeTest(){
+
+        //given
+        Post post = new Post();
+        post.changeTitle("test1");
+        PostLike postLike = new PostLike();
+        Member member = new Member();
+        member.addPostLike(postLike);
+        post.addLike(postLike);
+        postService.save(post);
+        memberService.save(member);
+        em.flush();
+        //when
+        Post findPost = postService.findPostByTitle("test1");
+        //then
+        assertThat(findPost.getLikeCount()).isEqualTo(findPost.getPostLikeList().size());
+        assertThat(findPost.getLikeCount()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("좋아요 삭제 구현")
+    public void deleteLikeTest(){
+        //given
+        Post post = new Post();
+        PostLike postLike = new PostLike();
+        Member member = new Member();
+        post.addLike(postLike);
+        member.addPostLike(postLike);
+        System.out.println("post.getLikeCount() = " + post.getLikeCount());
+        System.out.println("member.getCommentLikeList().size() = " + member.getCommentLikeList().size());
+        postService.save(post);
+        memberService.save(member);
+        Long postId = post.getId();
+        Long memberId = member.getId();
+
+        //when
+        Post findPost = postService.findPostById(postId);
+        Member findMember = memberService.findById(memberId);
+        List<PostLike> likes = findPost.getPostLikeList();
+        Long id=0L;
+        for (PostLike like : likes) {
+            if(like.getMember()==findMember){
+                post.deleteLike(like);
+                id=like.getId();
+                break;
+            }
+        }
+        if(id!=0L) postService.deleteLike(findMember,findPost,postLike);
+        //then
+        System.out.println("member.getCommentLikeList().size() = " + member.getCommentLikeList().size());
+        assertThat(post.getLikeCount()).isEqualTo(post.getPostLikeList().size());
+        assertThat(findMember.getPostLikeList().size()).isEqualTo(0);
+        //controller 단에서 이미 존재하는 postLike.member.id with postLike.post.id인지 검사하자
+        //검사해서 없으면 좋아요를 하는 걸루다가 하자
+
+
+    }
+
   
 
 }

@@ -154,6 +154,16 @@ public class Member {
     public void setBookMark(BookMark bookMark){
         this.bookMark=bookMark;
     }
+
+    public void deletePostLike(PostLike postLike) {
+        postLikeList.remove(postLike);
+        postLike.setOwner(null);
+    }
+    public void deleteCommentLike(CommentLike commentLike) {
+        commentLikeList.remove(commentLike);
+        commentLike.setOwner(null);
+    }
+
     //연관관계 편의 메소드
 
 }

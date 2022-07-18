@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 public class NewsletterServiceTest {
     @Autowired private NewsletterRepository newsletterRepository;
@@ -27,7 +29,7 @@ public class NewsletterServiceTest {
         Newsletter findOne = newsletterService.findOneById(id);
         System.out.println("findOne.id = " + findOne.getId());
         //then
-        Assertions.assertThat(findOne.getContent()).isEqualTo(newsletter1.getContent());
+        assertThat(findOne.getContent()).isEqualTo(newsletter1.getContent());
     }
 
     @Test
@@ -44,8 +46,8 @@ public class NewsletterServiceTest {
         newsletterService.updateNewsletter(newsletter1,request);
 
         //then
-        Assertions.assertThat(newsletter1.getTitle()).isEqualTo("this is for update");
-        Assertions.assertThat(newsletter1.getContent()).isNotEqualTo(null);
+        assertThat(newsletter1.getTitle()).isEqualTo("this is for update");
+        assertThat(newsletter1.getContent()).isNotEqualTo(null);
 
     }
 
@@ -59,7 +61,7 @@ public class NewsletterServiceTest {
         Long id = newsletter1.getId();
         newsletterService.deleteNewsletter(newsletter1);
         //then
-        Assertions.assertThat(newsletterService.findOneById(id)).isNull();
+        assertThat(newsletterService.findOneById(id)).isNull();
     }
 
 

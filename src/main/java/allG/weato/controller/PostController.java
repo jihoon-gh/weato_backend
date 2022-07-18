@@ -155,13 +155,29 @@ public class PostController {
         Member findMember = memberService.findByEmail(member.getEmail());
         if(findMember==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         PostLike postLike = new PostLike();
+        List<PostLike> postLikeList = post.getPostLikeList();
+        for (PostLike like : postLikeList) {
+            if(like.getMember().getId()==findMember.getId()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"You already liked it");
+            }
+        }
         postService.addLike(findMember,post,postLike);
         return new AddLikeDto(post.getId(),post.getLikeCount());
-
     }
 
-//    @DeleteMapping("/api/posts/{postId}/likes")
-//    public
+    @DeleteMapping("/api/posts/{postId}/likes")
+    public HttpStatus deleteLike(@PathVariable("postdId")Long id){
+
+        Post findPost = postService.findPostById(id);
+        SessionMember member = (SessionMember) httpSession.getAttribute("member");
+        Member findMember = memberService.findByEmail(member.getEmail());
+        for (PostLike like : findPost.getPostLikeList()) {
+            if(like.getMember().getId()==findMember.getId()){
+                postService.deleteLike(findMember,findPost,like);
+            }
+        }
+        return HttpStatus.NO_CONTENT;
+    }
 
 
 
