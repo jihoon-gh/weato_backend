@@ -101,6 +101,12 @@ public class Post {
         likeCount++;
     }
 
+    public void deleteLike(PostLike postLike){
+        this.postLikeList.remove(postLike);
+        postLike.setOwnPost(null);
+        likeCount--;
+    }
+
     public void addViews(){
         this.views++;
     }

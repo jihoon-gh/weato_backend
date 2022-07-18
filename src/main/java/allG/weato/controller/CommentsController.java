@@ -2,8 +2,10 @@ package allG.weato.controller;
 
 import allG.weato.config.auth.dto.SessionMember;
 import allG.weato.domain.Comment;
+import allG.weato.domain.CommentLike;
 import allG.weato.domain.Member;
 import allG.weato.domain.Post;
+import allG.weato.dto.AddLikeDto;
 import allG.weato.dto.comment.create.CreateCommentRequest;
 import allG.weato.dto.comment.create.CreateCommentResponse;
 import allG.weato.dto.comment.update.UpdatedCommentDto;
@@ -16,11 +18,13 @@ import allG.weato.validation.RestException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -59,9 +63,40 @@ public class CommentsController {
             @PathVariable("commentId") Long commentId){
         Comment comment = commentService.findCommentById(commentId);
         if(comment==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-        commentService.deleteComment(commentId);
+        commentService.deleteComment(comment);
     }
 
+    @PostMapping("/api/posts/{postId}/comments/{commentId}/likes")
+    public AddLikeDto addLikes(@PathVariable("postId") Long postId,
+                               @PathVariable("commentId") Long commentId){
+
+        Comment findComment = commentService.findCommentById(commentId);
+        SessionMember member = (SessionMember) httpSession.getAttribute("member");
+        Member findMember = memberService.findByEmail(member.getEmail());
+        CommentLike commentLike = new CommentLike();
+        List<CommentLike> commentLikes = findComment.getCommentLikeList();
+        for (CommentLike like : commentLikes) {
+            if(like.getMember().getId()==findMember.getId()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You already liked it");
+            }
+        }
+        commentService.addCommentLike(findMember,findComment,commentLike);
+        return new AddLikeDto(findComment.getId(),findComment.getLikeCount());
+    }
+
+    @DeleteMapping("/api/posts/{postId}/comments/{commentId}/likes")
+    public void deleteCommentLike(@PathVariable("postId") Long postId,
+                                  @PathVariable("commentId") Long commentId){
+        Comment comment = commentService.findCommentById(commentId);
+        SessionMember member = (SessionMember) httpSession.getAttribute("member");
+        Member findMember = memberService.findByEmail(member.getEmail());
+        for(CommentLike likes: comment.getCommentLikeList()){
+            if(likes.getMember().getId()== findMember.getId()){
+//                commentService.deleteCommentLike(co);
+            }
+        }
+
+    }
 
     @Data
     @AllArgsConstructor

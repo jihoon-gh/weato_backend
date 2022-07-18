@@ -14,8 +14,6 @@ public class PostLike {
     @Column(name = "postlike_id")
     private Long id;
 
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "member_id")
