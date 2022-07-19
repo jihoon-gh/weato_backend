@@ -5,6 +5,7 @@ import allG.weato.dto.newsletter.NewsletterUpdateRequestDto;
 import allG.weato.repository.NewsletterRepository;
 import allG.weato.service.NewsletterService;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ public class NewsletterServiceTest {
 
 
     @Test
+    @DisplayName("뉴스레터 단건 조회")
     public void findOneTest(){
         //given
         Newsletter newsletter1 = new Newsletter();
@@ -33,6 +35,7 @@ public class NewsletterServiceTest {
     }
 
     @Test
+    @DisplayName("뉴스레터 수정 테스트")
     public void updateTest(){
         //given
         Newsletter newsletter1 = new Newsletter();
@@ -52,6 +55,7 @@ public class NewsletterServiceTest {
     }
 
     @Test
+    @DisplayName("뉴스레터 삭제 테스트")
     public void deleteTest(){
         //given
         Newsletter newsletter1 = new Newsletter();

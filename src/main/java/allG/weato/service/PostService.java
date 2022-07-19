@@ -28,7 +28,6 @@ public class PostService {
     @Transactional
     public void addComment(Post post, Comment comment) {
         post.addComment(comment);
-        return;
     }
 
     @Transactional
@@ -83,7 +82,9 @@ public class PostService {
     }
 
     @Transactional
-    public void DeletePost(Post post) {
+    public void deletePost(Post post) {
+        Member member = post.getMember();
+        member.deletePost(post);
         postRepository.delete(post);
     }
 
