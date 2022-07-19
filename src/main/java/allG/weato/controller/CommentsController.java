@@ -15,6 +15,7 @@ import allG.weato.service.PostService;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.ErrorCode;
 import allG.weato.validation.RestException;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,7 @@ public class CommentsController {
 
     private final CommentService commentService;
 
+    @Operation(summary = "add comment to post", description = "댓글 생성")
     @PostMapping("/api/post/{id}/comments")
     public CreateCommentResponse addComment(@PathVariable("id") Long id, @RequestBody @Valid CreateCommentRequest request)
     {
@@ -49,6 +51,7 @@ public class CommentsController {
         return new CreateCommentResponse(comment);
     }
 
+    @Operation(summary = "update specific comment", description = "댓글 수정")
     @PatchMapping("/api/post/{postId}/comments/{commentId}")
     public UpdatedCommentDto updateComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId,String content){
         Comment comment = commentService.findCommentById(commentId);
@@ -57,6 +60,7 @@ public class CommentsController {
         return new UpdatedCommentDto(comment);
     }
 
+    @Operation(summary = "delete specific comment", description = "댓글 삭제")
     @DeleteMapping("/api/post/{postId}/comments/{commentId}")
     public void deleteComment(
             @PathVariable("postId") Long postId,
@@ -66,6 +70,7 @@ public class CommentsController {
         commentService.deleteComment(comment);
     }
 
+    @Operation(summary = "likes to comment", description = "댓글 좋아요")
     @PostMapping("/api/posts/{postId}/comments/{commentId}/likes")
     public AddLikeDto addLikes(@PathVariable("postId") Long postId,
                                @PathVariable("commentId") Long commentId){
@@ -84,17 +89,20 @@ public class CommentsController {
         return new AddLikeDto(findComment.getId(),findComment.getLikeCount());
     }
 
+    @Operation(summary = "cancel likes to comment", description = "댓글 좋아요 취소")
     @DeleteMapping("/api/posts/{postId}/comments/{commentId}/likes")
     public void deleteCommentLike(@PathVariable("postId") Long postId,
                                   @PathVariable("commentId") Long commentId){
         Comment comment = commentService.findCommentById(commentId);
         SessionMember member = (SessionMember) httpSession.getAttribute("member");
         Member findMember = memberService.findByEmail(member.getEmail());
-        for(CommentLike likes: comment.getCommentLikeList()){
-            if(likes.getMember().getId()== findMember.getId()){
-//                commentService.deleteCommentLike(co);
+        for(CommentLike like: comment.getCommentLikeList()){
+            if(like.getMember().getId()== findMember.getId()){
+                commentService.deleteCommentLike(findMember,comment,like);
+                break;
             }
         }
+
 
     }
 

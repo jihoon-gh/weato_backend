@@ -2,6 +2,7 @@ package allG.weato.domain;
 
 import allG.weato.config.apiConfig.ProviderType;
 import allG.weato.domain.enums.Role;
+import allG.weato.validation.RestException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -162,6 +163,16 @@ public class Member {
     public void deleteCommentLike(CommentLike commentLike) {
         commentLikeList.remove(commentLike);
         commentLike.setOwner(null);
+    }
+
+    public void deletePost(Post post) {
+       if(postList.contains(post))postList.remove(post);
+       else throw new IllegalStateException("작성하지 않은 게시글을 삭제할 수 없습니다.");
+    }
+
+    public void deleteComment(Comment comment) {
+        if(commentList.contains(comment)) commentList.remove(comment);
+        else throw new IllegalStateException("작성하지 않은 댓글을 삭제할 수 없습니다.");
     }
 
     //연관관계 편의 메소드

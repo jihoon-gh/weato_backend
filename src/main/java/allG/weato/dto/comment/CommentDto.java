@@ -13,9 +13,12 @@ public class CommentDto {
     private String content;
     private LocalDateTime createdAt;
 
+    private int likeCounter;
+
     public CommentDto(Comment comment){
         author=comment.getMember().getName();
         content=comment.getContent();
         createdAt=comment.getCreatedAt();
+        likeCounter=comment.getLikeCount();
     }
 }

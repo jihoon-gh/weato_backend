@@ -44,6 +44,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class PostController {
     private final MemberService memberService;
     private final PostService postService;
@@ -57,10 +58,10 @@ public class PostController {
             @ApiResponse(responseCode = "404",description = "NOT FOUND", content = @Content(schema = @Schema(implementation =Error404.class ))),
             @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation =Error500.class )))
     })
-    @GetMapping("/api/posts")
-    public ResultForPaging showPosts(@RequestParam("page") Integer page) {
+    @GetMapping("/posts")
+    public ResultForPaging showPosts(@RequestParam(value = "page",defaultValue = "1") Integer page) {
 
-        Page<Post> findPosts = postService.findPostWithPaging(page);
+        Page<Post> findPosts = postService.findPostWithPaging(page-1);
         if(findPosts.isEmpty()) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
         List<Post> posts = findPosts.getContent();
         int lastPageNum = findPosts.getTotalPages();
@@ -85,7 +86,7 @@ public class PostController {
             @ApiResponse(responseCode = "404",description = "NOT FOUND", content = @Content(schema = @Schema(implementation =Error404.class ))),
             @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = Error500.class )))
     })
-    @PostMapping("/api/posts")
+    @PostMapping("/posts")
     public CreatePostResponse createPost(@RequestBody @Valid CreatePostRequest request){
         SessionMember member = (SessionMember) httpSession.getAttribute("member");
         Member findMember = memberService.findByEmail(member.getEmail());
@@ -107,7 +108,7 @@ public class PostController {
             @ApiResponse(responseCode = "404",description = "NOT FOUND"),
             @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR")
     })
-    @GetMapping("/api/posts/{id}")
+    @GetMapping("/posts/{id}")
     public PostDetail showPost(@PathVariable("id") Long id) {
       Post post = postService.findPostById(id);
       if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
@@ -118,7 +119,8 @@ public class PostController {
     }
 
 
-    @PatchMapping("/api/posts/{id}")
+    @Operation(summary = "update post", description = "게시글 수정")
+    @PatchMapping("/posts/{id}")
     public UpdatePostResponse updatePost(@PathVariable("id") Long id, @RequestBody @Valid UpdatePostRequest request){
        Post post = postService.findPostById(id);
        if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
@@ -138,16 +140,17 @@ public class PostController {
             @ApiResponse(responseCode = "404",description = "NOT FOUND", content = @Content(schema = @Schema(implementation =Error404.class ))),
             @ApiResponse(responseCode = "500",description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = Error500.class )))
     })
-    @DeleteMapping("/api/posts/{id}")
-    public String deletePost(@PathVariable("id") Long id)
+    @DeleteMapping("/posts/{id}")
+    public HttpStatus deletePost(@PathVariable("id") Long id)
     {
         Post post = postService.findPostById(id);
         if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-        postService.DeletePost(post);
-        return "successfully deleted";
+        postService.deletePost(post);
+        return HttpStatus.NO_CONTENT;
     }
 
-    @PostMapping("/api/posts/{postId}/likes")
+    @Operation(summary = "likes to post", description = "게시글 좋아요")
+    @PostMapping("/posts/{postId}/likes")
     public AddLikeDto likeToPost(@PathVariable("postId") Long id){
 
         Post post = postService.findPostById(id);
@@ -165,8 +168,9 @@ public class PostController {
         return new AddLikeDto(post.getId(),post.getLikeCount());
     }
 
-    @DeleteMapping("/api/posts/{postId}/likes")
-    public HttpStatus deleteLike(@PathVariable("postdId")Long id){
+    @Operation(summary = "cancel likes to post", description = "게시글 좋아요 취소")
+    @DeleteMapping("/posts/{postId}/likes")
+    public HttpStatus deleteLike(@PathVariable("postId")Long id){
 
         Post findPost = postService.findPostById(id);
         SessionMember member = (SessionMember) httpSession.getAttribute("member");
@@ -174,6 +178,7 @@ public class PostController {
         for (PostLike like : findPost.getPostLikeList()) {
             if(like.getMember().getId()==findMember.getId()){
                 postService.deleteLike(findMember,findPost,like);
+                break;
             }
         }
         return HttpStatus.NO_CONTENT;

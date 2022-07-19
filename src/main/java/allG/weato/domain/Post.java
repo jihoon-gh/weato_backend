@@ -115,4 +115,8 @@ public class Post {
         this.scrap=scrap;
     }
 
+    public void deleteComment(Comment comment) {
+        if(commentList.contains(comment)) commentList.remove(comment);
+        else throw new IllegalStateException("존재하지 않는 댓글입니다");
+    }
 }

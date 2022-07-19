@@ -52,7 +52,7 @@ public class PostServiceTest {
 
     @Test
     @DisplayName("게시글 수정")
-    public void PostUpdateTest(){
+    public void postUpdateTest(){
         //given
         Post post = new Post();
         postService.save(post);
@@ -85,15 +85,19 @@ public class PostServiceTest {
     @DisplayName("게시글 삭제")
     public void deleteTest(){
         //given
+        Member member = new Member();
         Post post = new Post();
+        post.setOwner(member);
+        post.changeContent("for test");
+        memberService.save(member);
         postService.save(post);
-        Long testId =post.getId();
-        System.out.println("testId = " + testId);
-        em.flush();
+        Long testId = post.getId();
         //when
-        postService.DeletePost(post);
+        postService.deletePost(post);
         //then
+        assertThat(postService.findAll()).isEmpty();
         assertThat(postService.findPostById(testId)).isNull();
+        assertThat(member.getPostList().size()).isEqualTo(0);
     }
     @Test
     @DisplayName("댓글 생성")

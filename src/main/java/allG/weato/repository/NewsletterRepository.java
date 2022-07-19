@@ -12,8 +12,6 @@ import java.util.List;
 
 public interface NewsletterRepository  extends JpaRepository<Newsletter,Long> {
 
-//    @Query("select n from Newsletter n where n.tagType = :tagtype")
-    public List<Newsletter> findNewslettersByTagType(TagType tagType);
 
     Page<Newsletter> findNewslettersByTagType(TagType tagType, Pageable pageable);
 

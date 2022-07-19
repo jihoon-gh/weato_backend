@@ -12,12 +12,14 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     Comment findCommentById(Long id);
 
+
+    @Modifying
     void deleteCommentById(Long id);
 
 
     @Transactional
     @Modifying
-    @Query("delete from CommentLike cl where cl.id = :commentId")
-    void deleteCommentLikeById(@Param("commentId") Long commentId);
+    @Query("delete from CommentLike cl where cl.id = :commentLikeId")
+    void deleteCommentLikeById(@Param("commentLikeId") Long commentLikeId);
 
 }

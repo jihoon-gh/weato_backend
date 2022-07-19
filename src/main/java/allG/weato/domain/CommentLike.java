@@ -2,11 +2,13 @@ package allG.weato.domain;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class CommentLike {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

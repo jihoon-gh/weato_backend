@@ -3,6 +3,7 @@ package allG.weato.service;
 import allG.weato.domain.Comment;
 import allG.weato.domain.CommentLike;
 import allG.weato.domain.Member;
+import allG.weato.domain.Post;
 import allG.weato.repository.CommentRepository;
 import allG.weato.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,13 @@ import javax.persistence.EntityManager;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final EntityManager em;
 
+
+    @Transactional
+    public void save(Comment comment){
+        commentRepository.save(comment);
+    }
     public Comment findCommentById(Long id){
         Comment comment = commentRepository.findCommentById(id);
         if(comment==null) throw new RuntimeException("존재하지 않는 댓글입니다.");
@@ -36,7 +43,11 @@ public class CommentService {
 
     @Transactional
     public void deleteComment(Comment comment){
-        commentRepository.delete(comment);
+        Post post = comment.getPost();
+        Member member = comment.getMember();
+        member.deleteComment(comment);
+        post.deleteComment(comment);
+        commentRepository.deleteCommentById(comment.getId());
     }
 
     @Transactional
@@ -50,6 +61,7 @@ public class CommentService {
     public void addCommentLike(Member member, Comment comment, CommentLike commentLike){
         member.addCommentLike(commentLike);
         comment.addLike(commentLike);
+        em.persist(commentLike);
     }
 }
 
