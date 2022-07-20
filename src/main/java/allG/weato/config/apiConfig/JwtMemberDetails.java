@@ -24,6 +24,7 @@ public class JwtMemberDetails implements UserDetails, OAuth2User {
         this.attributes=attributes;
     }
 
+
     @Override
     public Map<String, Object> getAttributes(){
         return attributes;
