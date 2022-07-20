@@ -6,6 +6,7 @@ import allG.weato.validation.RestException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.parameters.P;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -99,7 +100,13 @@ public class Member {
         this.name = name;
         return this;
     }
+    public void changeName(String name){
+        this.name=name;
+    }
 
+    public void setProviderType(ProviderType providerType) {
+        this.providerType = providerType;
+    }
 
     //init function with constructor of OneToOne things
     public void initMember(){
@@ -173,6 +180,10 @@ public class Member {
     public void deleteComment(Comment comment) {
         if(commentList.contains(comment)) commentList.remove(comment);
         else throw new IllegalStateException("작성하지 않은 댓글을 삭제할 수 없습니다.");
+    }
+
+    public void changeEmail(String email) {
+        this.email=email;
     }
 
     //연관관계 편의 메소드
