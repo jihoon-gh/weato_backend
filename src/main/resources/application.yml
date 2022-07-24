@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://mysql.cyvxohfasm5y.ap-northeast-2.rds.amazonaws.com:3306/ceos15
+    username: ceos15
+    password: qorwlgns12!
+#    driver-class-name: org.h2.Driver
   profiles:
     include: oauth
 
@@ -22,5 +22,6 @@ logging.level:
 
 jwt:
   header: Authorization
-  secret: eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6ImppaG9vbiIsImV4cCI6MTY1ODIyNjEzMCwiaWF0IjoxNjU4MjI2MTMwfQ.lHqGo-MXYbzrTFXhdaTAoLNllQTAXWR3Icf0dVsN1tcoI5IVp4txUAEzPxomZONB4RgdW25xMYUxniudjs9COw
+  secret: eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY1ODY2Njg1OCwiaWF0IjoxNjU4NjY2ODU4fQ.Qf32zRz87cGgQ6XEbzkRyrDfharymBhqYIhYGcPBclmwtp1wTpLrRUrUyiEj-NiOLvDbiAnc85--_QHCDhZ9_w
   token-validity-in-seconds: 86400
+

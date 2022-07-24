@@ -1,9 +1,8 @@
 package allG.weato.serviceTest;
 
-import allG.weato.service.MemberService;
+import allG.weato.domains.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
