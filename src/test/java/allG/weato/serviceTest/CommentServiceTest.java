@@ -1,24 +1,21 @@
 package allG.weato.serviceTest;
 
-import allG.weato.domain.Comment;
-import allG.weato.domain.CommentLike;
-import allG.weato.domain.Member;
-import allG.weato.domain.Post;
-import allG.weato.repository.CommentRepository;
-import allG.weato.service.CommentService;
-import allG.weato.service.MemberService;
-import allG.weato.service.PostService;
-import org.assertj.core.api.Assertions;
+import allG.weato.domains.comment.entities.Comment;
+import allG.weato.domains.comment.entities.CommentLike;
+import allG.weato.domains.member.entities.Member;
+import allG.weato.domains.post.entities.Post;
+import allG.weato.domains.comment.CommentRepository;
+import allG.weato.domains.comment.CommentService;
+import allG.weato.domains.member.MemberService;
+import allG.weato.domains.post.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
