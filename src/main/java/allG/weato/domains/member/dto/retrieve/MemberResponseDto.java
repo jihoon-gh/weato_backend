@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class MemberResponseDto {
     private Long id;
 
-    private Level level;
+    private int level;
     private String name;
     private String email;
     private String gender;
@@ -20,7 +20,7 @@ public class MemberResponseDto {
     public MemberResponseDto(Member member) {
         id = member.getId();
         name = member.getName();
-        level=member.getLevel();
+        level=member.getLevel().getLevel();
         email=member.getEmail();
         gender= member.getGender();
         birthYear=member.getBirthyear();
