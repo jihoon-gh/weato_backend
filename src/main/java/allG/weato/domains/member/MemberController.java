@@ -122,7 +122,7 @@ public class MemberController {
         return memberBookmarkNewslettersDto;
     }
 
-    @GetMapping("/members/{memberId}/scraped")
+    @GetMapping("/members/{memberId}/scraps")
     public MemberScrapedPostDto showScrap(@PathVariable("memberId") Long memberId
             ,@RequestParam(value = "type",defaultValue = "all")String code
             ,@RequestParam(value = "page",defaultValue = "1")int page ){

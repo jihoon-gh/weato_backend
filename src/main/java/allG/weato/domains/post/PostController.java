@@ -238,7 +238,7 @@ public class PostController {
     }
 
     @Operation(summary = "scrap post", description = "게시글 스크랩")
-    @PostMapping("/posts/{postId}/scrap")
+    @PostMapping("/posts/{postId}/scraps")
     public CreatePostScrapDto addScrap(@PathVariable("postId")Long postId){
         Post post = postService.findOneByIdWithScrap(postId);
 
@@ -258,7 +258,7 @@ public class PostController {
         return new CreatePostScrapDto(post);
     }
     @Operation(summary = "Delete Scrap", description = "게시글 스크랩 취소")
-    @DeleteMapping("posts/{postId}/scrap")
+    @DeleteMapping("posts/{postId}/scraps")
     public HttpStatus deleteScrap(@PathVariable("postId") Long postId){
         Post post = postService.findOneByIdWithScrap(postId);
 

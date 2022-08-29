@@ -104,7 +104,6 @@ public class NewsletterService {
     }
 
     @Transactional
-    @Modifying
     public void deleteBookMark(Member member,Newsletter newsletter,BookMark bookMark){
         member.deleteBookMark(bookMark);
         newsletter.deleteBookMark(bookMark);

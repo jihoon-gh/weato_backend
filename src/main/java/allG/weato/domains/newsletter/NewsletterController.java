@@ -107,7 +107,7 @@ public class NewsletterController {
     }
 
     @Operation(summary = "bookmarks to newsletter", description = "뉴스레터에 북마크")
-    @PostMapping("/newsletters/{id}/bookmark")
+    @PostMapping("/newsletters/{id}/bookmarks")
     public BookmarkResponseDto addBookmark(@PathVariable("id")Long id){
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = principal.getUsername();
@@ -129,13 +129,16 @@ public class NewsletterController {
     }
 
     @Operation(summary = "delete bookmark to newsletter", description = "북마크 해제")
-    @DeleteMapping("/newsletters/{id}/bookmark")
+    @DeleteMapping("/newsletters/{id}/bookmarks")
     public BookmarkResponseDto deleteBookmark(@PathVariable("id") Long id){
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);
 
+        if(findMember==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
         Newsletter newsletter = newsletterService.findOneByIdWithBookMarks(id);
+        if(newsletter==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         List<BookMark> bookMarks = newsletter.getBookMarkList();
         for (BookMark bookMark : bookMarks) {
@@ -152,6 +155,8 @@ public class NewsletterController {
     public AddLikeDto addNewsletterLike(@PathVariable("id")Long id){
 
         Newsletter newsletter = newsletterService.findOneByIdWithLikes(id);
+        if(newsletter==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);

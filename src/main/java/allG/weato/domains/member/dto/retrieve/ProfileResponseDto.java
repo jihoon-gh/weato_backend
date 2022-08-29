@@ -3,6 +3,7 @@ package allG.weato.domains.member.dto.retrieve;
 import allG.weato.domains.enums.ManagementType;
 import allG.weato.domains.enums.ProviderType;
 import allG.weato.domains.enums.SymptomDegree;
+import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.entities.Level;
 import allG.weato.domains.member.entities.Member;
 import lombok.Getter;
@@ -27,6 +28,8 @@ public class ProfileResponseDto {
     private SymptomDegree symptomDegree;
     private List<ManagementType> managementTypeList=new ArrayList<>();
 
+    private List<TagType> tags = new ArrayList<>();
+
     public ProfileResponseDto(Member member){
         name = member.getName();
         newsletterEmail= member.getNewsletterEmail();
@@ -38,6 +41,7 @@ public class ProfileResponseDto {
         medicalHistory=member.getAdditionalInfo().getMedicalHistory();
         symptomDegree=member.getAdditionalInfo().getSymptomDegree();
         managementTypeList=member.getAdditionalInfo().getManagementTypes();
+        tags=member.getTagTypeList();
     }
 
 }
