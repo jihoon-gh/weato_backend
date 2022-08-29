@@ -14,19 +14,19 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 public class PostDetailRetrieveDto {
-    String author;
+    private String author;
 
-    Level authorLevel;
-    String title;
-    String content;
+    private int authorLevel;
+    private String title;
+    private String content;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    LocalDateTime createdAt;
-    int likeCount;
-    List<CommentRetrieveDto> comments;
+    private LocalDateTime createdAt;
+    private int likeCount;
+    private List<CommentRetrieveDto> comments;
 
-    int views;
+    private int views;
 
-    int scrapCount;
+    private int scrapCount;
 
     public PostDetailRetrieveDto(Post post) {
         this.title = post.getTitle();
@@ -34,7 +34,7 @@ public class PostDetailRetrieveDto {
         this.createdAt = post.getCreatedAt();
         this.likeCount = post.getLikeCount();
         this.author=post.getMember().getName();
-        this.authorLevel=post.getMember().getLevel();
+        this.authorLevel=post.getMember().getLevel().getLevel();
         this.views=post.getViews();
         this.comments = post.getCommentList().stream()
                 .map( c -> new CommentRetrieveDto(c)).collect(Collectors.toList());

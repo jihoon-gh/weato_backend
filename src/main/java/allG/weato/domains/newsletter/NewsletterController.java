@@ -72,11 +72,11 @@ public class NewsletterController {
     @Operation(summary = "get specific newsletter", description = "뉴스레터 단건조회")
     @GetMapping("/newsletters/{id}") //단건 조회
     public NewsletterDetailResponseDto findNewsletter(@PathVariable("id") Long id){
+
         Newsletter findOne = newsletterService.findOneById(id);
         findOne.addViews();
         newsletterService.save(findOne);
         return new NewsletterDetailResponseDto(findOne);
-
     }
 
     @Operation(summary = "create a newsletter - only admin is authorized", description = "뉴스레터 생성")

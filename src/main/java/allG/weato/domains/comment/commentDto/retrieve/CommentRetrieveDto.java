@@ -14,7 +14,7 @@ public class CommentRetrieveDto {
     private Long id;
     private String author;
 
-    private Level authorLevel;
+    private int authorLevel;
     private String content;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
@@ -24,7 +24,7 @@ public class CommentRetrieveDto {
     public CommentRetrieveDto(Comment comment){
         id=comment.getId();
         author=comment.getMember().getName();
-        authorLevel=comment.getMember().getLevel();
+        authorLevel=comment.getMember().getLevel().getLevel();
         content=comment.getContent();
         createdAt=comment.getCreatedAt();
         likeCounter=comment.getLikeCount();
