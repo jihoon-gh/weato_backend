@@ -96,13 +96,15 @@ public class PostService {
 
     @Transactional
     public void addLike(Member member, Post post, PostLike postLike) {
-        postLike.setOwner(member);
+        member.addPostLike(postLike);
+        member.addPostLikeChecker(post.getId());
         post.addLike(postLike);
     }
 
     @Transactional
     public void deleteLike(Member member, Post post, PostLike postLike){
         member.deletePostLike(postLike);
+        member.deletePostLikeChecker(post.getId());
         post.deleteLike(postLike);
         postRepository.deletePostLikeById(postLike.getId());
     }
@@ -110,12 +112,14 @@ public class PostService {
     @Transactional
     public void scrapPost(Member member, Post post, Scrap scrap) {
         member.addScrap(scrap);
+        member.addScrapChecker(post.getId());
         post.addScrap(scrap);
     }
 
     @Transactional
     public void deleteScrap(Member member, Post post, Scrap scrap){
         member.deleteScrap(scrap);
+        member.deleteScrapChecker(post.getId());
         post.deleteScrap(scrap);
         postRepository.deleteScrapById(scrap.getId());
     }

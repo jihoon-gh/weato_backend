@@ -155,12 +155,15 @@ public class PostController {
     @GetMapping("/posts/{id}")
     public PostDetailRetrieveDto showPost(@PathVariable("id") Long id) {
 
-      Post post = postService.findPostFetchById(id);
-      if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-      post.addViews();
-      postService.save(post);
+        JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = principal.getUsername();
+        Member findMember = memberService.findByEmail(email);
+        Post post = postService.findPostFetchById(id);
+        if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+        post.addViews();
+        postService.save(post);
 
-      return new PostDetailRetrieveDto(post);
+        return new PostDetailRetrieveDto(post,findMember);
     }
 
 

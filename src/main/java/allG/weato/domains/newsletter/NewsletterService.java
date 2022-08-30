@@ -99,6 +99,7 @@ public class NewsletterService {
     @Transactional
     public void addBookMark(Member member, Newsletter newsletter, BookMark bookMark) {
         member.addBookMark(bookMark);
+        member.addBookmarkChecker(newsletter.getId());
         newsletter.addBookMark(bookMark);
 
     }
@@ -106,6 +107,7 @@ public class NewsletterService {
     @Transactional
     public void deleteBookMark(Member member,Newsletter newsletter,BookMark bookMark){
         member.deleteBookMark(bookMark);
+        member.deleteBookmarkChecker(newsletter.getId());
         newsletter.deleteBookMark(bookMark);
         newsletterRepository.deleteBookMark(bookMark.getId());
     }
@@ -113,12 +115,14 @@ public class NewsletterService {
     @Transactional
     public void addNewsletterLike(Member member, Newsletter newsletter, NewsletterLike newsletterLike) {
         member.addNewsletterLike(newsletterLike);
+        member.addNewsletterLikeChecker(newsletter.getId());
         newsletter.addNewsletterLike(newsletterLike);
     }
 
     @Transactional
-    public void deleteNewsletterLike(Member findMember, Newsletter newsletter, NewsletterLike newsletterLike) {
-        findMember.deleteNewsletterLike(newsletterLike);
+    public void deleteNewsletterLike(Member member, Newsletter newsletter, NewsletterLike newsletterLike) {
+        member.deleteNewsletterLike(newsletterLike);
+        member.deleteNewsletterLikeChecker(newsletter.getId());
         newsletter.deleteNewsletterLike(newsletterLike);
         newsletterRepository.deleteNewsletterLike(newsletterLike.getId());
     }

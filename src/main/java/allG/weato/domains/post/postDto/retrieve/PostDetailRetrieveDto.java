@@ -1,6 +1,7 @@
 package allG.weato.domains.post.postDto.retrieve;
 
 import allG.weato.domains.member.entities.Level;
+import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.post.entities.Post;
 import allG.weato.domains.comment.commentDto.retrieve.CommentRetrieveDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -28,16 +29,30 @@ public class PostDetailRetrieveDto {
 
     private int scrapCount;
 
-    public PostDetailRetrieveDto(Post post) {
-        this.title = post.getTitle();
-        this.content = post.getContent();
-        this.createdAt = post.getCreatedAt();
-        this.likeCount = post.getLikeCount();
-        this.author=post.getMember().getName();
-        this.authorLevel=post.getMember().getLevel().getLevel();
-        this.views=post.getViews();
-        this.comments = post.getCommentList().stream()
+    private boolean likeChecker;
+    private boolean scrapChecker;
+
+    public PostDetailRetrieveDto(Post post, Member member) {
+        title = post.getTitle();
+        content = post.getContent();
+        createdAt = post.getCreatedAt();
+        likeCount = post.getLikeCount();
+        author=post.getMember().getName();
+        authorLevel=post.getMember().getLevel().getLevel();
+        views=post.getViews();
+        comments = post.getCommentList().stream()
                 .map( c -> new CommentRetrieveDto(c)).collect(Collectors.toList());
-        this.scrapCount=post.getScrapCount();
+        scrapCount=post.getScrapCount();
+        if(member.getPostLikeChecker().contains(post.getId())){
+            likeChecker=true;
+        }else{
+            likeChecker=false;
+        }
+
+        if(member.getScrapChecker().contains(post.getId())){
+            scrapChecker=true;
+        }else {
+            scrapChecker = false;
+        }
     }
 }

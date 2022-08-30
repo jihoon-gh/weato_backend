@@ -1,6 +1,7 @@
 package allG.weato.domains.newsletter.newsletterDto.retrieve;
 
 import allG.weato.domains.enums.TagType;
+import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.newsletter.entities.Newsletter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -28,6 +29,8 @@ public class NewsletterDetailResponseDto {
     private LocalDateTime createdAt;
 
     private int bookmarkCount;
+
+    private boolean bookmarkChecker;
 
     public NewsletterDetailResponseDto(Newsletter newsletter){
         id= newsletter.getId();

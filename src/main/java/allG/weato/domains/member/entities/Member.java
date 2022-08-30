@@ -6,6 +6,7 @@ import allG.weato.domains.enums.ProviderType;
 import allG.weato.domains.enums.Role;
 import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.dto.update.UpdateProfileRequestDto;
+import allG.weato.domains.newsletter.entities.Newsletter;
 import allG.weato.domains.newsletter.entities.NewsletterLike;
 import allG.weato.domains.post.entities.Post;
 import allG.weato.domains.post.entities.PostLike;
@@ -17,7 +18,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -27,7 +30,6 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    private String userId;
     private String name;
 
     private String nickname;
@@ -104,6 +106,18 @@ public class Member {
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<NewsletterLike> newsletterLikes=new ArrayList<>();
+
+    @Transient
+    private Set<Long> newsletterLikeChecker = new HashSet<>();
+
+    @Transient
+    private Set<Long> postLikeChecker = new HashSet<>();
+
+    @Transient
+    private Set<Long> scrapChecker = new HashSet<>();
+
+    @Transient
+    private Set<Long> bookmarkChecker = new HashSet<>();
 
 
     //NoArgsConstructor
@@ -191,7 +205,6 @@ public class Member {
     public void addBookMark(BookMark bookMark){
         bookMarkList.add(bookMark);
         bookMark.initMember(this);
-
     }
 
     public void initLevel(Level level){
@@ -253,6 +266,31 @@ public class Member {
 
     public void changeAuthNum(int num) {
         authNum=num;
+    }
+
+    public void addBookmarkChecker(Long id){
+        bookmarkChecker.add(id);
+    }
+    public void addNewsletterLikeChecker(Long id){
+        newsletterLikeChecker.add(id);
+    }
+    public void addScrapChecker(Long id ){
+        scrapChecker.add(id);
+    }
+    public void addPostLikeChecker(Long id ){
+        postLikeChecker.add(id);
+    }
+    public void deleteBookmarkChecker(Long id ){
+        bookmarkChecker.remove(id);
+    }
+    public void deleteNewsletterLikeChecker(Long id){
+        newsletterLikeChecker.remove(id);
+    }
+    public void deleteScrapChecker(Long id ){
+        scrapChecker.remove(id);
+    }
+    public void deletePostLikeChecker(Long id ){
+        postLikeChecker.remove(id);
     }
 }
 
