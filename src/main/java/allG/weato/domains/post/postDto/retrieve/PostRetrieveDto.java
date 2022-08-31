@@ -31,7 +31,7 @@ public class PostRetrieveDto {
         id= post.getId();
         title = post.getTitle();
         createdAt = post.getCreatedAt();
-        author = post.getMember().getName();
+        author = post.getMember().getNickname();
         commentsCounter = post.getCommentList().size();
         views= post.getViews();
         likeCounter=post.getLikeCount();

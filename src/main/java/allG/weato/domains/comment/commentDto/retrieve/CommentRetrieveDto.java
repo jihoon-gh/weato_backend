@@ -23,7 +23,7 @@ public class CommentRetrieveDto {
 
     public CommentRetrieveDto(Comment comment){
         id=comment.getId();
-        author=comment.getMember().getName();
+        author=comment.getMember().getNickname();
         authorLevel=comment.getMember().getLevel().getLevel();
         content=comment.getContent();
         createdAt=comment.getCreatedAt();

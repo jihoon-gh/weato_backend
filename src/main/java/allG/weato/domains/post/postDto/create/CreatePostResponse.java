@@ -24,7 +24,7 @@ public class CreatePostResponse {
     List<AttachmentDto> attachments = new ArrayList<>();
 
     public CreatePostResponse(Post post){
-        Author = post.getMember().getName();
+        Author = post.getMember().getNickname();
         title=post.getTitle();
         content = post.getContent();
         createdAt = post.getCreatedAt();

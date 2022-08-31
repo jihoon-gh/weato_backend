@@ -12,5 +12,4 @@ import java.time.LocalDateTime;
 public class UpdatePostRequest {
     private String title;
     private String content;
-    private LocalDateTime localDateTime;
 }

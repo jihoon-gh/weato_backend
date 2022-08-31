@@ -37,7 +37,7 @@ public class PostDetailRetrieveDto {
         content = post.getContent();
         createdAt = post.getCreatedAt();
         likeCount = post.getLikeCount();
-        author=post.getMember().getName();
+        author=post.getMember().getNickname();
         authorLevel=post.getMember().getLevel().getLevel();
         views=post.getViews();
         comments = post.getCommentList().stream()

@@ -22,7 +22,7 @@ public class ScrapedPostDto {
 
     public ScrapedPostDto(Post post){
         title = post.getTitle();
-        name = post.getMember().getName();
+        name = post.getMember().getNickname();
         level=post.getMember().getLevel();
         boardType=post.getBoardType();
         likeCount= post.getLikeCount();
