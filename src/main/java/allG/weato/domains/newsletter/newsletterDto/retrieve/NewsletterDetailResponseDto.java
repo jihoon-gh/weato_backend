@@ -30,7 +30,9 @@ public class NewsletterDetailResponseDto {
 
     private int bookmarkCount;
 
-    private boolean bookmarkChecker;
+    private Boolean bookmarkChecker;
+
+    private Boolean likeChecker;
 
     public NewsletterDetailResponseDto(Newsletter newsletter){
         id= newsletter.getId();
@@ -41,5 +43,27 @@ public class NewsletterDetailResponseDto {
         likeCount= newsletter.getLikeCount();
         createdAt=newsletter.getCreatedAt();
         bookmarkCount=newsletter.getBookMarkCount();
+    }
+    public NewsletterDetailResponseDto(Newsletter newsletter,Member member){
+        id= newsletter.getId();
+        title= newsletter.getTitle();
+        tagType=newsletter.getTagType();
+        views=newsletter.getViews();
+        content=newsletter.getContent();
+        likeCount= newsletter.getLikeCount();
+        createdAt=newsletter.getCreatedAt();
+        bookmarkCount=newsletter.getBookMarkCount();
+
+        if(member.getNewsletterLikeChecker().contains(newsletter.getId())){
+            likeChecker=true;
+        }else{
+            likeChecker=false;
+        }
+
+        if(member.getBookmarkChecker().contains(newsletter.getId())){
+            bookmarkChecker=true;
+        }else{
+            bookmarkChecker=false;
+        }
     }
 }

@@ -108,16 +108,16 @@ public class Member {
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<NewsletterLike> newsletterLikes=new ArrayList<>();
 
-    @Transient
+    @ElementCollection
     private Set<Long> newsletterLikeChecker = new HashSet<>();
 
-    @Transient
+    @ElementCollection
     private Set<Long> postLikeChecker = new HashSet<>();
 
-    @Transient
+    @ElementCollection
     private Set<Long> scrapChecker = new HashSet<>();
 
-    @Transient
+    @ElementCollection
     private Set<Long> bookmarkChecker = new HashSet<>();
 
 

@@ -43,6 +43,7 @@ public class PostDetailRetrieveDto {
         comments = post.getCommentList().stream()
                 .map( c -> new CommentRetrieveDto(c)).collect(Collectors.toList());
         scrapCount=post.getScrapCount();
+        System.out.println("member.getPostLikeChecker().size() = " + member.getPostLikeChecker().size());
         if(member.getPostLikeChecker().contains(post.getId())){
             likeChecker=true;
         }else{
