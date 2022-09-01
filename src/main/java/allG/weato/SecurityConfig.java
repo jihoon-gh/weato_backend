@@ -77,7 +77,6 @@ public class SecurityConfig {
                     .disable()
                 .authorizeRequests()
                 .antMatchers("/api/newsletters/**","/api/posts","/swagger-ui/index.html/**").permitAll()
-                .antMatchers("/").hasAnyAuthority(Role.ADMIN.getCode())
                 .anyRequest().authenticated()
 //                .anyRequest().permitAll()
                     .and()
