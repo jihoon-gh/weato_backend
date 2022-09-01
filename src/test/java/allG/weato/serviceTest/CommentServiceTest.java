@@ -79,7 +79,7 @@ public class CommentServiceTest {
         //when
         Long id = comment.getId();
         Comment findComment = commentService.findCommentById(id);
-        commentService.updateComment(findComment.getId(),"this is updated comment");
+        commentService.updateComment(findComment,"this is updated comment");
         //then
         assertThat(findComment.getContent()).isEqualTo("this is updated comment");
         assertThat(post.getCommentList().size()).isEqualTo(1);

@@ -30,9 +30,8 @@ public class CommentService {
     }
 
     @Transactional
-    public void updateComment(Long id,String content){
-        Comment comment= commentRepository.findCommentById(id);
-        if(comment==null) throw new RuntimeException("존재하지 않는 댓글입니다.");
+    public void updateComment(Comment comment,String content){
+
         comment.changeContent(content);
     }
 
