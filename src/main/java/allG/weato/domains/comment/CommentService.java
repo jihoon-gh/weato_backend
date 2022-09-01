@@ -58,5 +58,11 @@ public class CommentService {
         comment.addLike(commentLike);
         em.persist(commentLike);
     }
+
+    @Transactional
+    public void addReComment(Comment parent, Comment comment){
+        comment.changeParent(parent);
+        commentRepository.save(comment);
+    }
 }
 

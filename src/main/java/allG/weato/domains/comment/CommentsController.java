@@ -112,6 +112,24 @@ public class CommentsController {
         return new DeleteCommentLikeDto(comment);
     }
 
+    @Operation(summary = "add ReComment to Comment", description = "대댓글 생성")
+    @PostMapping("/api/posts/{postId}/comments/{commentId}")
+    public CreateCommentResponse addRecomment(@PathVariable("postId")Long postId,
+                                              @PathVariable("commentId")Long commentId,@RequestBody CreateCommentRequest request){
+        JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = principal.getUsername();
+        Member findMember=memberService.findByEmail(email);
+
+        Post post = postService.findPostById(postId);
+        Comment parent = commentService.findCommentById(commentId);
+        Comment comment = new Comment(request.getContent(),findMember,post);
+        memberService.addComment(findMember,comment);
+        postService.addComment(post,comment);
+        commentService.addReComment(parent,comment);
+
+        return new CreateCommentResponse(comment,parent);
+    }
+
     @Data
     @AllArgsConstructor
     static class Result<T>{

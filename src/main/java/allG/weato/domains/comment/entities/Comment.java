@@ -29,6 +29,8 @@ public class Comment {
 
     private int likeCount=0;
 
+    private boolean isRemoved=false;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -53,11 +55,16 @@ public class Comment {
         this.content = content;
         this.member = member;
         this.post = post;
+        createdAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
     }
 
     public void changeContent(String content){
         this.content=content;
         createdAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+    }
+
+    public void delete(){
+        isRemoved=true;
     }
 
     public void setPost(Post post){
@@ -84,8 +91,8 @@ public class Comment {
     }
 
     public void changeParent(Comment comment){
-        this.parent=parent;
-        parent.addChild(comment);
+        parent=comment;
+        comment.addChild(this);
     }
 
 }

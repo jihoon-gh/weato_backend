@@ -11,6 +11,8 @@ public class CreateCommentResponse {
 
     private String author;
     private String content;
+
+    private Long numOfParent=0L;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
 
@@ -18,5 +20,12 @@ public class CreateCommentResponse {
         author = comment.getMember().getName();
         content = comment.getContent();
         createdAt = comment.getCreatedAt();
+    }
+
+    public CreateCommentResponse(Comment comment, Comment parent){
+        author=comment.getMember().getName();
+        content=comment.getContent();
+        createdAt=comment.getCreatedAt();
+        numOfParent=parent.getId();
     }
 }
