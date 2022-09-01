@@ -79,6 +79,13 @@ public class Comment {
         commentLike.setOwner(null);
         likeCount--;
     }
+    public void addChild(Comment child){
+        children.add(child);
+    }
 
+    public void changeParent(Comment comment){
+        this.parent=parent;
+        parent.addChild(comment);
+    }
 
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ScrapedPostDto {
 
+    private Long id;
     private String title;
     private String name;
     private Level level;
@@ -21,6 +22,7 @@ public class ScrapedPostDto {
 
 
     public ScrapedPostDto(Post post){
+        id = post.getId();
         title = post.getTitle();
         name = post.getMember().getNickname();
         level=post.getMember().getLevel();
