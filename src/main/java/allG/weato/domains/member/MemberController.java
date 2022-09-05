@@ -20,8 +20,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import javax.validation.Valid;
 
@@ -136,6 +138,20 @@ public class MemberController {
         else memberScrapedPostDto = new MemberScrapedPostDto(member,pageRequest, boardType);
         return memberScrapedPostDto;
     }
+
+    @Operation(summary = "delete member", description = "회원 탈퇴")
+    @DeleteMapping("/members/{memberId}")
+    public HttpStatus deleteMember(@PathVariable("memberId")Long memberId){
+        JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email =  principal.getUsername();
+        Member member = memberService.findByEmail(email);
+
+        if(member.getId()!=memberId) throw new RestException(CommonErrorCode.NOT_AUTHORIZATED);
+        memberService.deleteMember(member);
+
+        return  HttpStatus.NO_CONTENT;
+    }
+
 
 }
 

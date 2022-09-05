@@ -133,4 +133,8 @@ public class MemberService {
     public void emailValidation(Member member, int num) {
         member.changeAuthNum(num);
     }
+
+    public void deleteMember(Member member) {
+        memberRepository.delete(member);
+    }
 }

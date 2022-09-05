@@ -1,6 +1,10 @@
 package allG.weato.serviceTest;
 
 import allG.weato.domains.member.MemberService;
+import allG.weato.domains.member.entities.Member;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +18,22 @@ public class MemberServiceTest {
 
     @Autowired private MemberService memberService;
 
-    @PersistenceContext
-    EntityManager em;
-
-    //멤버는 근데 세션 멤버로 일케 들어가는데 이거 굳이,,?
+//    @Test
+//    @DisplayName("회원 탈퇴(삭제) 테스트")
+//    public void deleteMemberTest(){
+//        //given
+//        Member member = new Member(null,"abcd",null,null,null,null,null);
+//        memberService.save(member);
+//
+//        //when
+//        Member member1 =memberService.getMember("abcd");
+//        System.out.println("member1 = " + member1);
+//        memberService.deleteMember(member1);
+//
+//        //then
+//        Member member2=memberService.getMember("abcd");
+//        Assertions.assertThat(member2).isNull();
+//    }
 
 
 }
