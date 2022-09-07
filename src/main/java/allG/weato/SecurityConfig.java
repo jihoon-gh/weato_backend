@@ -12,6 +12,7 @@ import allG.weato.oauth2.service.JwtMemberDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -76,6 +77,7 @@ public class SecurityConfig {
                 .formLogin()
                     .disable()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 //                .antMatchers("/api/newsletters/**","/api/posts","/swagger-ui/index.html/**").permitAll()
 //                .anyRequest().authenticated()
                 .anyRequest().permitAll()
