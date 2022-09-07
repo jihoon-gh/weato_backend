@@ -33,6 +33,7 @@ public class MailController {
         int num =  (int)(Math.random() * (99999 - 10000 + 1)) + 10000;
         memberService.emailValidation(findMember, num);
         mailService.mailSend(sendingMailDto, num);
+        System.out.println("sending process finish");
     }
 
 
