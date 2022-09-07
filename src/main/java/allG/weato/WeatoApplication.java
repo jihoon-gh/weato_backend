@@ -24,15 +24,9 @@ public class WeatoApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:3000")
-						.allowedOrigins("https://www.weato.net")
-						.allowedMethods(
-								HttpMethod.GET.name(),
-								HttpMethod.HEAD.name(),
-								HttpMethod.POST.name(),
-								HttpMethod.PATCH.name(),
-								HttpMethod.DELETE.name()
-						)
+						.allowedOrigins("http://localhost:3000","https://www.weato.net")
+						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT")
+						.allowedHeaders("append,delete,entries,foreach,get,has,keys,set,values,Authorization")
 						.allowCredentials(true);
 			}
 		};
