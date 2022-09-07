@@ -24,8 +24,7 @@ public class WeatoApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("*")
 						.allowedMethods("GET", "POST", "PUT", "DELETE")
-						.allowedHeaders("append,delete,entries,foreach,get,has,keys,set,values,Authorization")
-						.allowCredentials(true);
+						.allowedHeaders("append,delete,entries,foreach,get,has,keys,set,values,Authorization");
 			}
 		};
 	}
