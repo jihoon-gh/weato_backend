@@ -77,7 +77,6 @@ public class SecurityConfig {
                 .formLogin()
                     .disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //                .antMatchers("/api/newsletters/**","/api/posts","/swagger-ui/index.html/**").permitAll()
 //                .anyRequest().authenticated()
                 .anyRequest().permitAll()
