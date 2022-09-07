@@ -22,7 +22,7 @@ public class WeatoApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:3000","https://weato.net")
+				registry.addMapping("/**").allowedOrigins("http://localhost:3000/**","https://weato.net/**")
 						.allowedMethods("GET", "POST", "PATCH", "DELETE")
 						.allowedHeaders("append,delete,entries,foreach,get,has,keys,set,values,Authorization")
 						.allowCredentials(true);
