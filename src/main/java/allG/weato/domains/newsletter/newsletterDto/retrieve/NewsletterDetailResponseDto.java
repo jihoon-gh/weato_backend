@@ -30,9 +30,9 @@ public class NewsletterDetailResponseDto {
 
     private int bookmarkCount;
 
-    private Boolean bookmarkChecker;
+    private boolean bookmarkChecker;
 
-    private Boolean likeChecker;
+    private boolean likeChecker;
 
     public NewsletterDetailResponseDto(Newsletter newsletter){
         id= newsletter.getId();

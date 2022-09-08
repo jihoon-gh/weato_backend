@@ -83,13 +83,9 @@ public class NewsletterController {
             Member findMember = memberService.findByEmail(email);
             return new NewsletterDetailResponseDto(findOne,findMember);
         }
-
-
-
     }
 
     @Operation(summary = "create a newsletter - only admin is authorized", description = "뉴스레터 생성")
-
     @PostMapping("/newsletters")
     public NewsletterResponseDto postNewsletter(@RequestBody @Valid CreateNewsletterDto request){
         Newsletter newsletter = new Newsletter(request.getTitle(),request.getContent(),request.getTagType());
