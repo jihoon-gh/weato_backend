@@ -29,7 +29,10 @@ public class WeatoApplication {
 						.allowedMethods(HttpMethod.POST.name())
 						.allowedMethods(HttpMethod.PATCH.name())
 						.allowedMethods(HttpMethod.DELETE.name())
-						.allowedMethods(HttpMethod.OPTIONS.name());
+						.allowedMethods(HttpMethod.OPTIONS.name())
+						.allowedMethods(HttpMethod.PUT.name())
+						.allowedMethods(HttpMethod.HEAD.name())
+						.allowedMethods(HttpMethod.TRACE.name());
 
 			}
 		};
