@@ -24,16 +24,7 @@ public class WeatoApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("*")
-						.allowedMethods(HttpMethod.GET.name())
-						.allowedMethods(HttpMethod.POST.name())
-						.allowedMethods(HttpMethod.PATCH.name())
-						.allowedMethods(HttpMethod.DELETE.name())
-						.allowedMethods(HttpMethod.OPTIONS.name())
-						.allowedMethods(HttpMethod.PUT.name())
-						.allowedMethods(HttpMethod.HEAD.name())
-						.allowedMethods(HttpMethod.TRACE.name());
-
+						.allowedOrigins("*");
 			}
 		};
 	}
