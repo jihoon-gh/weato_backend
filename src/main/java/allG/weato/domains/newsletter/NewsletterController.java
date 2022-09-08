@@ -74,8 +74,7 @@ public class NewsletterController {
         Newsletter findOne = newsletterService.findOneById(id);
         findOne.addViews();
         newsletterService.save(findOne);
-
-        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()=="anonymousUser"){
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass()==String.class){
             return new NewsletterDetailResponseDto(findOne);
         }else{
             JwtMemberDetails principal =(JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
