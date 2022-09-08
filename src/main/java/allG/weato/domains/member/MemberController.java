@@ -64,7 +64,6 @@ public class MemberController {
 
         Member member = memberService.findById(memberId);
         return new MemberResponseDto(member);
-
     }
     @Operation(summary = "Retrieve profile of specific member", description = "특정 멤버 프로필 조회")
     @GetMapping("/members/{memberId}/profile")//프로필
@@ -103,11 +102,8 @@ public class MemberController {
         additionalInfo.changeManagement(request);
         member.setAdditional_info(additionalInfo);
         memberService.save(member);
-
         return new AdditionalInfoResponseDto(additionalInfo);
-
     }
-
 
     @Operation(summary = "Retrieve post which is bookmarked", description = "북마크된 게시글 조회")
     @GetMapping("/members/{memberId}/bookmarks")
@@ -151,7 +147,5 @@ public class MemberController {
 
         return  HttpStatus.NO_CONTENT;
     }
-
-
 }
 

@@ -100,6 +100,7 @@ public class MemberService {
         member.changeNickname(request.getNickname());
         member.getProfile().changeImgurl(request.getImageUrl());
         member.changeNewsletterEmail(request.getNewsletterEmail());
+        if(!member.getTagTypeList().isEmpty()) member.getTagTypeList().clear();
         if(request.getDrug()) member.getTagTypeList().add(TagType.DRUG);
         if(request.getCleaning()) member.getTagTypeList().add(TagType.CLEANING);
         if(request.getFood()) member.getTagTypeList().add(TagType.FOOD);
