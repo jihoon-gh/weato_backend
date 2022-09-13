@@ -2,8 +2,7 @@ package allG.weato.domains.member.dto.retrieve;
 
 import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.entities.Member;
-import allG.weato.domains.newsletter.newsletterDto.retrieve.NewsletterResponseDto;
-import allG.weato.domains.post.postDto.retrieve.PostRetrieveDto;
+import allG.weato.domains.newsletter.dto.retrieve.NewsletterResponseDto;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

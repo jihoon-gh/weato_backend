@@ -1,4 +1,4 @@
-package allG.weato.domains.newsletter.newsletterDto.update;
+package allG.weato.domains.newsletter.dto.update;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

@@ -4,14 +4,15 @@ import allG.weato.domains.member.MemberService;
 import allG.weato.domains.member.entities.BookMark;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.newsletter.entities.NewsletterLike;
-import allG.weato.domains.newsletter.newsletterDto.retrieve.BookmarkResponseDto;
+import allG.weato.domains.newsletter.dto.create.CreateNewsletterResponseDto;
+import allG.weato.domains.newsletter.dto.retrieve.BookmarkResponseDto;
 import allG.weato.domains.newsletter.entities.Newsletter;
 import allG.weato.domains.enums.TagType;
-import allG.weato.domains.newsletter.newsletterDto.create.CreateNewsletterDto;
-import allG.weato.domains.newsletter.newsletterDto.retrieve.NewsletterResponseDto;
-import allG.weato.domains.newsletter.newsletterDto.update.NewsletterUpdateRequestDto;
-import allG.weato.domains.newsletter.newsletterDto.update.NewsletterUpdateResponseDto;
-import allG.weato.domains.newsletter.newsletterDto.retrieve.NewsletterDetailResponseDto;
+import allG.weato.domains.newsletter.dto.create.CreateNewsletterRequestDto;
+import allG.weato.domains.newsletter.dto.retrieve.NewsletterResponseDto;
+import allG.weato.domains.newsletter.dto.update.NewsletterUpdateRequestDto;
+import allG.weato.domains.newsletter.dto.update.NewsletterUpdateResponseDto;
+import allG.weato.domains.newsletter.dto.retrieve.NewsletterDetailResponseDto;
 import allG.weato.dto.AddLikeDto;
 import allG.weato.dto.ResultForList;
 import allG.weato.dto.ResultForPaging;
@@ -86,12 +87,13 @@ public class NewsletterController {
 
     @Operation(summary = "create a newsletter - only admin is authorized", description = "뉴스레터 생성")
     @PostMapping("/newsletters")
-    public NewsletterResponseDto postNewsletter(@RequestBody @Valid CreateNewsletterDto request){
+    public NewsletterResponseDto postNewsletter(@RequestBody @Valid CreateNewsletterRequestDto request){
         Newsletter newsletter = new Newsletter(request.getTitle(),request.getContent(),request.getTagType());
         newsletterService.save(newsletter);
         /*Newsletter findOne = newsletterService.findOneById(id); //이거 약간 테스트처럼 드가는데???
         if(findOne==null) throw new RestException(CommonErrorCode.INTERNAL_SERVER_ERROR);
-        else */ return new NewsletterResponseDto(newsletter);
+        else */
+        return new CreateNewsletterResponseDto(newsletter);
     }
     @Operation(summary = "update specific newsletter - only admin is authorized", description = "뉴스레터 수정")
     @PatchMapping("/newsletters/{id}") //업데이트

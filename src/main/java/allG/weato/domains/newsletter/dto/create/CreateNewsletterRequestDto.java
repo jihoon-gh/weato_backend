@@ -1,18 +1,25 @@
-package allG.weato.domains.newsletter.newsletterDto.create;
+package allG.weato.domains.newsletter.dto.create;
 
 import allG.weato.domains.enums.TagType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateNewsletterDto {
+public class CreateNewsletterRequestDto {
+
+    @NotEmpty
     String title;
+
+    @NotEmpty
     String content;
+
+    @NotNull
     TagType tagType;
 }
 

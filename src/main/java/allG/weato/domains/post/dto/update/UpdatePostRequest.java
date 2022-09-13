@@ -1,10 +1,8 @@
-package allG.weato.domains.post.postDto.update;
+package allG.weato.domains.post.dto.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor

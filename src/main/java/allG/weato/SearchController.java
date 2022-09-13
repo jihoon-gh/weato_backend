@@ -2,10 +2,10 @@ package allG.weato;
 
 import allG.weato.domains.newsletter.NewsletterService;
 import allG.weato.domains.newsletter.entities.Newsletter;
-import allG.weato.domains.newsletter.newsletterDto.retrieve.NewsletterDetailResponseDto;
+import allG.weato.domains.newsletter.dto.retrieve.NewsletterDetailResponseDto;
 import allG.weato.domains.post.PostService;
 import allG.weato.domains.post.entities.Post;
-import allG.weato.domains.post.postDto.retrieve.PostRetrieveDto;
+import allG.weato.domains.post.dto.retrieve.PostRetrieveDto;
 import lombok.*;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;

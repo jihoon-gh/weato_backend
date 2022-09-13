@@ -1,4 +1,4 @@
-package allG.weato.domains.newsletter.newsletterDto.update;
+package allG.weato.domains.newsletter.dto.retrieve;
 
 import allG.weato.domains.newsletter.entities.Newsletter;
 import allG.weato.domains.enums.TagType;
@@ -7,25 +7,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class NewsletterUpdateResponseDto {
+public class NewsletterResponseDto {
+    private Long id;
     private String title;
-    private String content;
     private TagType tagType;
+
+    private int views;
+
+    private int likeCount;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
-    private int likeCount=0;
 
-    public NewsletterUpdateResponseDto(Newsletter newsletter)
-    {
+    private Integer bookmarkCount;
+    public NewsletterResponseDto(Newsletter newsletter){
+        id = newsletter.getId();
         title=newsletter.getTitle();
-        content = newsletter.getContent();
         tagType=newsletter.getTagType();
-        createdAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-        likeCount=newsletter.getLikeCount();
+        createdAt=newsletter.getCreatedAt();
+        views=newsletter.getViews();
+        likeCount= newsletter.getLikeCount();
+        bookmarkCount=newsletter.getBookMarkCount();
     }
 }

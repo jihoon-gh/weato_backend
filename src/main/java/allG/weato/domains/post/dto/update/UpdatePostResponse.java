@@ -1,4 +1,4 @@
-package allG.weato.domains.post.postDto.update;
+package allG.weato.domains.post.dto.update;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,8 @@
-package allG.weato.domains.post.postDto.retrieve;
+package allG.weato.domains.post.dto.retrieve;
 
 import allG.weato.domains.enums.BoardType;
 import allG.weato.domains.member.entities.Level;
 import allG.weato.domains.post.entities.Post;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

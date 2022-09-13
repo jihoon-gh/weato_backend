@@ -5,7 +5,7 @@ import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.newsletter.entities.Newsletter;
 import allG.weato.domains.enums.TagType;
 import allG.weato.domains.newsletter.entities.NewsletterLike;
-import allG.weato.domains.newsletter.newsletterDto.update.NewsletterUpdateRequestDto;
+import allG.weato.domains.newsletter.dto.update.NewsletterUpdateRequestDto;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package allG.weato.domains.post.postDto.retrieve;
+package allG.weato.domains.post.dto.retrieve;
 
 import allG.weato.domains.enums.BoardType;
 import allG.weato.domains.post.entities.Post;

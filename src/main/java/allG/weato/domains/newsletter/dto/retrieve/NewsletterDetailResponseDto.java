@@ -1,4 +1,4 @@
-package allG.weato.domains.newsletter.newsletterDto.retrieve;
+package allG.weato.domains.newsletter.dto.retrieve;
 
 import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.entities.Member;

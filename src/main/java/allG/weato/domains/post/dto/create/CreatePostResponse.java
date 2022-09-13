@@ -1,10 +1,9 @@
-package allG.weato.domains.post.postDto.create;
+package allG.weato.domains.post.dto.create;
 
 import allG.weato.domains.post.entities.Post;
 import allG.weato.domains.enums.BoardType;
-import allG.weato.domains.post.postDto.AttachmentDto;
+import allG.weato.domains.post.dto.AttachmentDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Data;
 
 import java.time.LocalDateTime;

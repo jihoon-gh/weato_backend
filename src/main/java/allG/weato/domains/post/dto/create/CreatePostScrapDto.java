@@ -1,4 +1,4 @@
-package allG.weato.domains.post.postDto.create;
+package allG.weato.domains.post.dto.create;
 
 import allG.weato.domains.post.entities.Post;
 import lombok.Getter;

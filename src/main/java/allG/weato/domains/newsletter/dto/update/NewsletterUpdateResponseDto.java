@@ -1,4 +1,4 @@
-package allG.weato.domains.newsletter.newsletterDto.retrieve;
+package allG.weato.domains.newsletter.dto.update;
 
 import allG.weato.domains.newsletter.entities.Newsletter;
 import allG.weato.domains.enums.TagType;
@@ -6,30 +6,25 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Data
 @NoArgsConstructor
-public class NewsletterResponseDto {
-    private Long id;
+public class NewsletterUpdateResponseDto {
     private String title;
+    private String content;
     private TagType tagType;
-
-    private int views;
-
-    private int likeCount;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
+    private int likeCount=0;
 
-    private Integer bookmarkCount;
-    public NewsletterResponseDto(Newsletter newsletter){
-        id = newsletter.getId();
+    public NewsletterUpdateResponseDto(Newsletter newsletter)
+    {
         title=newsletter.getTitle();
+        content = newsletter.getContent();
         tagType=newsletter.getTagType();
-        createdAt=newsletter.getCreatedAt();
-        views=newsletter.getViews();
-        likeCount= newsletter.getLikeCount();
-        bookmarkCount=newsletter.getBookMarkCount();
+        createdAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+        likeCount=newsletter.getLikeCount();
     }
 }

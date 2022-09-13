@@ -2,11 +2,9 @@ package allG.weato.domains.member.dto;
 
 import allG.weato.domains.enums.BoardType;
 import allG.weato.domains.member.entities.Member;
-import allG.weato.domains.post.entities.Post;
-import allG.weato.domains.post.postDto.retrieve.PostRetrieveDto;
+import allG.weato.domains.post.dto.retrieve.PostRetrieveDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.*;
 
 import java.util.List;
