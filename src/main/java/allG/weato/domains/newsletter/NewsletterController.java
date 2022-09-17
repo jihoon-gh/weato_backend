@@ -124,8 +124,7 @@ public class NewsletterController {
 
         BookMark bookMark = new BookMark();
 
-        List<BookMark> bookMarks = newsletter.getBookMarkList();
-        for (BookMark marks : bookMarks) {
+        for (BookMark marks : newsletter.getBookMarkList()) {
             if(marks.getMember().getId()==findMember.getId()){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"You already bookMarked it");
             }
@@ -144,8 +143,7 @@ public class NewsletterController {
 
         Newsletter newsletter = newsletterService.findOneByIdWithBookMarks(id);
 
-        List<BookMark> bookMarks = newsletter.getBookMarkList();
-        for (BookMark bookMark : bookMarks) {
+        for (BookMark bookMark : newsletter.getBookMarkList()) {
             if(bookMark.getNewsletter().getId()==newsletter.getId()){
                 newsletterService.deleteBookMark(findMember,newsletter,bookMark);
                 break;
