@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -30,11 +31,8 @@ public class NewsletterService {
 
 
     public Newsletter findOneById(Long id){
-        Optional<Newsletter> findNewsletter = newsletterRepository.findById(id);
-        if(findNewsletter.isEmpty()) throw new RuntimeException("존재하는 않는 페이지");
-        else {
-            return findNewsletter.get();
-        }
+       return newsletterRepository.findById(id).orElseGet(()->
+       {throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);});
     }
     public Newsletter findOneByIdWithLikes(Long id){
         return newsletterRepository.findNewsletterByIdWithLikes(id);

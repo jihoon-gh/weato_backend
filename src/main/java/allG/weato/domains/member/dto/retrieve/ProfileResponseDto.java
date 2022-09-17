@@ -22,6 +22,7 @@ public class ProfileResponseDto {
     private int level;
     private String nickname;
     private String birthyear;
+    private String birthday;
     private ProviderType providerType;
 
     private Integer medicalHistory;
@@ -37,6 +38,7 @@ public class ProfileResponseDto {
         level=member.getLevel().getLevel();
         nickname=member.getNickname();
         birthyear=member.getBirthyear();
+        birthday=member.getBirthday();
         providerType=member.getProviderType();
         medicalHistory=member.getAdditionalInfo().getMedicalHistory();
         symptomDegree=member.getAdditionalInfo().getSymptomDegree();

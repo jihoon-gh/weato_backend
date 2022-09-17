@@ -37,7 +37,7 @@ public class MailController {
     }
 
 
-    @Operation(summary = "check the authorzation_code end update member ", description = "인증 코드 확인")
+    @Operation(summary = "check the authorization_code end update member ", description = "인증 코드 확인")
     @PatchMapping("/mail")
     public HttpStatus validateNewsletterEmail(@RequestBody @Valid ReceiveAuthNumDto num){
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
