@@ -61,11 +61,6 @@ public class Newsletter {
         bookMarkCount++;
     }
 
-//    public void classifyByTag(Tag tag){
-//        this.tag=tag;
-//        tag.addNewsletter(this);
-//    }
-
     public void changeTitle(String title) {
         this.title=title;
     }

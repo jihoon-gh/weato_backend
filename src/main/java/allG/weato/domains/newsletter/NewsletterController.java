@@ -122,13 +122,12 @@ public class NewsletterController {
 
         Newsletter newsletter = newsletterService.findOneByIdWithBookMarks(id);
 
-        BookMark bookMark = new BookMark();
-
         for (BookMark marks : newsletter.getBookMarkList()) {
             if(marks.getMember().getId()==findMember.getId()){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"You already bookMarked it");
             }
         }
+        BookMark bookMark = new BookMark();
         newsletterService.addBookMark(findMember,newsletter,bookMark);
 
         return new BookmarkResponseDto(findMember,newsletter);
@@ -144,7 +143,7 @@ public class NewsletterController {
         Newsletter newsletter = newsletterService.findOneByIdWithBookMarks(id);
 
         for (BookMark bookMark : newsletter.getBookMarkList()) {
-            if(bookMark.getNewsletter().getId()==newsletter.getId()){
+            if(bookMark.getMember().getId()==findMember.getId()){
                 newsletterService.deleteBookMark(findMember,newsletter,bookMark);
                 break;
             }
