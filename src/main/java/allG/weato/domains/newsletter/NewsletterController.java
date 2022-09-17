@@ -142,10 +142,7 @@ public class NewsletterController {
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);
 
-        if(findMember==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
         Newsletter newsletter = newsletterService.findOneByIdWithBookMarks(id);
-        if(newsletter==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         List<BookMark> bookMarks = newsletter.getBookMarkList();
         for (BookMark bookMark : bookMarks) {
@@ -162,13 +159,10 @@ public class NewsletterController {
     public AddLikeDto addNewsletterLike(@PathVariable("id")Long id){
 
         Newsletter newsletter = newsletterService.findOneByIdWithLikes(id);
-        if(newsletter==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);
-
-        if(findMember==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         for (NewsletterLike newsletterLike : newsletter.getNewsletterLikeList()) {
             if(newsletterLike.getMember().getId()==findMember.getId()){
