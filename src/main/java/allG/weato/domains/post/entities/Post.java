@@ -1,6 +1,7 @@
 package allG.weato.domains.post.entities;
 
 import allG.weato.domains.comment.entities.Comment;
+import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.enums.BoardType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,6 +40,8 @@ public class Post {
     @JsonIgnore
     private Member member;
 
+    @Enumerated(EnumType.STRING)
+    private TagType tagType;
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL) //persist의 전파.
     private List<Comment> commentList = new ArrayList<>();
@@ -49,6 +52,7 @@ public class Post {
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<PostLike> postLikeList = new ArrayList<>();
 
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Scrap> scrapList = new ArrayList<>();
 
@@ -56,10 +60,11 @@ public class Post {
     public int getLikeCount(){
         return likeCount;
     }
-    public Post(String title, String content,BoardType boardType,LocalDateTime createAt){
+    public Post(String title, String content,BoardType boardType,TagType tagType,LocalDateTime createAt){
         this.title=title;
         this.content=content;
         this.boardType=boardType;
+        this.tagType=tagType;
         this.createdAt=createAt;
     }
 
@@ -81,6 +86,10 @@ public class Post {
         this.member=member;
         member.getPostList().add(this);
         member.getLevel().addExp(10);
+    }
+
+    public void changeTagType(TagType tagType){
+        this.tagType=tagType;
     }
 
     public void addComment(Comment comment){ // 완료

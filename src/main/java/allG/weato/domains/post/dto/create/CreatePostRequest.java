@@ -1,6 +1,7 @@
 package allG.weato.domains.post.dto.create;
 
 import allG.weato.domains.enums.BoardType;
+import allG.weato.domains.enums.TagType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,9 @@ public class CreatePostRequest {
 
     @NotNull
     BoardType boardType;
+
+    @NotNull
+    TagType tagType;
     List<String> imageUrls = new ArrayList<>();
 
 }

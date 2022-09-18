@@ -1,5 +1,7 @@
 package allG.weato.domains.post.dto.retrieve;
 
+import allG.weato.domains.enums.BoardType;
+import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.post.entities.Post;
 import allG.weato.domains.comment.commentDto.retrieve.CommentRetrieveDto;
@@ -19,6 +21,10 @@ public class PostDetailRetrieveDto {
     private int authorLevel;
     private String title;
     private String content;
+
+    private BoardType boardType;
+
+    private TagType tagType;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
     private int likeCount;
@@ -35,6 +41,8 @@ public class PostDetailRetrieveDto {
         title = post.getTitle();
         content = post.getContent();
         createdAt = post.getCreatedAt();
+        boardType=post.getBoardType();
+        tagType=post.getTagType();
         likeCount = post.getLikeCount();
         author=post.getMember().getNickname();
         authorLevel=post.getMember().getLevel().getLevel();
@@ -43,13 +51,11 @@ public class PostDetailRetrieveDto {
                 .filter(comment -> comment.getParent()==null)
                 .map( c -> new CommentRetrieveDto(c,true)).collect(Collectors.toList());
         scrapCount=post.getScrapCount();
-        System.out.println("member.getPostLikeChecker().size() = " + member.getPostLikeChecker().size());
         if(member.getPostLikeChecker().contains(post.getId())){
             likeChecker=true;
         }else{
             likeChecker=false;
         }
-
         if(member.getScrapChecker().contains(post.getId())){
             scrapChecker=true;
         }else {

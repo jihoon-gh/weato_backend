@@ -80,8 +80,6 @@ public class PostController {
         return new ResultForCommunity(hotTopics, questionPosts, managementPosts);
 
     }
-
-
     @Operation(summary = "get all posts", description = "게시글 전체조회")
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = "Ok", content = @Content(schema = @Schema(implementation = PostRetrieveDto.class))),
@@ -133,7 +131,7 @@ public class PostController {
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);
-        Post post = new Post(request.getTitle(),request.getContent(),request.getBoardType(),LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+        Post post = new Post(request.getTitle(),request.getContent(),request.getBoardType(),request.getTagType(),LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         post.setOwner(findMember);
         for (String  s : request.getImageUrls()) {
             Attachment attachment = new Attachment(s);
