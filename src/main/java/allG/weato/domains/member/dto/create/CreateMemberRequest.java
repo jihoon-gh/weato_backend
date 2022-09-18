@@ -13,8 +13,6 @@ public class CreateMemberRequest {
     @Valid
     private String nickname;
 
-    private String imageUrl;
-
     @Valid
     private String newsletterEmail;
 

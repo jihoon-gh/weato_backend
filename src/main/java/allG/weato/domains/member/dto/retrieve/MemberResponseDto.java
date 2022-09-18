@@ -17,6 +17,8 @@ public class MemberResponseDto {
     private String birthYear;
     private LocalDateTime createdAT;
 
+    private Boolean newMemberChecker ;
+
     public MemberResponseDto(Member member) {
         id = member.getId();
         name = member.getName();
@@ -25,6 +27,10 @@ public class MemberResponseDto {
         gender= member.getGender();
         birthYear=member.getBirthyear();
         createdAT=member.getCreateAt();
-
+        if(member.getTagTypeList().isEmpty()){
+            newMemberChecker=true;
+        }else{
+            newMemberChecker=false;
+        }
     }
 }

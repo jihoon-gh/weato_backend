@@ -36,7 +36,7 @@ public class MemberController {
 
     @Operation(summary = "Current member", description = "현재 로그인된 멤버")
     @GetMapping("/members")
-    public MemberResponseDto getUser() {
+    public MemberResponseDto getCurrentMember() {
 
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email =  principal.getUsername();

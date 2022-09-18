@@ -98,7 +98,6 @@ public class MemberService {
     @Transactional
     public void createMemberDetail(Member member, CreateMemberRequest request) {
         member.changeNickname(request.getNickname());
-        member.getProfile().changeImgurl(request.getImageUrl());
         member.changeNewsletterEmail(request.getNewsletterEmail());
         if(!member.getTagTypeList().isEmpty()) member.getTagTypeList().clear();
         if(request.getDrug()) member.getTagTypeList().add(TagType.DRUG);
