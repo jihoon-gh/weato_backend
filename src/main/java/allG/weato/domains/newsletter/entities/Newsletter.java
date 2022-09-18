@@ -58,7 +58,7 @@ public class Newsletter {
     public void addBookMark(BookMark bookMark) {
         bookMarkList.add(bookMark);
         bookMark.initNewsletter(this);
-        bookMarkCount++;
+        bookMarkCount=bookMarkList.size();
     }
 
     public void changeTitle(String title) {
@@ -76,7 +76,7 @@ public class Newsletter {
     public void deleteBookMark(BookMark bookMark){
         bookMarkList.remove(bookMark);
         bookMark.initNewsletter(null);
-        bookMarkCount--;
+        bookMarkCount=bookMarkList.size();
     }
     public void addViews() {
         views++;
@@ -85,13 +85,13 @@ public class Newsletter {
     public void addNewsletterLike(NewsletterLike newsletterLike){
         newsletterLikeList.add(newsletterLike);
         newsletterLike.initNewsletter(this);
-        likeCount++;
+        likeCount= newsletterLikeList.size();
     }
 
     public void deleteNewsletterLike(NewsletterLike newsletterLike){
         newsletterLikeList.remove(newsletterLike);
         newsletterLike.initNewsletter(null);
-        likeCount--;
+        likeCount= newsletterLikeList.size();
     }
 
 }

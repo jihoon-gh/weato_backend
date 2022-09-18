@@ -103,15 +103,15 @@ public class Post {
     }
 
     public void addLike(PostLike postLike) { //완료
-        this.postLikeList.add(postLike);
+        postLikeList.add(postLike);
         postLike.setOwnPost(this);
-        likeCount++;
+        likeCount=postLikeList.size();
     }
 
     public void deleteLike(PostLike postLike){
         this.postLikeList.remove(postLike);
         postLike.setOwnPost(null);
-        likeCount--;
+        likeCount=postLikeList.size();
     }
 
     public void addViews(){
@@ -121,11 +121,12 @@ public class Post {
     public void addScrap(Scrap scrap){
         scrapList.add(scrap);
         scrap.initPost(this);
-        scrapCount++;
+        scrapCount=scrapList.size();
     }
 
     public void deleteScrap(Scrap scrap){
         scrapList.remove(scrap);
+        scrapCount=scrapList.size();
         scrap.initPost(null);
     }
 

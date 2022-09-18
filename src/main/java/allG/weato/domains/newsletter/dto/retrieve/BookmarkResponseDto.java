@@ -18,7 +18,7 @@ public class BookmarkResponseDto {
         id=newsletter.getId();
         name=member.getName();
         title= newsletter.getTitle();
-        bookmarkCount=newsletter.getBookMarkCount();
+        bookmarkCount=newsletter.getBookMarkList().size();
     }
 
 

@@ -108,7 +108,6 @@ public class NewsletterController {
     @DeleteMapping("/newsletters/{id}") //삭제
     public HttpStatus deleteNewsletter(@PathVariable("id") Long id){
         Newsletter findNewsletter = newsletterService.findOneById(id);
-        if(findNewsletter==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
         newsletterService.deleteNewsletter(findNewsletter);
         return  HttpStatus.NO_CONTENT;
     }
@@ -170,12 +169,12 @@ public class NewsletterController {
         NewsletterLike newsletterLike = new NewsletterLike();
         newsletterService.addNewsletterLike(findMember,newsletter,newsletterLike);
 
-        return new AddLikeDto(newsletter.getId(),newsletter.getLikeCount());
+        return new AddLikeDto(newsletter.getId(),newsletter.getNewsletterLikeList().size());
     }
 
     @Operation(summary = "delete likes to comment", description = "뉴스레터 좋아요 삭제")
     @DeleteMapping("/newsletters/{id}/likes")
-    public HttpStatus deleteNewsletterLike(@PathVariable("id") Long id){
+    public AddLikeDto deleteNewsletterLike(@PathVariable("id") Long id){
 
         Newsletter newsletter = newsletterService.findOneByIdWithLikes(id);
 
@@ -189,7 +188,7 @@ public class NewsletterController {
                 break;
             }
         }
-        return HttpStatus.NO_CONTENT;
+        return new AddLikeDto(newsletter.getId(),newsletter.getNewsletterLikeList().size());
     }
 
     @GetMapping("/newsletters/search")

@@ -17,6 +17,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
 
+
       Post findPostById(Long id);
 
       @Query("select p from Post p left join fetch p.commentList left join fetch p.member where p.id = :id")

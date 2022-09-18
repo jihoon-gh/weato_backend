@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface NewsletterRepository  extends JpaRepository<Newsletter,Long> {
 
@@ -44,4 +45,5 @@ public interface NewsletterRepository  extends JpaRepository<Newsletter,Long> {
 
     @Query("select nl from Newsletter nl where nl.createdAt >= :now order by nl.bookMarkCount desc")
     Page<Newsletter> sortNewsletterByBookMarkCount(@Param("now")LocalDateTime now, Pageable pageable);
+
 }
