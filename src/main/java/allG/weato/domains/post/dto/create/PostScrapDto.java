@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class CreatePostScrapDto {
-    private String title;
+public class PostScrapDto {
+
+    private Long id;
     private int count;
 
-    public CreatePostScrapDto(Post post){
-        title=post.getTitle();
-        count=post.getScrapList().size();
+    public PostScrapDto(Post post){
+        id=post.getId();
+        count=post.getScrapCount();
     }
 }

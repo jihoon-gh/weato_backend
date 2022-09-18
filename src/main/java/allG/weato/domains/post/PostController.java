@@ -6,7 +6,7 @@ import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.post.entities.Post;
 import allG.weato.domains.post.entities.PostLike;
 import allG.weato.domains.post.entities.Scrap;
-import allG.weato.domains.post.dto.create.CreatePostScrapDto;
+import allG.weato.domains.post.dto.create.PostScrapDto;
 import allG.weato.dto.*;
 import allG.weato.domains.post.dto.create.CreatePostRequest;
 import allG.weato.domains.post.dto.create.CreatePostResponse;
@@ -203,8 +203,6 @@ public class PostController {
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);
 
-        if(findMember==null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
         List<PostLike> postLikeList = post.getPostLikeList();
         for (PostLike like : postLikeList) {
             if(like.getMember().getId()==findMember.getId()){
@@ -219,26 +217,26 @@ public class PostController {
 
     @Operation(summary = "cancel likes to post", description = "게시글 좋아요 취소")
     @DeleteMapping("/posts/{postId}/likes")
-    public HttpStatus deleteLike(@PathVariable("postId")Long id){
+    public AddLikeDto deleteLike(@PathVariable("postId")Long id){
 
-        Post findPost = postService.findOneByIdWithLikes(id);
+        Post post = postService.findOneByIdWithLikes(id);
 
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);
 
-        for (PostLike like : findPost.getPostLikeList()) {
+        for (PostLike like : post.getPostLikeList()) {
             if(like.getMember().getId()==findMember.getId()){
-                postService.deleteLike(findMember,findPost,like);
+                postService.deleteLike(findMember,post,like);
                 break;
             }
         }
-        return HttpStatus.NO_CONTENT;
+        return new AddLikeDto(post.getId(),post.getLikeCount());
     }
 
     @Operation(summary = "scrap post", description = "게시글 스크랩")
     @PostMapping("/posts/{postId}/scraps")
-    public CreatePostScrapDto addScrap(@PathVariable("postId")Long postId){
+    public PostScrapDto addScrap(@PathVariable("postId")Long postId){
         Post post = postService.findOneByIdWithScrap(postId);
 
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -254,11 +252,11 @@ public class PostController {
         }
         postService.scrapPost(member,post,scrap);
 
-        return new CreatePostScrapDto(post);
+        return new PostScrapDto(post);
     }
     @Operation(summary = "Delete Scrap", description = "게시글 스크랩 취소")
     @DeleteMapping("posts/{postId}/scraps")
-    public HttpStatus deleteScrap(@PathVariable("postId") Long postId){
+    public PostScrapDto deleteScrap(@PathVariable("postId") Long postId){
         Post post = postService.findOneByIdWithScrap(postId);
 
 
@@ -272,7 +270,7 @@ public class PostController {
                 break;
             }
         }
-        return HttpStatus.NO_CONTENT;
+        return new PostScrapDto(post);
 
     }
 
