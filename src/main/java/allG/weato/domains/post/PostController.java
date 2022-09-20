@@ -155,7 +155,6 @@ public class PostController {
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);
         Post post = postService.findPostFetchById(id);
-        if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
         post.addViews();
         postService.save(post);
 
@@ -168,15 +167,9 @@ public class PostController {
     public UpdatePostResponse updatePost(@PathVariable("id") Long id, @RequestBody @Valid UpdatePostRequest request){
 
         Post post = postService.findPostById(id);
-       if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-        if(request.getTitle()!=null&&request.getContent()==null){
-           postService.updatePostTitle(post, request.getTitle());
-       } else if (request.getContent() != null &&request.getTitle()==null) {
-           postService.updatePostContent(post, request.getContent());
-       }else postService.updatePost(post, request.getTitle(), request.getContent());
+        postService.updatePost(post, request);
 
-        UpdatePostResponse updatePostResponse = new UpdatePostResponse(id, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
-        return updatePostResponse;
+       return new UpdatePostResponse(post);
     }
     @Operation(summary = "delete post", description = "게시글 삭제")
     @ApiResponses({
@@ -189,7 +182,6 @@ public class PostController {
     public HttpStatus deletePost(@PathVariable("id") Long id)
     {
         Post post = postService.findPostById(id);
-        if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
         postService.deletePost(post);
         return HttpStatus.NO_CONTENT;
     }
@@ -314,5 +306,3 @@ public class PostController {
     }
 
 }
-
-

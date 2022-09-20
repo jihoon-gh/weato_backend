@@ -4,6 +4,8 @@ import allG.weato.domains.comment.entities.Comment;
 import allG.weato.domains.comment.entities.CommentLike;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.post.entities.Post;
+import allG.weato.validation.CommonErrorCode;
+import allG.weato.validation.RestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +26,9 @@ public class CommentService {
         commentRepository.save(comment);
     }
     public Comment findCommentById(Long id){
-        Comment comment = commentRepository.findCommentById(id);
-        if(comment==null) throw new RuntimeException("존재하지 않는 댓글입니다.");
-        return comment;
+        return commentRepository.findCommentById(id).orElseGet(()->{
+            throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+        });
     }
 
     @Transactional

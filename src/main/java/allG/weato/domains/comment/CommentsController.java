@@ -59,7 +59,6 @@ public class CommentsController {
     @PatchMapping("/api/posts/{postId}/comments/{commentId}")
     public UpdatedCommentDto updateComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId,@RequestBody  String content){
         Comment comment = commentService.findCommentById(commentId);
-        if(comment==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
         commentService.updateComment(comment,content);
         return new UpdatedCommentDto(comment);
     }

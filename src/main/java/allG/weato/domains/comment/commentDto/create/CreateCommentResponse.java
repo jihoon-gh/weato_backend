@@ -3,29 +3,25 @@ package allG.weato.domains.comment.commentDto.create;
 import allG.weato.domains.comment.entities.Comment;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
 @Data
 public class CreateCommentResponse {
 
-    private String author;
-    private String content;
-
-    private Long numOfParent=0L;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime createdAt;
+    private Long id;
+    private Long parentId;
+    private HttpStatus httpStatus;
 
     public CreateCommentResponse(Comment comment) {
-        author = comment.getMember().getName();
-        content = comment.getContent();
-        createdAt = comment.getCreatedAt();
+       id=comment.getId();
+       httpStatus=HttpStatus.OK;
     }
 
     public CreateCommentResponse(Comment comment, Comment parent){
-        author=comment.getMember().getName();
-        content=comment.getContent();
-        createdAt=comment.getCreatedAt();
-        numOfParent=parent.getId();
+        id= comment.getId();
+        parentId=parent.getId();
+        httpStatus=HttpStatus.OK;
     }
 }

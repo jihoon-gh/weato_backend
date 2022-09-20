@@ -2,10 +2,13 @@ package allG.weato.domains.post;
 
 import allG.weato.domains.comment.entities.Comment;
 import allG.weato.domains.member.entities.Member;
+import allG.weato.domains.post.dto.update.UpdatePostRequest;
 import allG.weato.domains.post.entities.Post;
 import allG.weato.domains.post.entities.PostLike;
 import allG.weato.domains.enums.BoardType;
 import allG.weato.domains.post.entities.Scrap;
+import allG.weato.validation.CommonErrorCode;
+import allG.weato.validation.RestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,12 +42,16 @@ public class PostService {
     }
 
     public Post findPostById(Long id) {
-        return postRepository.findPostById(id);
+        return postRepository.findPostById(id).orElseGet(()->{
+            throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+        });
     }
 
 
     public Post findPostFetchById(Long id){
-        return postRepository.findPostFecthJoin(id);
+        return postRepository.findPostFecthJoin(id).orElseGet(()->{
+            throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+        });
     }
 
     public Post findPostByTitle(String title) {
@@ -82,10 +89,17 @@ public class PostService {
 //    }
 
     @Transactional
-    public void updatePost(Post post, String title, String content) {
-
-        post.changeTitle(title);
-        post.changeContent(content);
+    public void updatePost(Post post, UpdatePostRequest request) {
+        Boolean checker = false;
+        if(request.getTitle()!=null){
+            post.changeTitle(request.getTitle());
+            checker=true;
+        }
+        if(request.getContent()!=null){
+            post.changeContent(request.getContent());
+            checker=true;
+        }
+        if(checker) post.updateLocalDateTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
     }
 
     @Transactional

@@ -8,10 +8,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 public class NewsletterServiceTest {
     @Autowired private NewsletterRepository newsletterRepository;
     @Autowired private NewsletterService newsletterService;
@@ -23,7 +25,7 @@ public class NewsletterServiceTest {
         //given
         Newsletter newsletter1 = new Newsletter();
         newsletter1.changeContent("this is for test");
-        newsletterService.save(newsletter1);
+        newsletterRepository.save(newsletter1);
         //when
         Long id = newsletter1.getId();
         System.out.println("newsletter.id = " + id);

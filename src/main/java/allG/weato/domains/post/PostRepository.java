@@ -13,15 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
 
 
-      Post findPostById(Long id);
+      Optional<Post> findPostById(Long id);
 
       @Query("select p from Post p left join fetch p.commentList left join fetch p.member where p.id = :id")
-      Post findPostFecthJoin(@Param("id") Long id);
+      Optional<Post> findPostFecthJoin(@Param("id") Long id);
 
       @Query("select p from Post p left join fetch p.postLikeList where p.id = :id")
       Post findPostByIdWithLikes(@Param("id")Long id);

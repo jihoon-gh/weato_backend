@@ -28,8 +28,6 @@ public class PostServiceTest {
     @Autowired private PostService postService;
     @Autowired private  PostRepository postRepository;
     @Autowired private MemberService memberService;
-    @PersistenceContext
-    EntityManager em;
 
     @Test
     @DisplayName("게시글 생성")
@@ -37,7 +35,7 @@ public class PostServiceTest {
         //given
         Post post = new Post();
         postService.save(post);
-        em.flush();
+
         //when
         Long findId = post.getId();
         //then
@@ -52,10 +50,9 @@ public class PostServiceTest {
         //given
         Post post = new Post();
         postService.save(post);
-        em.flush();
         //when
         Post findPost = postService.findPostById(post.getId());
-        postService.updatePost(findPost, "hello","this is test");
+//        postService.updatePost(findPost, "hello","this is test");
         //then
         assertThat(findPost.getContent()).isEqualTo("this is test");
         assertThat(findPost.getTitle()).isEqualTo("hello");
@@ -122,7 +119,6 @@ public class PostServiceTest {
         post.addLike(postLike);
         postService.save(post);
         memberService.save(member);
-        em.flush();
         //when
         Post findPost = postService.findPostByTitle("test1");
         //then

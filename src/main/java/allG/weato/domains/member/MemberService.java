@@ -7,6 +7,8 @@ import allG.weato.domains.member.dto.update.UpdateProfileRequestDto;
 import allG.weato.domains.member.entities.BookMark;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.newsletter.entities.Newsletter;
+import allG.weato.validation.CommonErrorCode;
+import allG.weato.validation.RestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,10 +47,9 @@ public class MemberService {
     }
 
     public Member findByEmail(String email){
-      Optional<Member> member  = memberRepository.findByEmail(email);
-      Member findMember = member.get();
-      return findMember;
-
+      return memberRepository.findByEmail(email).orElseGet(()->{
+          throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+      });
     }
 
     @Transactional

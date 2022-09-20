@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 public class PostDetailRetrieveDto {
+
+    private Long id;
     private String author;
 
     private int authorLevel;
@@ -38,6 +40,7 @@ public class PostDetailRetrieveDto {
     private boolean scrapChecker;
 
     public PostDetailRetrieveDto(Post post, Member member) {
+        id = post.getId();
         title = post.getTitle();
         content = post.getContent();
         createdAt = post.getCreatedAt();

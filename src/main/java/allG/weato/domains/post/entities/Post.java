@@ -7,6 +7,7 @@ import allG.weato.domains.enums.BoardType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -71,13 +72,15 @@ public class Post {
     //setter 대용 메소드
     public void changeContent(String content){
         this.content=content;
-        createdAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
     }
 
     public void changeTitle(String title)
     {
         this.title=title;
-        createdAt=LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+    }
+
+    public void updateLocalDateTime(LocalDateTime localDateTime){
+        createdAt=localDateTime;
     }
 
 
