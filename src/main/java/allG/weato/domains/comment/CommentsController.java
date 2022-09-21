@@ -33,7 +33,6 @@ import java.util.List;
 public class CommentsController {
     private final PostService postService;
     private final MemberService memberService;
-    private final HttpSession httpSession;
 
     private final CommentService commentService;
 
@@ -44,10 +43,12 @@ public class CommentsController {
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = principal.getUsername();
         Member findMember=memberService.findByEmail(email);
+
         Post post = postService.findPostById(id);
-        if(post==null) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+
         Comment comment = new Comment();
         comment.changeContent(request.getContent());
+
         postService.addComment(post,comment);
         memberService.addComment(findMember,comment);
         return new CreateCommentResponse(comment);
@@ -80,8 +81,10 @@ public class CommentsController {
                                @PathVariable("commentId") Long commentId){
 
         Comment findComment = commentService.findCommentById(commentId);
+
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = principal.getUsername();
+
         Member findMember = memberService.findByEmail(email);
         CommentLike commentLike = new CommentLike();
         List<CommentLike> commentLikes = findComment.getCommentLikeList();

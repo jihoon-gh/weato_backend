@@ -32,7 +32,9 @@ public class MemberService {
 
 
     public Member findById(Long id){
-      return memberRepository.findById(id).get();
+      return memberRepository.findById(id).orElseGet(()->{
+          throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
+        });
     }
 
     public Member findMemberForScrap(Long id){

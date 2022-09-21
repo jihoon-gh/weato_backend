@@ -13,11 +13,17 @@ import allG.weato.domains.member.dto.update.UpdateProfileRequestDto;
 import allG.weato.domains.member.dto.update.UpdateProfileResponseDto;
 import allG.weato.domains.member.entities.AdditionalInfo;
 import allG.weato.domains.member.entities.Member;
+import allG.weato.domains.post.PostService;
+import allG.weato.domains.post.dto.retrieve.PostRetrieveDto;
+import allG.weato.domains.post.entities.Post;
+import allG.weato.dto.ResultForPaging;
+import allG.weato.dto.ResultForSearch;
 import allG.weato.oauth2.JwtMemberDetails;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -26,6 +32,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +41,8 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
+
+    private final PostService postService;
 
     @Operation(summary = "Current member", description = "현재 로그인된 멤버")
     @GetMapping("/members")
@@ -90,13 +100,8 @@ public class MemberController {
         JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email =  principal.getUsername();
         Member member = memberService.findByEmail(email);
+
         if(member.getId()!=memberId) throw new RestException(CommonErrorCode.NOT_AUTHORIZATED);
-//        AdditionalInfo additionalInfo =AdditionalInfo.builder()
-//                .medicalHistory(request.getYears())
-//                .isFamilyHistory(request.getFamilyHistory())
-//                .isRecurrence(request.getRecurrence())
-//                .symptomDegree(request.getSymptomDegree())
-//                .build();
 
         AdditionalInfo additionalInfo = new AdditionalInfo(request.getYears(), request.getRecurrence(),request.getFamilyHistory(),request.getSymptomDegree());
         additionalInfo.changeManagement(request);
@@ -123,7 +128,7 @@ public class MemberController {
     @GetMapping("/members/{memberId}/scraps")
     public MemberScrapedPostDto showScrap(@PathVariable("memberId") Long memberId
             ,@RequestParam(value = "type",defaultValue = "all")String code
-            ,@RequestParam(value = "page",defaultValue = "1")int page ){
+            ,@RequestParam(value = "page",defaultValue = "1")Integer page ){
 
         code=code.toUpperCase();
         BoardType boardType = BoardType.valueOf(code);
@@ -133,6 +138,24 @@ public class MemberController {
         if(boardType==BoardType.ALL) memberScrapedPostDto = new MemberScrapedPostDto(member,pageRequest);
         else memberScrapedPostDto = new MemberScrapedPostDto(member,pageRequest, boardType);
         return memberScrapedPostDto;
+    }
+
+    @GetMapping("/members/{membersId}/owned-posts")
+    public ResultForSearch showOwnedPosts(@PathVariable("memberId")Long memberId,
+                                          @RequestParam(value = "page",defaultValue = "1")Integer page){
+
+        Member member = memberService.findById(memberId);
+        Page<Post> postPage = postService.findMemberOwnedPosts(member,page);
+        List<PostRetrieveDto> posts = postPage.stream()
+                .map(p->new PostRetrieveDto(p))
+                .collect(Collectors.toList());
+        int lastPageNum = postPage.getTotalPages();
+        int current = page;
+        int min = 1+current/10*10;
+        int max =10+current/10*10;
+        if(max>=lastPageNum) max = lastPageNum;
+        long totalNum = postPage.getTotalElements();
+        return new ResultForSearch(posts,min,max,current,totalNum);
     }
 
     @Operation(summary = "delete member", description = "회원 탈퇴")

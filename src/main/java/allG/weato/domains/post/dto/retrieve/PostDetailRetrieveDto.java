@@ -36,8 +36,8 @@ public class PostDetailRetrieveDto {
 
     private int scrapCount;
 
-    private boolean likeChecker;
-    private boolean scrapChecker;
+    private boolean likeChecker=false;
+    private boolean scrapChecker=false;
 
     public PostDetailRetrieveDto(Post post, Member member) {
         id = post.getId();
@@ -48,7 +48,7 @@ public class PostDetailRetrieveDto {
         tagType=post.getTagType();
         likeCount = post.getLikeCount();
         author=post.getMember().getNickname();
-        authorLevel=post.getMember().getLevel().getLevel();
+        authorLevel=post.getMember().getMemberLevel().getLevel();
         views=post.getViews();
         comments = post.getCommentList().stream()
                 .filter(comment -> comment.getParent()==null)
@@ -56,13 +56,9 @@ public class PostDetailRetrieveDto {
         scrapCount=post.getScrapCount();
         if(member.getPostLikeChecker().contains(post.getId())){
             likeChecker=true;
-        }else{
-            likeChecker=false;
         }
         if(member.getScrapChecker().contains(post.getId())){
             scrapChecker=true;
-        }else {
-            scrapChecker = false;
         }
     }
 }

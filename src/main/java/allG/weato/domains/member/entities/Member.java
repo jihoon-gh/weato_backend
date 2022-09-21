@@ -6,7 +6,6 @@ import allG.weato.domains.enums.ProviderType;
 import allG.weato.domains.enums.Role;
 import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.dto.update.UpdateProfileRequestDto;
-import allG.weato.domains.newsletter.entities.Newsletter;
 import allG.weato.domains.newsletter.entities.NewsletterLike;
 import allG.weato.domains.post.entities.Post;
 import allG.weato.domains.post.entities.PostLike;
@@ -90,7 +89,7 @@ public class Member {
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name="level_id")
-    private Level level;
+    private MemberLevel memberLevel;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "additional_info_id")
@@ -120,6 +119,8 @@ public class Member {
     @ElementCollection
     private Set<Long> bookmarkChecker = new HashSet<>();
 
+    @ElementCollection
+    private Set<Long> commentLikeChecker = new HashSet<>();
 
     //NoArgsConstructor
     public Member(){ initMember();}
@@ -151,8 +152,8 @@ public class Member {
 
     //init function with constructor of OneToOne things
     public void initMember(){
-        Level level = new Level();
-        initLevel(level);
+        MemberLevel memberLevel = new MemberLevel();
+        initLevel(memberLevel);
     }
 
     public void changePassword(String password){
@@ -175,7 +176,7 @@ public class Member {
     public void addComment(Comment comment){
         commentList.add(comment);
         comment.setMember(this);
-        level.addExp(3);
+        memberLevel.addExp(3);
     }
 
     public void addCommentLike(CommentLike commentLike){
@@ -208,8 +209,8 @@ public class Member {
         bookMark.initMember(this);
     }
 
-    public void initLevel(Level level){
-        this.level=level;
+    public void initLevel(MemberLevel memberLevel){
+        this.memberLevel = memberLevel;
     }
 
     public void deletePostLike(PostLike postLike) {
@@ -280,6 +281,13 @@ public class Member {
     }
     public void addPostLikeChecker(Long id ){
         postLikeChecker.add(id);
+    }
+
+    public void addCommentLikeChecker(Long id){
+        commentLikeChecker.add(id);
+    }
+    public void deleteCommentLikeChecker(Long id){
+        commentLikeChecker.remove(id);
     }
     public void deleteBookmarkChecker(Long id ){
         bookmarkChecker.remove(id);

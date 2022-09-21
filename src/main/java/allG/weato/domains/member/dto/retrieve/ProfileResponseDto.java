@@ -4,7 +4,6 @@ import allG.weato.domains.enums.ManagementType;
 import allG.weato.domains.enums.ProviderType;
 import allG.weato.domains.enums.SymptomDegree;
 import allG.weato.domains.enums.TagType;
-import allG.weato.domains.member.entities.Level;
 import allG.weato.domains.member.entities.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +34,7 @@ public class ProfileResponseDto {
         name = member.getName();
         newsletterEmail= member.getNewsletterEmail();
         imageUrl=member.getProfile().getImageUrl();
-        level=member.getLevel().getLevel();
+        level=member.getMemberLevel().getLevel();
         nickname=member.getNickname();
         birthyear=member.getBirthyear();
         birthday=member.getBirthday();

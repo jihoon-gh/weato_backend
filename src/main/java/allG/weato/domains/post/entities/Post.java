@@ -7,11 +7,9 @@ import allG.weato.domains.enums.BoardType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +86,7 @@ public class Post {
     public void setOwner(Member member){
         this.member=member;
         member.getPostList().add(this);
-        member.getLevel().addExp(10);
+        member.getMemberLevel().addExp(10);
     }
 
     public void changeTagType(TagType tagType){

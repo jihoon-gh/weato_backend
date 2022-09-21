@@ -1,6 +1,5 @@
 package allG.weato.domains.member.dto.retrieve;
 
-import allG.weato.domains.member.entities.Level;
 import allG.weato.domains.member.entities.Member;
 import lombok.Data;
 
@@ -10,7 +9,11 @@ import java.time.LocalDateTime;
 public class MemberResponseDto {
     private Long id;
 
-    private int level;
+    private Integer level;
+
+    private Integer currentExp;
+
+    private Integer requiredExp;
     private String name;
     private String email;
     private String gender;
@@ -22,7 +25,9 @@ public class MemberResponseDto {
     public MemberResponseDto(Member member) {
         id = member.getId();
         name = member.getName();
-        level=member.getLevel().getLevel();
+        level=member.getMemberLevel().getLevel();
+        currentExp=member.getMemberLevel().getExp();
+        requiredExp=member.getMemberLevel().getRequiredExp();
         email=member.getEmail();
         gender= member.getGender();
         birthYear=member.getBirthyear();

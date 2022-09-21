@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-public class Level {
+public class MemberLevel {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "level_id")
@@ -16,7 +16,7 @@ public class Level {
 
     private int exp;
 
-    public Level(){
+    public MemberLevel(){
         level=1;
         exp=0;
     }
@@ -41,6 +41,19 @@ public class Level {
             addExp(-150);
             levelUp();
         }
+    }
+    public int getRequiredExp(){
+        int requiredExp=0;
+        if(level==1) {
+            requiredExp=25;
+        }
+        if(level==2) {
+            requiredExp=80;
+        }
+        if(level==3){
+            requiredExp=150;
+        }
+        return requiredExp;
     }
 
 

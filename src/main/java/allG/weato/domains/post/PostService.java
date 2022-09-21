@@ -47,6 +47,11 @@ public class PostService {
         });
     }
 
+    public Page<Post> findMemberOwnedPosts(Member member,Integer page){
+        PageRequest pageRequest = PageRequest.of(page-1,5,Sort.by(Sort.Direction.DESC,"createAt"));
+        return postRepository.findPostsByMemberId(member.getId(),pageRequest);
+    }
+
 
     public Post findPostFetchById(Long id){
         return postRepository.findPostFecthJoin(id).orElseGet(()->{
