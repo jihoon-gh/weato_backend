@@ -89,7 +89,7 @@ public class Member {
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name="level_id")
-    private MemberLevel memberLevel;
+    private Level level;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "additional_info_id")
@@ -152,8 +152,8 @@ public class Member {
 
     //init function with constructor of OneToOne things
     public void initMember(){
-        MemberLevel memberLevel = new MemberLevel();
-        initLevel(memberLevel);
+        Level level = new Level();
+        initLevel(level);
     }
 
     public void changePassword(String password){
@@ -176,7 +176,7 @@ public class Member {
     public void addComment(Comment comment){
         commentList.add(comment);
         comment.setMember(this);
-        memberLevel.addExp(3);
+        level.addExp(3);
     }
 
     public void addCommentLike(CommentLike commentLike){
@@ -209,8 +209,8 @@ public class Member {
         bookMark.initMember(this);
     }
 
-    public void initLevel(MemberLevel memberLevel){
-        this.memberLevel = memberLevel;
+    public void initLevel(Level level){
+        this.level = level;
     }
 
     public void deletePostLike(PostLike postLike) {

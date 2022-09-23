@@ -86,7 +86,7 @@ public class Post {
     public void setOwner(Member member){
         this.member=member;
         member.getPostList().add(this);
-        member.getMemberLevel().addExp(10);
+        member.getLevel().addExp(10);
     }
 
     public void changeTagType(TagType tagType){

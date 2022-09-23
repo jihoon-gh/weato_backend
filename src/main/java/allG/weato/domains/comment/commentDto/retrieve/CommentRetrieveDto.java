@@ -27,7 +27,7 @@ public class CommentRetrieveDto {
     public CommentRetrieveDto(Comment comment){
         id=comment.getId();
         author=comment.getMember().getNickname();
-        authorLevel=comment.getMember().getMemberLevel().getLevel();
+        authorLevel=comment.getMember().getLevel().getLevel();
         content=comment.getContent();
         createdAt=comment.getCreatedAt();
         likeCounter=comment.getLikeCount();
@@ -36,7 +36,7 @@ public class CommentRetrieveDto {
     public CommentRetrieveDto(Comment comment, boolean bool){
         id=comment.getId();
         author=comment.getMember().getNickname();
-        authorLevel=comment.getMember().getMemberLevel().getLevel();
+        authorLevel=comment.getMember().getLevel().getLevel();
         content=comment.getContent();
         createdAt=comment.getCreatedAt();
         likeCounter=comment.getLikeCount();

@@ -48,7 +48,7 @@ public class PostDetailRetrieveDto {
         tagType=post.getTagType();
         likeCount = post.getLikeCount();
         author=post.getMember().getNickname();
-        authorLevel=post.getMember().getMemberLevel().getLevel();
+        authorLevel=post.getMember().getLevel().getLevel();
         views=post.getViews();
         comments = post.getCommentList().stream()
                 .filter(comment -> comment.getParent()==null)

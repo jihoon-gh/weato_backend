@@ -25,9 +25,9 @@ public class MemberResponseDto {
     public MemberResponseDto(Member member) {
         id = member.getId();
         name = member.getName();
-        level=member.getMemberLevel().getLevel();
-        currentExp=member.getMemberLevel().getExp();
-        requiredExp=member.getMemberLevel().getRequiredExp();
+        level=member.getLevel().getLevel();
+        currentExp=member.getLevel().getExp();
+        requiredExp=member.getLevel().getRequiredExp();
         email=member.getEmail();
         gender= member.getGender();
         birthYear=member.getBirthyear();

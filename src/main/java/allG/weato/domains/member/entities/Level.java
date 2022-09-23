@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-public class MemberLevel {
+public class Level {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "level_id")
@@ -16,7 +16,7 @@ public class MemberLevel {
 
     private int exp;
 
-    public MemberLevel(){
+    public Level(){
         level=1;
         exp=0;
     }

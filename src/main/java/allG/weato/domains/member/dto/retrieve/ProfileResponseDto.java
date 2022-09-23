@@ -34,7 +34,7 @@ public class ProfileResponseDto {
         name = member.getName();
         newsletterEmail= member.getNewsletterEmail();
         imageUrl=member.getProfile().getImageUrl();
-        level=member.getMemberLevel().getLevel();
+        level=member.getLevel().getLevel();
         nickname=member.getNickname();
         birthyear=member.getBirthyear();
         birthday=member.getBirthday();

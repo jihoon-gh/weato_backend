@@ -1,7 +1,7 @@
 package allG.weato.domains.post.dto.retrieve;
 
 import allG.weato.domains.enums.BoardType;
-import allG.weato.domains.member.entities.MemberLevel;
+import allG.weato.domains.member.entities.Level;
 import allG.weato.domains.post.entities.Post;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ public class ScrapedPostDto {
     private Long id;
     private String title;
     private String name;
-    private MemberLevel memberLevel;
+    private Level level;
     private BoardType boardType;
     private int likeCount;
     private int views;
@@ -24,7 +24,7 @@ public class ScrapedPostDto {
         id = post.getId();
         title = post.getTitle();
         name = post.getMember().getNickname();
-        memberLevel =post.getMember().getMemberLevel();
+        level =post.getMember().getLevel();
         boardType=post.getBoardType();
         likeCount= post.getLikeCount();
         views=post.getViews();
