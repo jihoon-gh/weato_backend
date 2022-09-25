@@ -1,6 +1,7 @@
 package allG.weato.domains.post;
 
 import allG.weato.domains.comment.entities.Comment;
+import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.post.dto.update.UpdatePostRequest;
 import allG.weato.domains.post.entities.Post;
@@ -63,14 +64,18 @@ public class PostService {
         return postRepository.findPostByTitle(title);
     }
 
-    public Page<Post> findPostWithPaging(Integer page){
+    public Page<Post> findPostWithPaging(Integer page, BoardType boardType, TagType tagType){
         PageRequest pageRequest = PageRequest.of(page,6, Sort.by(Sort.Direction.DESC,"createdAt"));
-        return postRepository.findAll(pageRequest);
-    }
-
-    public Page<Post> findPostPageWithBoardType(Integer page, BoardType boardType){
-        PageRequest pageRequest = PageRequest.of(page,6,Sort.by(Sort.Direction.DESC,"createdAt"));
-        return postRepository.findPostsByBoardType(pageRequest,boardType);
+        if(boardType==BoardType.ALL&&tagType==TagType.ALL){
+            return postRepository.findAll(pageRequest);
+        }
+        if(boardType==BoardType.ALL&&tagType!=TagType.ALL){
+            return postRepository.findPostsByTagType(pageRequest,tagType);
+        }
+        if(boardType!=BoardType.ALL&&tagType==TagType.ALL){
+            return postRepository.findPostsByBoardType(pageRequest,boardType);
+        }
+        return postRepository.findPostsByBoardTypeAndTagType(pageRequest,boardType,tagType);
     }
 
     public Page<Post> searchPostsWithKeyword(Integer page, String keyword){
@@ -78,20 +83,6 @@ public class PostService {
         return postRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(keyword,keyword,pageRequest);
     }
 
-    @Transactional
-    public void updatePostContent(Post post, String content) {
-        post.changeContent(content);
-    }
-
-    @Transactional
-    public void updatePostTitle(Post post, String title) {
-        post.changeTitle(title);
-    }
-
-//    @Transactional
-//    public void addViews(Post post) {
-//        post.addViews();
-//    }
 
     @Transactional
     public void updatePost(Post post, UpdatePostRequest request) {

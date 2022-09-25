@@ -27,9 +27,11 @@ public class Comment {
 
     private LocalDateTime createdAt;
 
-    private int likeCount=0;
+    private Integer likeCount=0;
 
-    private boolean isRemoved=false;
+    private Boolean likeChecker;
+
+    private Boolean isRemoved=false;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")

@@ -1,6 +1,7 @@
 package allG.weato.domains.post;
 
 import allG.weato.domains.enums.BoardType;
+import allG.weato.domains.enums.TagType;
 import allG.weato.domains.post.entities.Attachment;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.post.entities.Post;
@@ -67,7 +68,6 @@ public class PostController {
                 .limit(3)
                 .collect(Collectors.toList());
 
-        System.out.println("questionPosts.size() = " + questionPosts.size());
         
         List<PostRetrieveDto> managementPosts = posts.stream()
                 .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
@@ -89,17 +89,14 @@ public class PostController {
     })
     @GetMapping("/posts")
     public ResultForPaging showPosts(@RequestParam(value="type",defaultValue = "all") String type
-            ,@RequestParam(value = "page",defaultValue = "1") Integer page) {
+            ,@RequestParam(value = "page",defaultValue = "1") Integer page
+            ,@RequestParam(value = "tag",defaultValue = "all") String code){
 
         BoardType boardType=BoardType.valueOf(type.toUpperCase());
+        TagType tagType = TagType.valueOf(code.toUpperCase());
         Page<Post> findPosts;
 
-        if(boardType==BoardType.ALL) {
-            findPosts = postService.findPostWithPaging(page-1);
-        }
-        else {
-            findPosts = postService.findPostPageWithBoardType(page-1,boardType);
-        }
+        findPosts = postService.findPostWithPaging(page-1,boardType,tagType);
 
         if(findPosts.isEmpty()) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
 
@@ -265,7 +262,7 @@ public class PostController {
         return new PostScrapDto(post);
 
     }
-
+    @Operation(summary = "search posts", description = "게시글 검색")
     @GetMapping("/posts/search")
     public ResultForSearch searchPostsByKeyword(@RequestParam(value = "keyword") String keyword,
                                                 @RequestParam(value="page",defaultValue = "1") Integer page){
@@ -284,7 +281,7 @@ public class PostController {
         return new ResultForSearch(result,min,max,current,numOfTotalPosts);
 
     }
-
+    @Operation(summary = "get hot-topic posts", description = "핫토픽 조회")
     @GetMapping("/posts/hot-topics")
     public ResultForList getHotTopics(){
 
@@ -294,7 +291,7 @@ public class PostController {
 
         return new ResultForList(result);
     }
-
+    @Operation(summary = "get most -scraped posts", description = "가장 많이 스크랩된 게시글들 조회")
     @GetMapping("/posts/most-scraped")
     public ResultForList getMostScraped(){
 

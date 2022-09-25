@@ -1,6 +1,7 @@
 package allG.weato.domains.comment.commentDto.retrieve;
 
 import allG.weato.domains.comment.entities.Comment;
+import allG.weato.domains.member.entities.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,24 +17,29 @@ public class CommentRetrieveDto {
     private Long id;
     private String author;
 
-    private int authorLevel;
+    private Integer authorLevel;
     private String content;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
-    private int likeCounter;
+    private Integer likeCounter;
+
+    private Boolean likeChecker=false;
 
     private List<CommentRetrieveDto> children = new ArrayList<>();
 
-    public CommentRetrieveDto(Comment comment){
+    public CommentRetrieveDto(Comment comment, Member member){
         id=comment.getId();
         author=comment.getMember().getNickname();
         authorLevel=comment.getMember().getLevel().getLevel();
         content=comment.getContent();
         createdAt=comment.getCreatedAt();
         likeCounter=comment.getLikeCount();
+        if(member.getCommentLikeChecker().contains(comment.getId())){
+            likeChecker=true;
+        }
     }
 
-    public CommentRetrieveDto(Comment comment, boolean bool){
+    public CommentRetrieveDto(Comment comment, Member member,boolean bool){
         id=comment.getId();
         author=comment.getMember().getNickname();
         authorLevel=comment.getMember().getLevel().getLevel();
@@ -42,8 +48,12 @@ public class CommentRetrieveDto {
         likeCounter=comment.getLikeCount();
         children=comment.getChildren()
                 .stream()
-                .map(c->new CommentRetrieveDto(c))
+                .map(c->new CommentRetrieveDto(c,member))
                 .collect(Collectors.toList());
+        if(member.getCommentLikeChecker().contains(comment.getId())){
+            likeChecker=true;
+        }
+
     }
 
 

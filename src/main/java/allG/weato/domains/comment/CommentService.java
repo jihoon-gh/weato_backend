@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,8 @@ import javax.persistence.EntityManager;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+
+    @PersistenceContext
     private final EntityManager em;
 
 
@@ -49,6 +52,7 @@ public class CommentService {
     @Transactional
     public void deleteCommentLike(Member member, Comment comment, CommentLike commentLike){
         member.deleteCommentLike(commentLike);
+        member.deleteCommentLikeChecker(comment.getId());
         comment.deleteLike(commentLike);
         commentRepository.deleteCommentLikeById(commentLike.getId());
     }
@@ -56,6 +60,7 @@ public class CommentService {
     @Transactional
     public void addCommentLike(Member member, Comment comment, CommentLike commentLike){
         member.addCommentLike(commentLike);
+        member.addCommentLikeChecker(comment.getId());
         comment.addLike(commentLike);
         em.persist(commentLike);
     }

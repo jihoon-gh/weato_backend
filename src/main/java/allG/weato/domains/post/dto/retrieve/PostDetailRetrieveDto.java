@@ -29,15 +29,15 @@ public class PostDetailRetrieveDto {
     private TagType tagType;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
-    private int likeCount;
+    private Integer likeCount;
     private List<CommentRetrieveDto> comments;
 
-    private int views;
+    private Integer views;
 
-    private int scrapCount;
+    private Integer scrapCount;
 
-    private boolean likeChecker=false;
-    private boolean scrapChecker=false;
+    private Boolean likeChecker=false;
+    private Boolean scrapChecker=false;
 
     public PostDetailRetrieveDto(Post post, Member member) {
         id = post.getId();
@@ -52,7 +52,7 @@ public class PostDetailRetrieveDto {
         views=post.getViews();
         comments = post.getCommentList().stream()
                 .filter(comment -> comment.getParent()==null)
-                .map( c -> new CommentRetrieveDto(c,true)).collect(Collectors.toList());
+                .map( c -> new CommentRetrieveDto(c,member,true)).collect(Collectors.toList());
         scrapCount=post.getScrapCount();
         if(member.getPostLikeChecker().contains(post.getId())){
             likeChecker=true;

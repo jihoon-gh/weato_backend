@@ -1,5 +1,6 @@
 package allG.weato.domains.post;
 
+import allG.weato.domains.enums.TagType;
 import allG.weato.domains.post.entities.Post;
 import allG.weato.domains.enums.BoardType;
 import org.springframework.data.domain.Page;
@@ -17,8 +18,6 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-
-
       Optional<Post> findPostById(Long id);
 
       @Query("select p from Post p where p.member.id = :id")
@@ -29,7 +28,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
       @Query("select p from Post p left join fetch p.postLikeList where p.id = :id")
       Post findPostByIdWithLikes(@Param("id")Long id);
 
-      @Query("select p from Post p left join fetch p.scrapList where p.id = :id")
+       @Query("select p from Post p left join fetch p.scrapList where p.id = :id")
       Post findPostByIdWithScrap(@Param("id")Long id);
 
       Post findPostByTitle(String title);
@@ -37,11 +36,21 @@ public interface PostRepository extends JpaRepository<Post, Long> {
       @EntityGraph(attributePaths = {"commentList"})
       Page<Post> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String title,String content, Pageable pageable);
 
+      @Override
+      @EntityGraph(attributePaths = {"commentList","member"})
+      List<Post> findAll();
+
       @EntityGraph(attributePaths = {"commentList","member"})
       Page<Post> findAll(Pageable pageable);
 
       @EntityGraph(attributePaths = {"commentList","member"})
+      Page<Post> findPostsByTagType(Pageable pageable,TagType tagType);
+
+      @EntityGraph(attributePaths = {"commentList","member"})
       Page<Post> findPostsByBoardType(Pageable pageable, BoardType boardType);
+
+      @EntityGraph(attributePaths = {"commentList","member"})
+      Page<Post> findPostsByBoardTypeAndTagType(Pageable pageable, BoardType boardType,TagType tagType);
 
       @Modifying
       @Transactional
