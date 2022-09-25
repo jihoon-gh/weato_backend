@@ -5,6 +5,8 @@ import allG.weato.domains.post.entities.Post;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class Scrap {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    private LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
 
     public void initMember(Member member){
         this.member=member;

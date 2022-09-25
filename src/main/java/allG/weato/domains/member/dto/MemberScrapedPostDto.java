@@ -3,21 +3,23 @@ package allG.weato.domains.member.dto;
 import allG.weato.domains.enums.BoardType;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.post.dto.retrieve.PostRetrieveDto;
+import allG.weato.domains.post.entities.Scrap;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
 public class MemberScrapedPostDto {
-    private int min;
+    private Integer min;
 
-    private int max;
+    private Integer max;
 
-    private int current;
+    private Integer current;
     private List<PostRetrieveDto> result;
 
 
@@ -25,6 +27,7 @@ public class MemberScrapedPostDto {
 
         List<PostRetrieveDto> scrapedPosts=member.getScrapList()
                 .stream()
+                .sorted(Comparator.comparing(Scrap::getLocalDateTime))
                 .map(scrap -> new PostRetrieveDto(scrap.getPost()))
                 .collect(Collectors.toList());
         int start = (int)pageable.getOffset();
@@ -43,6 +46,7 @@ public class MemberScrapedPostDto {
         List<PostRetrieveDto> scrapedPosts=member.getScrapList()
                 .stream()
                 .filter(scrap -> scrap.getPost().getBoardType()==boardType)
+                .sorted(Comparator.comparing(Scrap::getLocalDateTime))
                 .map(scrap -> new PostRetrieveDto(scrap.getPost()))
                 .collect(Collectors.toList());
 
@@ -54,6 +58,7 @@ public class MemberScrapedPostDto {
         current=pageable.getPageNumber()+1;
         min = 1+current/10*10;
         max =10+current/10*10;
+        if(max>=lastPage) max = lastPage;
         if(max==0) max++;
     }
 }

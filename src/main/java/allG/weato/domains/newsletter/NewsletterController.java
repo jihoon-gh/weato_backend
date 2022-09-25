@@ -1,7 +1,7 @@
 package allG.weato.domains.newsletter;
 
 import allG.weato.domains.member.MemberService;
-import allG.weato.domains.member.entities.BookMark;
+import allG.weato.domains.newsletter.entities.BookMark;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.newsletter.entities.NewsletterLike;
 import allG.weato.domains.newsletter.dto.create.CreateNewsletterResponseDto;

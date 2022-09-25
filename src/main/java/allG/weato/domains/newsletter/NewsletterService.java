@@ -1,6 +1,6 @@
 package allG.weato.domains.newsletter;
 
-import allG.weato.domains.member.entities.BookMark;
+import allG.weato.domains.newsletter.entities.BookMark;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.newsletter.entities.Newsletter;
 import allG.weato.domains.enums.TagType;
@@ -15,12 +15,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

@@ -114,14 +114,15 @@ public class MemberController {
     @GetMapping("/members/{memberId}/bookmarks")
     public MemberBookmarkNewslettersDto showBookmarkByTagType(@PathVariable("memberId") Long memberId
             , @RequestParam(value = "tag",defaultValue = "all") String code
-            , @RequestParam(value = "page",defaultValue = "1") int page){
+            , @RequestParam(value = "page",defaultValue = "1") Integer page){
         code=code.toUpperCase();
         TagType tagType = TagType.valueOf(code);
         Member member = memberService.findMemberForBookMark(memberId);
         PageRequest pageRequest = PageRequest.of(page-1,10, Sort.by(Sort.Direction.DESC,"createAt"));
+
         MemberBookmarkNewslettersDto memberBookmarkNewslettersDto;
+        memberBookmarkNewslettersDto = new MemberBookmarkNewslettersDto(member,pageRequest, tagType);
         if(tagType==tagType.ALL) memberBookmarkNewslettersDto = new MemberBookmarkNewslettersDto(member,pageRequest);
-        else memberBookmarkNewslettersDto = new MemberBookmarkNewslettersDto(member,pageRequest, tagType);
         return memberBookmarkNewslettersDto;
     }
 
@@ -134,9 +135,10 @@ public class MemberController {
         BoardType boardType = BoardType.valueOf(code);
         Member member = memberService.findMemberForScrap(memberId);
         PageRequest pageRequest = PageRequest.of(page-1,10, Sort.by(Sort.Direction.DESC,"createAt"));
+
         MemberScrapedPostDto memberScrapedPostDto;
+        memberScrapedPostDto = new MemberScrapedPostDto(member,pageRequest, boardType);
         if(boardType==BoardType.ALL) memberScrapedPostDto = new MemberScrapedPostDto(member,pageRequest);
-        else memberScrapedPostDto = new MemberScrapedPostDto(member,pageRequest, boardType);
         return memberScrapedPostDto;
     }
 

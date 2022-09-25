@@ -4,24 +4,14 @@ import allG.weato.domains.comment.entities.Comment;
 import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.dto.create.CreateMemberRequest;
 import allG.weato.domains.member.dto.update.UpdateProfileRequestDto;
-import allG.weato.domains.member.entities.BookMark;
 import allG.weato.domains.member.entities.Member;
-import allG.weato.domains.newsletter.entities.Newsletter;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.management.MemoryManagerMXBean;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 
 @Service
 @Transactional(readOnly = true)

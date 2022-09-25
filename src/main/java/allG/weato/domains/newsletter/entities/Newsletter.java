@@ -1,6 +1,5 @@
 package allG.weato.domains.newsletter.entities;
 
-import allG.weato.domains.member.entities.BookMark;
 //import allG.weato.domains.member.entities.Tag;
 import allG.weato.domains.enums.TagType;
 import lombok.Getter;
