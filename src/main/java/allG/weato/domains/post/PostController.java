@@ -98,8 +98,6 @@ public class PostController {
 
         findPosts = postService.findPostWithPaging(page-1,boardType,tagType);
 
-        if(findPosts.isEmpty()) throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-
         List<Post> posts = findPosts.getContent();
         int lastPageNum = findPosts.getTotalPages();
         int current = page;

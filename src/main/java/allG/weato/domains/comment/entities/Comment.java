@@ -80,13 +80,13 @@ public class Comment {
     public void addLike(CommentLike commentLike){
         getCommentLikeList().add(commentLike);
         commentLike.setOwnComment(this);
-        likeCount++;
+        likeCount=commentLikeList.size();
     }
 
     public void deleteLike(CommentLike commentLike){
         commentLikeList.remove(commentLike);
         commentLike.setOwner(null);
-        likeCount--;
+        likeCount=commentLikeList.size();
     }
     public void addChild(Comment child){
         children.add(child);

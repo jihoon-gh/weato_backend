@@ -12,6 +12,6 @@ public class DeleteCommentLikeDto {
 
     public DeleteCommentLikeDto(Comment comment){
         id= comment.getId();
-        likeCount=getLikeCount();
+        likeCount=comment.getLikeCount();
     }
 }
