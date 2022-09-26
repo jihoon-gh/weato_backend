@@ -8,13 +8,19 @@ import allG.weato.domains.comment.CommentRepository;
 import allG.weato.domains.comment.CommentService;
 import allG.weato.domains.member.MemberService;
 import allG.weato.domains.post.PostService;
+import allG.weato.validation.CommonErrorCode;
+import allG.weato.validation.RestException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,7 +45,8 @@ public class CommentServiceTest {
         comment.changeContent("take the world");
         commentRepository.save(comment);
         //when
-        Comment findComment =commentRepository.findCommentById(comment.getId());
+        Comment findComment =commentRepository.findCommentById(comment.getId()).orElseGet(()->{
+                throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);});
         //then
         assertThat(findComment.getContent()).isEqualTo("take the world");
     }

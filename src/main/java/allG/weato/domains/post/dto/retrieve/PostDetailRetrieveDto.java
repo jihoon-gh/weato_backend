@@ -39,6 +39,8 @@ public class PostDetailRetrieveDto {
     private Boolean likeChecker=false;
     private Boolean scrapChecker=false;
 
+    private Boolean isAuthor=false;
+
     public PostDetailRetrieveDto(Post post, Member member) {
         id = post.getId();
         title = post.getTitle();
@@ -59,6 +61,9 @@ public class PostDetailRetrieveDto {
         }
         if(member.getScrapChecker().contains(post.getId())){
             scrapChecker=true;
+        }
+        if(post.getMember().getId()==member.getId()){
+            isAuthor=true;
         }
     }
 }

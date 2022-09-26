@@ -27,6 +27,8 @@ public class CommentRetrieveDto {
 
     private List<CommentRetrieveDto> children = new ArrayList<>();
 
+    private Boolean isAuthor=false;
+
     public CommentRetrieveDto(Comment comment, Member member){
         id=comment.getId();
         author=comment.getMember().getNickname();
@@ -36,6 +38,9 @@ public class CommentRetrieveDto {
         likeCounter=comment.getLikeCount();
         if(member.getCommentLikeChecker().contains(comment.getId())){
             likeChecker=true;
+        }
+        if(comment.getMember().getId()==member.getId()){
+            isAuthor=true;
         }
     }
 
@@ -52,6 +57,9 @@ public class CommentRetrieveDto {
                 .collect(Collectors.toList());
         if(member.getCommentLikeChecker().contains(comment.getId())){
             likeChecker=true;
+        }
+        if(comment.getMember().getId()==member.getId()){
+            isAuthor=true;
         }
 
     }

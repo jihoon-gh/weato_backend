@@ -24,6 +24,9 @@ public class ProfileResponseDto {
     private String birthday;
     private ProviderType providerType;
 
+    private Boolean isRecurrence;
+
+    private Boolean isFamilyHistory;
     private Integer medicalHistory;
     private SymptomDegree symptomDegree;
     private List<ManagementType> managementTypeList=new ArrayList<>();
@@ -39,6 +42,8 @@ public class ProfileResponseDto {
         birthyear=member.getBirthyear();
         birthday=member.getBirthday();
         providerType=member.getProviderType();
+        isRecurrence=member.getAdditionalInfo().getIsRecurrence();
+        isFamilyHistory=member.getAdditionalInfo().getIsFamilyHistory();
         medicalHistory=member.getAdditionalInfo().getMedicalHistory();
         symptomDegree=member.getAdditionalInfo().getSymptomDegree();
         managementTypeList=member.getAdditionalInfo().getManagementTypes();
