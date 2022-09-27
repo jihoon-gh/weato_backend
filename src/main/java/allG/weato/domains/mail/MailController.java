@@ -48,6 +48,6 @@ public class MailController {
             memberService.emailValidation(findMember);
             return HttpStatus.ACCEPTED;
         }
-        else throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 }

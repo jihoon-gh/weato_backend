@@ -78,9 +78,7 @@ public class MemberService {
         if(member==null){
             return false;
         }
-        else{
-            return true;
-        }
+        return true;
     }
 
     @Transactional

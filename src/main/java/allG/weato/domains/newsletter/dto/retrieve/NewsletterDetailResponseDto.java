@@ -55,17 +55,11 @@ public class NewsletterDetailResponseDto {
         likeCount= newsletter.getLikeCount();
         createdAt=newsletter.getCreatedAt();
         bookmarkCount=newsletter.getBookMarkCount();
-
         if(member.getNewsletterLikeChecker().contains(newsletter.getId())){
             likeChecker=true;
-        }else{
-            likeChecker=false;
         }
-
         if(member.getBookmarkChecker().contains(newsletter.getId())){
             bookmarkChecker=true;
-        }else{
-            bookmarkChecker=false;
         }
     }
 }

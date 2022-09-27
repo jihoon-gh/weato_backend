@@ -90,9 +90,6 @@ public class NewsletterController {
     public NewsletterResponseDto postNewsletter(@RequestBody @Valid CreateNewsletterRequestDto request){
         Newsletter newsletter = new Newsletter(request.getTitle(),request.getContent(),request.getTagType());
         newsletterService.save(newsletter);
-        /*Newsletter findOne = newsletterService.findOneById(id); //이거 약간 테스트처럼 드가는데???
-        if(findOne==null) throw new RestException(CommonErrorCode.INTERNAL_SERVER_ERROR);
-        else */
         return new CreateNewsletterResponseDto(newsletter);
     }
     @Operation(summary = "update specific newsletter - only admin is authorized", description = "뉴스레터 수정")
