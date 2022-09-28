@@ -20,11 +20,13 @@ public class PostRetrieveDto {
 
     private String author;
 
-    private int commentsCounter;
+    private Integer commentsCounter;
 
-    private int views;
+    private Integer views;
 
-    private int likeCounter;
+    private Integer likeCounter;
+
+    private Integer level;
 
     private BoardType boardType;
 
@@ -35,6 +37,7 @@ public class PostRetrieveDto {
         title = post.getTitle();
         createdAt = post.getCreatedAt();
         author = post.getMember().getNickname();
+        level = post.getMember().getLevel().getLevel();
         commentsCounter = post.getCommentList().size();
         views= post.getViews();
         likeCounter=post.getLikeCount();

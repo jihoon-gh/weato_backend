@@ -1,6 +1,7 @@
 package allG.weato.domains.post.dto.retrieve;
 
 import allG.weato.domains.enums.BoardType;
+import allG.weato.domains.enums.SymptomDegree;
 import allG.weato.domains.enums.TagType;
 import allG.weato.domains.member.entities.Member;
 import allG.weato.domains.post.entities.Post;
@@ -20,7 +21,11 @@ public class PostDetailRetrieveDto {
     private Long id;
     private String author;
 
-    private int authorLevel;
+    private Integer authorLevel;
+
+    private Integer medicalHistory;
+
+    private SymptomDegree symptomDegree;
     private String title;
     private String content;
 
@@ -51,6 +56,8 @@ public class PostDetailRetrieveDto {
         likeCount = post.getLikeCount();
         author=post.getMember().getNickname();
         authorLevel=post.getMember().getLevel().getLevel();
+        medicalHistory=  post.getMember().getAdditionalInfo().getMedicalHistory();
+        symptomDegree = post.getMember().getAdditionalInfo().getSymptomDegree();
         views=post.getViews();
         comments = post.getCommentList().stream()
                 .filter(comment -> comment.getParent()==null)

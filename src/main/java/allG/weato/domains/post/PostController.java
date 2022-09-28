@@ -112,8 +112,6 @@ public class PostController {
     }
 
 
-
-
     @Operation(summary = "Create posts", description = "게시글 생성")
     @ApiResponses({
             @ApiResponse(responseCode = "201",description = "created successfully", content = @Content(schema = @Schema(implementation =CreatePostResponse.class ))),
