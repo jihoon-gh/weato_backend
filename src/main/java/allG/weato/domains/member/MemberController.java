@@ -142,7 +142,7 @@ public class MemberController {
         return memberScrapedPostDto;
     }
 
-    @GetMapping("/members/{membersId}/owned-posts")
+    @GetMapping("/members/{memberId}/owned-posts")
     public ResultForSearch showOwnedPosts(@PathVariable("memberId")Long memberId,
                                           @RequestParam(value = "page",defaultValue = "1")Integer page){
 

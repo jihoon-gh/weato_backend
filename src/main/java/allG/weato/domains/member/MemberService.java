@@ -107,6 +107,7 @@ public class MemberService {
         member.getAdditionalInfo().setMedicalHistory(request.getMedicalHistory());
         member.getAdditionalInfo().setIsFamilyHistory(request.getIsFamilyHistory());
         member.getAdditionalInfo().setIsRecurrence(request.getIsRecurrence());
+        member.getAdditionalInfo().setSymptomDegree(request.getSymptomDegree());
         member.getAdditionalInfo().changeManagement(request);
         member.changeTagTypesByUpdate(request);
         memberRepository.save(member);

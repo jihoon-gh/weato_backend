@@ -49,7 +49,7 @@ public class PostService {
     }
 
     public Page<Post> findMemberOwnedPosts(Member member,Integer page){
-        PageRequest pageRequest = PageRequest.of(page-1,5,Sort.by(Sort.Direction.DESC,"createAt"));
+        PageRequest pageRequest = PageRequest.of(page-1,5,Sort.by(Sort.Direction.DESC,"createdAt"));
         return postRepository.findPostsByMemberId(member.getId(),pageRequest);
     }
 
