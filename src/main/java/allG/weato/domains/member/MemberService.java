@@ -126,6 +126,7 @@ public class MemberService {
         member.changeAuthNum(num);
     }
 
+    @Transactional
     public void deleteMember(Member member) {
         memberRepository.delete(member);
     }

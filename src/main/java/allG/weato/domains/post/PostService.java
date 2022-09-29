@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.List;
 
 @Transactional(readOnly = true)
@@ -152,6 +153,13 @@ public class PostService {
     }
     public Post findOneByIdWithScrap(Long id){
         return postRepository.findPostByIdWithScrap(id);
+    }
+
+    public List<Post> findCandidatesOfRecommendPost(Integer std){
+        List<Post> candidatesPosts =  postRepository.findRecommendPosts(std);
+        Collections.shuffle(candidatesPosts);
+        List<Post> recommendPosts = candidatesPosts.subList(0,2);
+        return recommendPosts;
     }
 }
 

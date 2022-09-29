@@ -17,16 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Service
-@Transactional
 public class PostServiceTest {
     @Autowired private PostService postService;
-    @Autowired private  PostRepository postRepository;
     @Autowired private MemberService memberService;
 
     @Test
@@ -161,8 +160,20 @@ public class PostServiceTest {
         assertThat(findMember.getPostLikeList().size()).isEqualTo(0);
         //controller 단에서 이미 존재하는 postLike.member.id with postLike.post.id인지 검사하자
         //검사해서 없으면 좋아요를 하는 걸루다가 하자
+    }
 
+    @DisplayName("추천글 테스트 - 좋아요 n개 이상 글에서")
+    @Test
+    public void postsRecommendTest(){
+        //given
+        List<Post> candidatePosts = postService.findCandidatesOfRecommendPost(1);
 
+        //when
+        Collections.shuffle(candidatePosts);
+        List<Post> recommendPosts = candidatePosts.subList(0,2);
+
+        //then
+        assertThat(recommendPosts.size()).isEqualTo(2);
     }
 
   

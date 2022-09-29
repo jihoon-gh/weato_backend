@@ -10,6 +10,7 @@ import allG.weato.domains.member.MemberService;
 import allG.weato.domains.post.PostService;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
+import org.hibernate.Transaction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -298,4 +298,15 @@ public class PostController {
         return new ResultForList(result);
     }
 
+    @GetMapping("/posts/recommended-posts")
+    public ResultForList getRecommendedPosts()
+    {
+        List<PostRetrieveDto> result = postService.findCandidatesOfRecommendPost(1)
+                .stream()
+                .map(p->new PostRetrieveDto(p))
+                .collect(Collectors.toList());
+
+        return new ResultForList(result);
+    }
+
 }

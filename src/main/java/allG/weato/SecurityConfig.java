@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +22,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -36,17 +38,14 @@ public class SecurityConfig {
     private final OAuth2AuthenticationSuccessHandler successHandler;
     private final OAuth2AuthenticationFailureHandler failureHandler;
     private final HttpCookieOAuth2AuthorizationRequestRepository oAuth2AuthorizationRequestRepository;
-
-
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     private final JwtRequestFilter jwtRequestFilter;
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
+//    @Bean
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+//        return authenticationConfiguration.getAuthenticationManager();
+//    }
 
     @Bean
     public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
@@ -63,8 +62,16 @@ public class SecurityConfig {
         return new JwtMemberDetailsService(memberRepository);
     }
 
-
-
+    @Bean
+    public DaoAuthenticationProvider myDaoAuthenticationProvider(){
+        DaoAuthenticationProvider dap = new DaoAuthenticationProvider();
+        dap.setUserDetailsService(memberDetailsService());
+        return dap;
+    }
+    @Bean
+    public ProviderManager providerManager(){
+        return new ProviderManager(myDaoAuthenticationProvider());
+    }
 
 
     @Bean
