@@ -20,6 +20,8 @@ public class PostRetrieveDto {
 
     private String author;
 
+    private String content;
+
     private Integer commentsCounter;
 
     private Integer views;
@@ -35,6 +37,20 @@ public class PostRetrieveDto {
     public PostRetrieveDto(Post post) {
         id= post.getId();
         title = post.getTitle();
+        createdAt = post.getCreatedAt();
+        author = post.getMember().getNickname();
+        level = post.getMember().getLevel().getLevel();
+        commentsCounter = post.getCommentList().size();
+        views= post.getViews();
+        likeCounter=post.getLikeCount();
+        boardType=post.getBoardType();
+        tagType=post.getTagType();
+    }
+
+    public PostRetrieveDto(Post post, Integer std){
+        id= post.getId();
+        title = post.getTitle();
+        content = post.getContent();
         createdAt = post.getCreatedAt();
         author = post.getMember().getNickname();
         level = post.getMember().getLevel().getLevel();

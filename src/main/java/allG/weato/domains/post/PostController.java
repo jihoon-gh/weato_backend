@@ -301,9 +301,10 @@ public class PostController {
     @GetMapping("/posts/recommended-posts")
     public ResultForList getRecommendedPosts()
     {
-        List<PostRetrieveDto> result = postService.findCandidatesOfRecommendPost(1)
+        Integer std = 1;
+        List<PostRetrieveDto> result = postService.findCandidatesOfRecommendPost(std)
                 .stream()
-                .map(p->new PostRetrieveDto(p))
+                .map(p->new PostRetrieveDto(p,std))
                 .collect(Collectors.toList());
 
         return new ResultForList(result);
