@@ -161,5 +161,10 @@ public class PostService {
         List<Post> recommendPosts = candidatesPosts.subList(0,2);
         return recommendPosts;
     }
+
+    @Transactional
+    public void addView(Post post) {
+        post.addViews();
+    }
 }
 

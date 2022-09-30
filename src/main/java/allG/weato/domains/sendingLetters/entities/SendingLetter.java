@@ -15,7 +15,7 @@ import java.time.ZoneId;
 public class SendingLetter {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sending_leter_id")
+    @Column(name = "sending_letter_id")
     private Long id;
 
     private String title;

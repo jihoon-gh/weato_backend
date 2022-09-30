@@ -148,8 +148,7 @@ public class PostController {
         String email = principal.getUsername();
         Member findMember = memberService.findByEmail(email);
         Post post = postService.findPostFetchById(id);
-        post.addViews();
-        postService.save(post);
+        postService.addView(post);
 
         return new PostDetailRetrieveDto(post,findMember);
     }
@@ -194,7 +193,6 @@ public class PostController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"You already liked it");
             }
         }
-
         PostLike postLike = new PostLike();
         postService.addLike(findMember,post,postLike);
         return new AddLikeDto(post.getId(),post.getLikeCount());
