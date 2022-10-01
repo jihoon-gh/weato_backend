@@ -1,11 +1,10 @@
 package allG.weato.oauth2.controller;
 
-import allG.weato.domains.enums.Role;
-import allG.weato.domains.member.MemberRefreshTokenRepository;
-import allG.weato.domains.member.entities.MemberRefreshToken;
+import allG.weato.domainTest.enums.Role;
+import allG.weato.domainTest.member.MemberRefreshTokenRepository;
+import allG.weato.domainTest.member.entities.MemberRefreshToken;
 import allG.weato.oauth2.JwtMemberDetails;
 import allG.weato.oauth2.properties.AppProperties;
-import allG.weato.oauth2.request.JwtRequest;
 import allG.weato.oauth2.response.ApiResponse;
 import allG.weato.oauth2.service.JwtMemberDetailsService;
 import allG.weato.oauth2.utils.CookieUtils;
@@ -18,17 +17,12 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Date;
 
 import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.REFRESH_TOKEN;

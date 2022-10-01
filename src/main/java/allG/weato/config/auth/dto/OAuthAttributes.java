@@ -1,7 +1,7 @@
 package allG.weato.config.auth.dto;
 
-import allG.weato.domains.member.entities.Member;
-import allG.weato.domains.enums.Role;
+import allG.weato.domainTest.member.entities.Member;
+import allG.weato.domainTest.enums.Role;
 import lombok.Builder;
 import lombok.Getter;
 

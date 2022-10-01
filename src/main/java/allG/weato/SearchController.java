@@ -1,11 +1,11 @@
 package allG.weato;
 
-import allG.weato.domains.newsletter.NewsletterService;
-import allG.weato.domains.newsletter.entities.Newsletter;
-import allG.weato.domains.newsletter.dto.retrieve.NewsletterDetailResponseDto;
-import allG.weato.domains.post.PostService;
-import allG.weato.domains.post.entities.Post;
-import allG.weato.domains.post.dto.retrieve.PostRetrieveDto;
+import allG.weato.domainTest.newsletter.NewsletterService;
+import allG.weato.domainTest.newsletter.entities.Newsletter;
+import allG.weato.domainTest.newsletter.dto.retrieve.NewsletterDetailResponseDto;
+import allG.weato.domainTest.post.PostService;
+import allG.weato.domainTest.post.entities.Post;
+import allG.weato.domainTest.post.dto.retrieve.PostRetrieveDto;
 import lombok.*;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;

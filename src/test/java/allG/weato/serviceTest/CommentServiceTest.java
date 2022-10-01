@@ -1,27 +1,22 @@
 package allG.weato.serviceTest;
 
-import allG.weato.domains.comment.entities.Comment;
-import allG.weato.domains.comment.entities.CommentLike;
-import allG.weato.domains.member.entities.Member;
-import allG.weato.domains.post.entities.Post;
-import allG.weato.domains.comment.CommentRepository;
-import allG.weato.domains.comment.CommentService;
-import allG.weato.domains.member.MemberService;
-import allG.weato.domains.post.PostService;
+import allG.weato.domainTest.comment.entities.Comment;
+import allG.weato.domainTest.comment.entities.CommentLike;
+import allG.weato.domainTest.member.entities.Member;
+import allG.weato.domainTest.post.entities.Post;
+import allG.weato.domainTest.comment.CommentRepository;
+import allG.weato.domainTest.comment.CommentService;
+import allG.weato.domainTest.member.MemberService;
+import allG.weato.domainTest.post.PostService;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
-import org.hibernate.Transaction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

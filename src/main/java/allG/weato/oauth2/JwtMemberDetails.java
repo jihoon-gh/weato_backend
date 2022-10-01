@@ -1,7 +1,7 @@
 package allG.weato.oauth2;
 
-import allG.weato.domains.enums.Role;
-import allG.weato.domains.member.entities.Member;
+import allG.weato.domainTest.enums.Role;
+import allG.weato.domainTest.member.entities.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

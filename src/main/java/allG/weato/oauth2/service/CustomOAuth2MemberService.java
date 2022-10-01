@@ -1,16 +1,15 @@
 package allG.weato.oauth2.service;
 
-import allG.weato.domains.enums.ProviderType;
-import allG.weato.domains.enums.Role;
-import allG.weato.domains.member.MemberRepository;
-import allG.weato.domains.member.entities.AdditionalInfo;
-import allG.weato.domains.member.entities.Member;
-import allG.weato.domains.member.entities.Profile;
+import allG.weato.domainTest.enums.ProviderType;
+import allG.weato.domainTest.enums.Role;
+import allG.weato.domainTest.member.MemberRepository;
+import allG.weato.domainTest.member.entities.AdditionalInfo;
+import allG.weato.domainTest.member.entities.Member;
+import allG.weato.domainTest.member.entities.Profile;
 import allG.weato.oauth2.JwtMemberDetails;
 import allG.weato.oauth2.exception.OAuthProviderMissMatchException;
 import allG.weato.oauth2.memberInfo.OAuth2MemberInfo;
 import allG.weato.oauth2.memberInfo.OAuth2MemberInfoFactory;
-import allG.weato.oauth2.properties.AppProperties;
 import allG.weato.oauth2.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;

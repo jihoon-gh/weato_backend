@@ -1,21 +1,16 @@
 package allG.weato.serviceTest;
 
-import allG.weato.domains.comment.entities.Comment;
-import allG.weato.domains.member.entities.Member;
-import allG.weato.domains.post.entities.Post;
-import allG.weato.domains.post.entities.PostLike;
-import allG.weato.domains.post.PostRepository;
-import allG.weato.domains.member.MemberService;
-import allG.weato.domains.post.PostService;
+import allG.weato.domainTest.comment.entities.Comment;
+import allG.weato.domainTest.member.entities.Member;
+import allG.weato.domainTest.post.entities.Post;
+import allG.weato.domainTest.post.entities.PostLike;
+import allG.weato.domainTest.member.MemberService;
+import allG.weato.domainTest.post.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import java.util.Collections;
 import java.util.List;

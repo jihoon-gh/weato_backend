@@ -1,6 +1,6 @@
 package allG.weato.oauth2.memberInfo;
 
-import allG.weato.domains.enums.ProviderType;
+import allG.weato.domainTest.enums.ProviderType;
 
 import java.util.Map;
 

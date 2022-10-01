@@ -1,0 +1,52 @@
+package allG.weato.domainTest.mail;
+
+import allG.weato.domainTest.mail.dto.ReceiveAuthNumDto;
+import allG.weato.domainTest.mail.dto.SendingMailDto;
+import allG.weato.domainTest.member.MemberService;
+import allG.weato.domainTest.member.entities.Member;
+import allG.weato.oauth2.JwtMemberDetails;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import javax.validation.Valid;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api")
+public class MailController {
+
+    private final MailService mailService;
+    private final MemberService memberService;
+
+
+    @Operation(summary = "send validation-checking mail to mebmer", description = "뉴스레터 인증 메일 발송")
+    @PostMapping("/mail")
+    public void sendValidateNum(@RequestBody @Valid SendingMailDto sendingMailDto){
+        JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = principal.getUsername();
+        Member findMember = memberService.findByEmail(email);
+        int num =  (int)(Math.random() * (99999 - 10000 + 1)) + 10000;
+        memberService.emailValidation(findMember, num);
+        mailService.mailSend(sendingMailDto, num);
+        System.out.println("sending process finish");
+    }
+
+
+    @Operation(summary = "check the authorization_code end update member ", description = "인증 코드 확인")
+    @PatchMapping("/mail")
+    public HttpStatus validateNewsletterEmail(@RequestBody @Valid ReceiveAuthNumDto num){
+        JwtMemberDetails principal = (JwtMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = principal.getUsername();
+        Member findMember = memberService.findByEmail(email);
+        int number =num.getNum();
+        if(number==findMember.getAuthNum()){
+            memberService.emailValidation(findMember);
+            return HttpStatus.ACCEPTED;
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    }
+}

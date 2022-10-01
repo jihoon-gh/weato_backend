@@ -1,23 +1,13 @@
 package allG.weato.serviceTest;
 
-import allG.weato.domains.member.MemberService;
-import allG.weato.domains.member.entities.Member;
-import allG.weato.validation.CommonErrorCode;
-import allG.weato.validation.RestException;
+import allG.weato.domainTest.enums.Withdrawal;
+import allG.weato.domainTest.member.MemberService;
+import allG.weato.domainTest.member.entities.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-
-import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 public class MemberServiceTest {
@@ -34,9 +24,10 @@ public class MemberServiceTest {
         //when
         Member member1 = memberService.findById(id);
         System.out.println("member1 = " + member1);
-        memberService.deleteMember(member1);
+        Withdrawal withdrawal=Withdrawal.NUM2;
+        memberService.deleteMember(member1,withdrawal);
 
         //then
-//        Assertions.assertThat(memberService.findById(id)).;
+        Assertions.assertThat(member1.getName()).isEqualTo("탈퇴회원");
     }
 }

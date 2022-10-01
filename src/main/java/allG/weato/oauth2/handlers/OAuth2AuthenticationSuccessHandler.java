@@ -1,15 +1,13 @@
 package allG.weato.oauth2.handlers;
 
-import allG.weato.domains.member.MemberRefreshTokenRepository;
-import allG.weato.domains.member.entities.Member;
-import allG.weato.domains.member.entities.MemberRefreshToken;
+import allG.weato.domainTest.member.MemberRefreshTokenRepository;
+import allG.weato.domainTest.member.entities.MemberRefreshToken;
 import allG.weato.oauth2.exception.BadRequestException;
 import allG.weato.oauth2.properties.AppProperties;
 import allG.weato.oauth2.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import allG.weato.oauth2.utils.CookieUtils;
 import allG.weato.oauth2.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
