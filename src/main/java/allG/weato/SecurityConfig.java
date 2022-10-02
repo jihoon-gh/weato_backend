@@ -1,6 +1,6 @@
 package allG.weato;
 
-import allG.weato.domainTest.member.MemberRepository;
+import allG.weato.domain.member.MemberRepository;
 import allG.weato.oauth2.Filter.JwtRequestFilter;
 import allG.weato.oauth2.JwtAuthenticationEntryPoint;
 import allG.weato.oauth2.handlers.OAuth2AuthenticationFailureHandler;

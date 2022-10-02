@@ -1,9 +1,9 @@
 package allG.weato.serviceTest;
 
-import allG.weato.domainTest.newsletter.entities.Newsletter;
-import allG.weato.domainTest.newsletter.dto.update.NewsletterUpdateRequestDto;
-import allG.weato.domainTest.newsletter.NewsletterRepository;
-import allG.weato.domainTest.newsletter.NewsletterService;
+import allG.weato.domain.newsletter.entities.Newsletter;
+import allG.weato.domain.newsletter.dto.update.NewsletterUpdateRequestDto;
+import allG.weato.domain.newsletter.NewsletterRepository;
+import allG.weato.domain.newsletter.NewsletterService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

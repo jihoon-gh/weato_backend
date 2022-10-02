@@ -1,6 +1,6 @@
 package allG.weato.config.auth.dto;
 
-import allG.weato.domainTest.member.entities.Member;
+import allG.weato.domain.member.entities.Member;
 import lombok.Getter;
 
 import java.io.Serializable;

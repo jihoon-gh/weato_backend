@@ -1,8 +1,8 @@
 package allG.weato.oauth2.controller;
 
-import allG.weato.domainTest.enums.Role;
-import allG.weato.domainTest.member.MemberRefreshTokenRepository;
-import allG.weato.domainTest.member.entities.MemberRefreshToken;
+import allG.weato.domain.enums.Role;
+import allG.weato.domain.member.MemberRefreshTokenRepository;
+import allG.weato.domain.member.entities.MemberRefreshToken;
 import allG.weato.oauth2.JwtMemberDetails;
 import allG.weato.oauth2.properties.AppProperties;
 import allG.weato.oauth2.response.ApiResponse;

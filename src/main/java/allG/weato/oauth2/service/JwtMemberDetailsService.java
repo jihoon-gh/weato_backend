@@ -1,7 +1,7 @@
 package allG.weato.oauth2.service;
 
-import allG.weato.domainTest.member.MemberRepository;
-import allG.weato.domainTest.member.entities.Member;
+import allG.weato.domain.member.MemberRepository;
+import allG.weato.domain.member.entities.Member;
 import allG.weato.oauth2.JwtMemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

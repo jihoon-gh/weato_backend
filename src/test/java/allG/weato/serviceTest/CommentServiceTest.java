@@ -1,13 +1,13 @@
 package allG.weato.serviceTest;
 
-import allG.weato.domainTest.comment.entities.Comment;
-import allG.weato.domainTest.comment.entities.CommentLike;
-import allG.weato.domainTest.member.entities.Member;
-import allG.weato.domainTest.post.entities.Post;
-import allG.weato.domainTest.comment.CommentRepository;
-import allG.weato.domainTest.comment.CommentService;
-import allG.weato.domainTest.member.MemberService;
-import allG.weato.domainTest.post.PostService;
+import allG.weato.domain.comment.entities.Comment;
+import allG.weato.domain.comment.entities.CommentLike;
+import allG.weato.domain.member.entities.Member;
+import allG.weato.domain.post.entities.Post;
+import allG.weato.domain.comment.CommentRepository;
+import allG.weato.domain.comment.CommentService;
+import allG.weato.domain.member.MemberService;
+import allG.weato.domain.post.PostService;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
 import org.junit.jupiter.api.DisplayName;

@@ -1,11 +1,11 @@
 package allG.weato.serviceTest;
 
-import allG.weato.domainTest.comment.entities.Comment;
-import allG.weato.domainTest.member.entities.Member;
-import allG.weato.domainTest.post.entities.Post;
-import allG.weato.domainTest.post.entities.PostLike;
-import allG.weato.domainTest.member.MemberService;
-import allG.weato.domainTest.post.PostService;
+import allG.weato.domain.comment.entities.Comment;
+import allG.weato.domain.member.entities.Member;
+import allG.weato.domain.post.entities.Post;
+import allG.weato.domain.post.entities.PostLike;
+import allG.weato.domain.member.MemberService;
+import allG.weato.domain.post.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

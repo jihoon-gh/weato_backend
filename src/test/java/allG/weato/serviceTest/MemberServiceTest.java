@@ -1,8 +1,8 @@
 package allG.weato.serviceTest;
 
-import allG.weato.domainTest.enums.Withdrawal;
-import allG.weato.domainTest.member.MemberService;
-import allG.weato.domainTest.member.entities.Member;
+import allG.weato.domain.enums.Withdrawal;
+import allG.weato.domain.member.MemberService;
+import allG.weato.domain.member.entities.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

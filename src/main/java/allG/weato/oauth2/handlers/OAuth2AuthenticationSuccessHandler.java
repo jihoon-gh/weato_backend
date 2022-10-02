@@ -1,7 +1,7 @@
 package allG.weato.oauth2.handlers;
 
-import allG.weato.domainTest.member.MemberRefreshTokenRepository;
-import allG.weato.domainTest.member.entities.MemberRefreshToken;
+import allG.weato.domain.member.MemberRefreshTokenRepository;
+import allG.weato.domain.member.entities.MemberRefreshToken;
 import allG.weato.oauth2.exception.BadRequestException;
 import allG.weato.oauth2.properties.AppProperties;
 import allG.weato.oauth2.repository.HttpCookieOAuth2AuthorizationRequestRepository;
