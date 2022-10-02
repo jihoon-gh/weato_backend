@@ -312,10 +312,10 @@ public class Member {
         withdrawalReason=withdrawal;
     }
     public String getName() {
-        if(isWithdrawal){
-            return "탈퇴회원";
+        if(isWithdrawal==null||isWithdrawal==false){
+            return name;
         }
-        return name;
+        return "탈퇴회원";
     }
 }
 
