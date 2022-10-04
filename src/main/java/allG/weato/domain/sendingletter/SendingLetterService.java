@@ -1,7 +1,7 @@
-package allG.weato.domain.sendingLetters;
+package allG.weato.domain.sendingletter;
 
-import allG.weato.domain.sendingLetters.dto.update.UpdateSendingLetterRequestDto;
-import allG.weato.domain.sendingLetters.entities.SendingLetter;
+import allG.weato.domain.sendingletter.dto.update.UpdateSendingLetterRequestDto;
+import allG.weato.domain.sendingletter.entities.SendingLetter;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
 import lombok.RequiredArgsConstructor;

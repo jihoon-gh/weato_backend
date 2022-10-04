@@ -1,6 +1,6 @@
-package allG.weato.domain.sendingLetters.dto.retrieve;
+package allG.weato.domain.sendingletter.dto.retrieve;
 
-import allG.weato.domain.sendingLetters.entities.SendingLetter;
+import allG.weato.domain.sendingletter.entities.SendingLetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

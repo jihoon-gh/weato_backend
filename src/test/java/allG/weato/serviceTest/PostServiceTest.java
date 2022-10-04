@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Service
+@Rollback
 public class PostServiceTest {
     @Autowired private PostService postService;
     @Autowired private MemberService memberService;

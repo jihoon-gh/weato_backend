@@ -1,6 +1,6 @@
-package allG.weato.domain.sendingLetters.dto.create;
+package allG.weato.domain.sendingletter.dto.create;
 
-import allG.weato.domain.sendingLetters.entities.SendingLetter;
+import allG.weato.domain.sendingletter.entities.SendingLetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;

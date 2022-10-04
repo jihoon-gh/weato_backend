@@ -1,4 +1,4 @@
-package allG.weato.domain.sendingLetters.entities;
+package allG.weato.domain.sendingletter.entities;
 
 import allG.weato.domain.enums.TagType;
 import lombok.Getter;

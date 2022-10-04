@@ -1,4 +1,4 @@
-package allG.weato.domain.sendingLetters.dto.create;
+package allG.weato.domain.sendingletter.dto.create;
 
 import allG.weato.domain.enums.TagType;
 import lombok.AllArgsConstructor;

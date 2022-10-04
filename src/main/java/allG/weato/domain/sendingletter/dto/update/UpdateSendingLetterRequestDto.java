@@ -1,4 +1,4 @@
-package allG.weato.domain.sendingLetters.dto.update;
+package allG.weato.domain.sendingletter.dto.update;
 
 import lombok.Getter;
 

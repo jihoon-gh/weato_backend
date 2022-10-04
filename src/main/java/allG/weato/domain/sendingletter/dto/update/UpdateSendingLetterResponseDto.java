@@ -1,6 +1,6 @@
-package allG.weato.domain.sendingLetters.dto.update;
+package allG.weato.domain.sendingletter.dto.update;
 
-import allG.weato.domain.sendingLetters.entities.SendingLetter;
+import allG.weato.domain.sendingletter.entities.SendingLetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -1,12 +1,12 @@
-package allG.weato.domain.sendingLetters;
+package allG.weato.domain.sendingletter;
 
-import allG.weato.domain.sendingLetters.dto.create.CreateSendingLetterRequestDto;
-import allG.weato.domain.sendingLetters.dto.create.CreateSendingLetterResultDto;
-import allG.weato.domain.sendingLetters.dto.retrieve.RetrieveSendingLettersDto;
-import allG.weato.domain.sendingLetters.dto.retrieve.SendingLetterDetailDto;
-import allG.weato.domain.sendingLetters.dto.update.UpdateSendingLetterRequestDto;
-import allG.weato.domain.sendingLetters.dto.update.UpdateSendingLetterResponseDto;
-import allG.weato.domain.sendingLetters.entities.SendingLetter;
+import allG.weato.domain.sendingletter.dto.create.CreateSendingLetterRequestDto;
+import allG.weato.domain.sendingletter.dto.create.CreateSendingLetterResultDto;
+import allG.weato.domain.sendingletter.dto.retrieve.RetrieveSendingLettersDto;
+import allG.weato.domain.sendingletter.dto.retrieve.SendingLetterDetailDto;
+import allG.weato.domain.sendingletter.dto.update.UpdateSendingLetterRequestDto;
+import allG.weato.domain.sendingletter.dto.update.UpdateSendingLetterResponseDto;
+import allG.weato.domain.sendingletter.entities.SendingLetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

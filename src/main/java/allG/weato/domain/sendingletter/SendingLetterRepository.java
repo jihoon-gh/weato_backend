@@ -1,6 +1,6 @@
-package allG.weato.domain.sendingLetters;
+package allG.weato.domain.sendingletter;
 
-import allG.weato.domain.sendingLetters.entities.SendingLetter;
+import allG.weato.domain.sendingletter.entities.SendingLetter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
