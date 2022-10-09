@@ -107,9 +107,6 @@ public class Member {
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Scrap> scrapList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
-    private List<NewsletterLike> newsletterLikes=new ArrayList<>();
-
     @ElementCollection
     private Set<Long> newsletterLikeChecker = new HashSet<>();
 
@@ -175,6 +172,12 @@ public class Member {
 
     public void addProfile(Profile profile){
         this.profile=profile;
+    }
+
+    public void addPost(Post post){
+        postList.add(post);
+        post.setOwner(this);
+        level.addExp(10);
     }
 
     public void addComment(Comment comment){
@@ -310,10 +313,18 @@ public class Member {
     public void deleteMember(Withdrawal withdrawal){
         isWithdrawal=true;
         withdrawalReason=withdrawal;
+        changeNewsletterEmail(null);
     }
     public String getName() {
         if(isWithdrawal==null||isWithdrawal==false){
             return name;
+        }
+        return "탈퇴회원";
+    }
+
+    public String getNickname() {
+        if(isWithdrawal==null||isWithdrawal==false){
+            return nickname;
         }
         return "탈퇴회원";
     }

@@ -294,6 +294,7 @@ public class PostController {
         return new ResultForList(result);
     }
 
+    @Operation(summary = "get recommended posts", description = "추천 게시글 두개 조회")
     @GetMapping("/posts/recommended-posts")
     public ResultForList getRecommendedPosts()
     {
