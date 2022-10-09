@@ -188,6 +188,7 @@ public class NewsletterController {
         return new AddLikeDto(newsletter.getId(),newsletter.getNewsletterLikeList().size());
     }
 
+    @Operation(summary = "search newsletter", description = "뉴스레터 검색")
     @GetMapping("/newsletters/search")
     public ResultForSearch searchNewslettersByKeyword(
             @RequestParam(value = "keyword") String keyword,
@@ -210,6 +211,7 @@ public class NewsletterController {
         return new ResultForSearch(result,min,max,current,numsOfTotalNewsletters);
     }
 
+    @Operation(summary = "get hotTopic newsletter", description = "뉴스레터 이 주의 핫토픽 조회")
     @GetMapping("/newsletters/hot-topics")
     public ResultForList getHotTopics(){
 
@@ -220,6 +222,7 @@ public class NewsletterController {
         return new ResultForList(result);
     }
 
+    @Operation(summary = "get most bookmarked newsletter", description = "가장 많이 북마크 된 뉴스레터")
     @GetMapping("/newsletters/most-bookmarked")
     public ResultForList getMostBookMarked(){
 

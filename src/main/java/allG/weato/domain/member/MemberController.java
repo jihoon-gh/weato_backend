@@ -125,6 +125,7 @@ public class MemberController {
         return memberBookmarkNewslettersDto;
     }
 
+    @Operation(summary = "get scrap posts", description = "내가 스크랩한 게시글")
     @GetMapping("/members/{memberId}/scraps")
     public MemberScrapedPostDto showScrap(@PathVariable("memberId") Long memberId
             ,@RequestParam(value = "type",defaultValue = "all")String code
@@ -141,6 +142,8 @@ public class MemberController {
         return memberScrapedPostDto;
     }
 
+
+    @Operation(summary = "get owned posts", description = "작성글 조회")
     @GetMapping("/members/{memberId}/owned-posts")
     public ResultForSearch showOwnedPosts(@PathVariable("memberId")Long memberId,
                                           @RequestParam(value = "page",defaultValue = "1")Integer page){

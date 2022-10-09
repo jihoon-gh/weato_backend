@@ -87,8 +87,6 @@ public class Post {
     //연관관계 편의 메소드
     public void setOwner(Member member){
         this.member=member;
-        member.getPostList().add(this);
-        member.getLevel().addExp(10);
     }
 
     public void changeTagType(TagType tagType){
