@@ -44,9 +44,7 @@ public class PostService {
     }
 
     public Post findPostById(Long id) {
-        return postRepository.findPostById(id).orElseGet(()->{
-            throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-        });
+        return postRepository.findPostById(id).orElseThrow(()->new RestException(CommonErrorCode.RESOURCE_NOT_FOUND));
     }
 
     public Page<Post> findMemberOwnedPosts(Member member,Integer page){
@@ -56,9 +54,9 @@ public class PostService {
 
 
     public Post findPostFetchById(Long id){
-        return postRepository.findPostFecthJoin(id).orElseGet(()->{
-            throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-        });
+        return postRepository.findPostFecthJoin(id).orElseThrow(()->
+            new RestException(CommonErrorCode.RESOURCE_NOT_FOUND)
+        );
     }
 
     public Post findPostByTitle(String title) {

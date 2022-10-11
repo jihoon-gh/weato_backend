@@ -20,7 +20,7 @@ public class JwtMemberDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Member entityMember = memberRepository.findByEmail(username).get();
+        Member entityMember = memberRepository.findMemberByEmail(username);
 
         if(entityMember != null) return new JwtMemberDetails(entityMember);
 

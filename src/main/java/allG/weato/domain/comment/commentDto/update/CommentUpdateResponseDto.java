@@ -7,12 +7,12 @@ import org.springframework.http.HttpStatus;
 
 @Data
 @NoArgsConstructor
-public class UpdatedCommentDto {
+public class CommentUpdateResponseDto {
 
     private Long id;
     private HttpStatus httpStatus;
 
-    public UpdatedCommentDto(Comment comment){
+    public CommentUpdateResponseDto(Comment comment){
         id = comment.getId();
         httpStatus=HttpStatus.OK;
     }

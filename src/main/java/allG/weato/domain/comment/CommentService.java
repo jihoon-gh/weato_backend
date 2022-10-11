@@ -29,9 +29,9 @@ public class CommentService {
         commentRepository.save(comment);
     }
     public Comment findCommentById(Long id){
-        return commentRepository.findCommentById(id).orElseGet(()->{
-            throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-        });
+        return commentRepository.findCommentById(id).orElseThrow(()->
+            new RestException(CommonErrorCode.RESOURCE_NOT_FOUND)
+        );
     }
 
     @Transactional

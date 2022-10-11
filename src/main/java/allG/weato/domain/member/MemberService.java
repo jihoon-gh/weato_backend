@@ -20,12 +20,8 @@ import java.util.List;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-
-
     public Member findById(Long id){
-      return memberRepository.findById(id).orElseGet(()->{
-          throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-        });
+      return memberRepository.findById(id).orElseThrow(()->new RestException(CommonErrorCode.RESOURCE_NOT_FOUND));
     }
 
     public Member findMemberForScrap(Long id){
@@ -40,9 +36,7 @@ public class MemberService {
     }
 
     public Member findByEmail(String email){
-      return memberRepository.findByEmail(email).orElseGet(()->{
-          throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);
-      });
+      return memberRepository.findByEmail(email).orElseThrow(()-> new RestException(CommonErrorCode.RESOURCE_NOT_FOUND));
     }
 
     @Transactional
@@ -50,9 +44,9 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public Member getMember(String userId){ //이메일 말하는거임
-        return memberRepository.findByUserId(userId);
-    }
+//    public Member getMember(String userId){ //이메일 말하는거임
+//        return memberRepository.findByUserId(userId);
+//    }
 
     public List<Member> findAll(){
         return memberRepository.findAll();

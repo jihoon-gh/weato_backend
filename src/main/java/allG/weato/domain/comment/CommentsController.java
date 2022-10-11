@@ -1,6 +1,7 @@
 package allG.weato.domain.comment;
 
 import allG.weato.domain.comment.commentDto.delete.DeleteCommentLikeDto;
+import allG.weato.domain.comment.commentDto.update.CommentUpdateRequestDto;
 import allG.weato.domain.comment.entities.Comment;
 import allG.weato.domain.comment.entities.CommentLike;
 import allG.weato.domain.member.entities.Member;
@@ -8,7 +9,7 @@ import allG.weato.domain.post.entities.Post;
 import allG.weato.dto.AddLikeDto;
 import allG.weato.domain.comment.commentDto.create.CreateCommentRequest;
 import allG.weato.domain.comment.commentDto.create.CreateCommentResponse;
-import allG.weato.domain.comment.commentDto.update.UpdatedCommentDto;
+import allG.weato.domain.comment.commentDto.update.CommentUpdateResponseDto;
 import allG.weato.domain.member.MemberService;
 import allG.weato.domain.post.PostService;
 import allG.weato.oauth2.JwtMemberDetails;
@@ -56,10 +57,11 @@ public class CommentsController {
 
     @Operation(summary = "update specific comment", description = "댓글 수정")
     @PatchMapping("/api/posts/{postId}/comments/{commentId}")
-    public UpdatedCommentDto updateComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId,@RequestBody  String content){
+    public CommentUpdateResponseDto updateComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId
+            , @RequestBody CommentUpdateRequestDto request){
         Comment comment = commentService.findCommentById(commentId);
-        commentService.updateComment(comment,content);
-        return new UpdatedCommentDto(comment);
+        commentService.updateComment(comment,request.getContent());
+        return new CommentUpdateResponseDto(comment);
     }
 
     @Operation(summary = "delete specific comment", description = "댓글 삭제")
