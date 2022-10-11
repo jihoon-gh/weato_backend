@@ -1,11 +1,13 @@
 package allG.weato.domain.comment.commentDto.update;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UpdateCommentRequestDto {
+@AllArgsConstructor
+public class CommentUpdateRequestDto {
 
     private String content;
 }
