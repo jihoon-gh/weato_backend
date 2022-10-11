@@ -29,8 +29,8 @@ public class NewsletterService {
 
 
     public Newsletter findOneById(Long id){
-       return newsletterRepository.findById(id).orElseGet(()->
-       {throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);});
+       return newsletterRepository.findById(id).orElseThrow(()->
+       new RestException(CommonErrorCode.RESOURCE_NOT_FOUND));
     }
     public Newsletter findOneByIdWithLikes(Long id){
         return newsletterRepository.findNewsletterByIdWithLikes(id);

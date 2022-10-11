@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> { //타입 ,pk타입.
-    List<Member> findByName(String name);
+    List<Member> findByName(String name); //중복 회원 체크용
 
     Optional<Member> findByEmail(String Email);
+
     Member findMemberByEmail(String Email);
 
     @Query("select m from Member m left join fetch m.bookMarkList where m.id = :id")
@@ -25,13 +26,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> { //타입
     @Query("select m from Member m where m.id = :id")
     Member findMemberByIdForProfile(@Param("id") Long id);
 
-    Member findByUserId(String userId);
+//    Member findByUserId(String userId);
 
     Member findMemberByNickname(String nickname);
-
-//    @Query(name = "select m from Member m")
-//    List<Member> findAllByEmail();
-
-
 
 }

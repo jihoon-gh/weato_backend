@@ -34,7 +34,7 @@ public class SendingLetterService {
 
     public SendingLetter findSendingLetterById(Long id) {
         return sendingLetterRepository.findById(id)
-                .orElseGet(()->{throw new RestException(CommonErrorCode.RESOURCE_NOT_FOUND);});
+                .orElseThrow(()->new RestException(CommonErrorCode.RESOURCE_NOT_FOUND));
     }
 
     @Transactional
