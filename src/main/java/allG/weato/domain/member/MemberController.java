@@ -64,7 +64,7 @@ public class MemberController {
 
     @GetMapping("/members/validation")
     public boolean validationCheckForNickname(@RequestParam("nickname") String nickname){
-        return memberService.validateAboutNickname(nickname);
+        return memberService.validateNickname(nickname);
     }
 
     @Operation(summary = "Retrieve specific member", description = "특정 멤버 조회")
@@ -89,7 +89,7 @@ public class MemberController {
     @PatchMapping("/members/{memberId}/profile")
     public UpdateProfileResponseDto updateMemberProfile(@PathVariable("memberId") Long memberId, @RequestBody @Valid UpdateProfileRequestDto request){
         Member member = memberService.findMemberForProfile(memberId);
-        memberService.upadateProfile(member, request);
+        memberService.updateProfile(member, request);
         return new UpdateProfileResponseDto(member);
     }
 
