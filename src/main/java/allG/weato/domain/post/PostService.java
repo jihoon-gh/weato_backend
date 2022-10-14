@@ -108,14 +108,14 @@ public class PostService {
     public void addLike(Member member, Post post, PostLike postLike) {
         member.addPostLike(postLike);
         member.addPostLikeChecker(post.getId());
-        post.addLike(postLike);
+        post.addPostLike(postLike);
     }
 
     @Transactional
     public void deleteLike(Member member, Post post, PostLike postLike){
         member.deletePostLike(postLike);
         member.deletePostLikeChecker(post.getId());
-        post.deleteLike(postLike);
+        post.deletePostLike(postLike);
         postRepository.deletePostLikeById(postLike.getId());
     }
 

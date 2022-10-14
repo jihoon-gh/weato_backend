@@ -89,9 +89,9 @@ public class Post {
         this.member=member;
     }
 
-    public void changeTagType(TagType tagType){
-        this.tagType=tagType;
-    }
+//    public void changeTagType(TagType tagType){
+//        this.tagType=tagType;
+//    }
 
     public void addComment(Comment comment){ // 완료
         this.getCommentList().add(comment);
@@ -103,13 +103,13 @@ public class Post {
         attachment.setPost(this);
     }
 
-    public void addLike(PostLike postLike) { //완료
+    public void addPostLike(PostLike postLike) { //완료
         postLikeList.add(postLike);
         postLike.setOwnPost(this);
         likeCount=postLikeList.size();
     }
 
-    public void deleteLike(PostLike postLike){
+    public void deletePostLike(PostLike postLike){
         this.postLikeList.remove(postLike);
         postLike.setOwnPost(null);
         likeCount=postLikeList.size();
