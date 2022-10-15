@@ -4,12 +4,15 @@ import allG.weato.domain.comment.entities.Comment;
 import allG.weato.domain.member.entities.Member;
 import allG.weato.domain.post.entities.Post;
 import allG.weato.domain.post.entities.PostLike;
+import allG.weato.domain.post.entities.Scrap;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
 public class PostTest {
 
     @DisplayName("게시글 내용 변경 테스트")
@@ -73,6 +76,19 @@ public class PostTest {
         assertThat(post.getCommentList().size()).isEqualTo(1);
     }
 
+    @DisplayName("댓글 삭제 테스트")
+    @Test
+    public void deleteCommentTest(){
+
+        //given
+        Post post = new Post();
+        Comment comment = new Comment();
+        post.addComment(comment);
+        //when
+
+        //then
+    }
+
     @DisplayName("게시글 좋아요 테스트")
     @Test
     public void addPostLikeTest(){
@@ -104,4 +120,55 @@ public class PostTest {
         //then
         assertThat(post.getPostLikeList().size()).isEqualTo(0);
     }
+
+    @DisplayName("조회수 증가 테스트")
+    @Test
+    public void addViewsTest(){
+
+        //given
+        Post post = new Post();
+        int views1 = post.getViews();
+
+        //when
+        post.addViews();
+
+        //then
+        assertThat(views1).isEqualTo(0);
+        assertThat(post.getViews()).isEqualTo(1);
+    }
+
+    @DisplayName("스크랩 더하기 테스트")
+    @Test
+    public void addScrapTest(){
+
+        //given
+        Post post = new Post();
+        Scrap scrap = new Scrap();
+
+        //when
+        post.addScrap(scrap);
+
+        //then
+        assertThat(post.getScrapCount()).isEqualTo(1);
+    }
+
+    @DisplayName("스크랩 취소 테스트")
+    @Test
+    public void deleteScrapTest(){
+
+        //given
+        Post post = new Post();
+        Scrap scrap = new Scrap();
+        post.addScrap(scrap);
+        int scrapCount = post.getScrapCount();
+
+        //when
+        post.deleteScrap(scrap);
+
+        //then
+        assertThat(scrapCount).isEqualTo(1);
+        assertThat(post.getScrapCount()).isEqualTo(0);
+
+    }
+
 }

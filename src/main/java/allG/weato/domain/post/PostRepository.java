@@ -71,9 +71,4 @@ public interface PostRepository extends JpaRepository<Post, Long> {
       @Query("select p from Post p where p.likeCount >=  :std")
       List<Post> findRecommendPosts(@Param("std")Integer std);
 
-//    @Query("delete from Comment c where c.id = :commentId")
-//    void deleteCommentById(@Param("commentId") Long commentId);
-
-
-
 }
