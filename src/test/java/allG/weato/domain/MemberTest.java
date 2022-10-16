@@ -16,11 +16,12 @@ import allG.weato.domain.post.entities.Scrap;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
 public class MemberTest {
 
     @DisplayName("닉네임 변경 테스트")
@@ -38,6 +39,7 @@ public class MemberTest {
     @DisplayName("뉴스레터 수신 이메일 변경 테스트")
     @Test
     public void changeNewsletterEmail(){
+
         //given
         String email = "new email";
         Member member = new Member();
@@ -52,11 +54,14 @@ public class MemberTest {
     @DisplayName("추가정보 테스트")
     @Test
     public void setAdditionalInfoTest(){
+
         //given
         AdditionalInfo additionalInfo = new AdditionalInfo();
         Member member = new Member();
+
         //when
         member.setAdditional_info(additionalInfo);
+
         //then
         assertThat(member.getAdditionalInfo()).isNotNull();
     }
@@ -97,8 +102,10 @@ public class MemberTest {
         //given
         Member member = new Member();
         CommentLike commentLike = new CommentLike();
+
         //when
         member.addCommentLike(commentLike);
+
         //then
         assertThat(member.getCommentLikeList().size()).isEqualTo(1);
     }
@@ -111,9 +118,11 @@ public class MemberTest {
         Member member = new Member();
         PostLike postLike1 =new PostLike();
         PostLike postLike2 =new PostLike();
+
         //when
         member.addPostLike(postLike1);
         member.addPostLike(postLike2);
+
         //then
         assertThat(member.getPostLikeList().size()).isEqualTo(2);
     }

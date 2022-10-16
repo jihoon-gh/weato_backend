@@ -59,10 +59,6 @@ public class PostService {
         );
     }
 
-    public Post findPostByTitle(String title) {
-        return postRepository.findPostByTitle(title);
-    }
-
     public Page<Post> findPostWithPaging(Integer page, BoardType boardType, TagType tagType){
         PageRequest pageRequest = PageRequest.of(page,6, Sort.by(Sort.Direction.DESC,"createdAt"));
         if(boardType==BoardType.ALL&&tagType==TagType.ALL){

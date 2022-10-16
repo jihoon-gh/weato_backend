@@ -31,8 +31,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
        @Query("select p from Post p left join fetch p.scrapList where p.id = :id")
       Post findPostByIdWithScrap(@Param("id")Long id);
 
-      Post findPostByTitle(String title);
-
       @EntityGraph(attributePaths = {"commentList"})
       Page<Post> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String title,String content, Pageable pageable);
 
