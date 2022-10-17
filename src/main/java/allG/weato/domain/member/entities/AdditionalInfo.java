@@ -2,8 +2,8 @@ package allG.weato.domain.member.entities;
 
 import allG.weato.domain.enums.ManagementType;
 import allG.weato.domain.enums.SymptomDegree;
-import allG.weato.domain.member.dto.AdditionalInfoRequestDto;
-import allG.weato.domain.member.dto.update.UpdateProfileRequestDto;
+import allG.weato.domain.member.dtos.AdditionalInfoRequestDto;
+import allG.weato.domain.member.dtos.update.UpdateProfileRequestDto;
 import lombok.*;
 
 import javax.persistence.*;

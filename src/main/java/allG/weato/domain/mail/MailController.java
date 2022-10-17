@@ -44,7 +44,7 @@ public class MailController {
         Member findMember = memberService.findByEmail(email);
         int number =num.getNum();
         if(number==findMember.getAuthNum()){
-            memberService.emailValidation(findMember);
+            memberService.validateEmail(findMember);
             return HttpStatus.ACCEPTED;
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

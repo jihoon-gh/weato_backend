@@ -80,7 +80,7 @@ public class SecurityConfig {
                     .disable()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-//                .antMatchers("/api/newsletters/**","/api/posts","/swagger-ui/index.html/**").permitAll()
+//                .antMatchers("/api/newsletters/**","/api/posts","/swagger-ui/index.html/**","/api/landing/**").permitAll()
 //                .anyRequest().authenticated()
                 .anyRequest().permitAll()
                     .and()

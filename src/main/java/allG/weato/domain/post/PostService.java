@@ -59,10 +59,6 @@ public class PostService {
         );
     }
 
-    public Post findPostByTitle(String title) {
-        return postRepository.findPostByTitle(title);
-    }
-
     public Page<Post> findPostWithPaging(Integer page, BoardType boardType, TagType tagType){
         PageRequest pageRequest = PageRequest.of(page,6, Sort.by(Sort.Direction.DESC,"createdAt"));
         if(boardType==BoardType.ALL&&tagType==TagType.ALL){
@@ -108,14 +104,14 @@ public class PostService {
     public void addLike(Member member, Post post, PostLike postLike) {
         member.addPostLike(postLike);
         member.addPostLikeChecker(post.getId());
-        post.addLike(postLike);
+        post.addPostLike(postLike);
     }
 
     @Transactional
     public void deleteLike(Member member, Post post, PostLike postLike){
         member.deletePostLike(postLike);
         member.deletePostLikeChecker(post.getId());
-        post.deleteLike(postLike);
+        post.deletePostLike(postLike);
         postRepository.deletePostLikeById(postLike.getId());
     }
 

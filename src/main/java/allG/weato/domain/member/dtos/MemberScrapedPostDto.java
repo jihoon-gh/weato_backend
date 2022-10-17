@@ -1,4 +1,4 @@
-package allG.weato.domain.member.dto;
+package allG.weato.domain.member.dtos;
 
 import allG.weato.domain.enums.BoardType;
 import allG.weato.domain.member.entities.Member;

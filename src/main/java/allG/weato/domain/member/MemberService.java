@@ -3,16 +3,15 @@ package allG.weato.domain.member;
 import allG.weato.domain.comment.entities.Comment;
 import allG.weato.domain.enums.TagType;
 import allG.weato.domain.enums.Withdrawal;
-import allG.weato.domain.member.dto.create.CreateMemberRequest;
-import allG.weato.domain.member.dto.update.UpdateProfileRequestDto;
+import allG.weato.domain.member.dtos.create.CreateMemberRequest;
+import allG.weato.domain.member.dtos.update.UpdateProfileRequestDto;
 import allG.weato.domain.member.entities.Member;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -44,36 +43,12 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-//    public Member getMember(String userId){ //이메일 말하는거임
-//        return memberRepository.findByUserId(userId);
-//    }
-
-    public List<Member> findAll(){
-        return memberRepository.findAll();
-    }
-
-    @Transactional
-    public Long join(Member member){
-        validateDuplicateMember(member);
-        memberRepository.save(member);
-        return member.getId();
-    }
-
-    public void validateDuplicateMember(Member member){
-        List<Member> findMembersByName = memberRepository.findByName(member.getName());
-//        List<Member> findMembersByEmail = memberRepository.findAllByEmail();
-        if (findMembersByName.size()!=0){
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        }
-
-    }
-
-    public boolean validateAboutNickname(String nickname){
+    public boolean validateNickname(String nickname){
         Member member = memberRepository.findMemberByNickname(nickname);
         if(member==null){
-            return false;
+            return false; //중복이 없다 -> FALSE
         }
-        return true;
+        return true; //중복이 존재환다 -> TRUE
     }
 
     @Transactional
@@ -96,7 +71,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void upadateProfile(Member member, UpdateProfileRequestDto request) {
+    public void updateProfile(Member member, UpdateProfileRequestDto request) {
         member.getProfile().changeImgurl(request.getImageUrl());
         member.changeNickname(request.getNickname());
         member.getAdditionalInfo().setMedicalHistory(request.getMedicalHistory());
@@ -110,14 +85,14 @@ public class MemberService {
 
 
     @Transactional
-    public void emailValidation(Member member) {
+    public void validateEmail(Member member) {
         member.changeEmailValidation();
         int newNum =  (int)(Math.random() * (99999 - 10000 + 1)) + 10000;
         member.changeAuthNum(newNum);
     }
 
     @Transactional
-    public void emailValidation(Member member, int num) {
+    public void emailValidation(@NotNull Member member, int num) {
         member.changeAuthNum(num);
     }
 

@@ -3,15 +3,15 @@ package allG.weato.domain.member;
 
 import allG.weato.domain.enums.BoardType;
 import allG.weato.domain.enums.TagType;
-import allG.weato.domain.member.dto.*;
-import allG.weato.domain.member.dto.create.CreateMemberRequest;
-import allG.weato.domain.member.dto.create.CreateMemberResponse;
-import allG.weato.domain.member.dto.delete.WithdrawlRequest;
-import allG.weato.domain.member.dto.retrieve.MemberBookmarkNewslettersDto;
-import allG.weato.domain.member.dto.retrieve.MemberResponseDto;
-import allG.weato.domain.member.dto.retrieve.ProfileResponseDto;
-import allG.weato.domain.member.dto.update.UpdateProfileRequestDto;
-import allG.weato.domain.member.dto.update.UpdateProfileResponseDto;
+import allG.weato.domain.member.dtos.*;
+import allG.weato.domain.member.dtos.create.CreateMemberRequest;
+import allG.weato.domain.member.dtos.create.CreateMemberResponse;
+import allG.weato.domain.member.dtos.delete.WithdrawlRequest;
+import allG.weato.domain.member.dtos.retrieve.MemberBookmarkNewslettersDto;
+import allG.weato.domain.member.dtos.retrieve.MemberResponseDto;
+import allG.weato.domain.member.dtos.retrieve.ProfileResponseDto;
+import allG.weato.domain.member.dtos.update.UpdateProfileRequestDto;
+import allG.weato.domain.member.dtos.update.UpdateProfileResponseDto;
 import allG.weato.domain.member.entities.AdditionalInfo;
 import allG.weato.domain.member.entities.Member;
 import allG.weato.domain.post.PostService;
@@ -64,7 +64,7 @@ public class MemberController {
 
     @GetMapping("/members/validation")
     public boolean validationCheckForNickname(@RequestParam("nickname") String nickname){
-        return memberService.validateAboutNickname(nickname);
+        return memberService.validateNickname(nickname);
     }
 
     @Operation(summary = "Retrieve specific member", description = "특정 멤버 조회")
@@ -89,7 +89,7 @@ public class MemberController {
     @PatchMapping("/members/{memberId}/profile")
     public UpdateProfileResponseDto updateMemberProfile(@PathVariable("memberId") Long memberId, @RequestBody @Valid UpdateProfileRequestDto request){
         Member member = memberService.findMemberForProfile(memberId);
-        memberService.upadateProfile(member, request);
+        memberService.updateProfile(member, request);
         return new UpdateProfileResponseDto(member);
     }
 
