@@ -1,4 +1,4 @@
-package allG.weato.domain.member.dto.delete;
+package allG.weato.domain.member.dtos.delete;
 
 import allG.weato.domain.enums.Withdrawal;
 import lombok.AllArgsConstructor;

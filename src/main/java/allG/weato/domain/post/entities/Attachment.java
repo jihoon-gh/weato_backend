@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Attachment {
+public class Attachment { //AWS S3와 연동하여 커뮤니티 게시글의 이미지 업로드 지원 예정.
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attachment_id")

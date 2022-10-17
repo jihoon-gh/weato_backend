@@ -18,7 +18,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Rollback
 public class PostServiceTest {
     @Autowired private PostService postService;
     @Autowired private MemberService memberService;
@@ -61,10 +60,9 @@ public class PostServiceTest {
         post.changeTitle("gambino");
         postService.save(post);
         //when
-        Post findPost1 = postService.findPostByTitle(post.getTitle());
+
         Post findPost2 = postService.findPostById(post.getId());
         //then
-        assertThat(findPost1).isSameAs(post);
         assertThat(findPost2).isSameAs(post);
     }
     

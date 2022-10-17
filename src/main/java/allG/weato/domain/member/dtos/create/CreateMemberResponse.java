@@ -1,4 +1,4 @@
-package allG.weato.domain.member.dto.create;
+package allG.weato.domain.member.dtos.create;
 
 import allG.weato.domain.enums.TagType;
 import allG.weato.domain.member.entities.Member;

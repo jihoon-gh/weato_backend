@@ -3,8 +3,8 @@ package allG.weato.domain.member;
 import allG.weato.domain.comment.entities.Comment;
 import allG.weato.domain.enums.TagType;
 import allG.weato.domain.enums.Withdrawal;
-import allG.weato.domain.member.dto.create.CreateMemberRequest;
-import allG.weato.domain.member.dto.update.UpdateProfileRequestDto;
+import allG.weato.domain.member.dtos.create.CreateMemberRequest;
+import allG.weato.domain.member.dtos.update.UpdateProfileRequestDto;
 import allG.weato.domain.member.entities.Member;
 import allG.weato.validation.CommonErrorCode;
 import allG.weato.validation.RestException;
@@ -12,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)

@@ -3,9 +3,8 @@ package allG.weato.domain;
 import allG.weato.domain.comment.entities.Comment;
 import allG.weato.domain.comment.entities.CommentLike;
 import allG.weato.domain.enums.Withdrawal;
-import allG.weato.domain.member.dto.update.UpdateProfileRequestDto;
+import allG.weato.domain.member.dtos.update.UpdateProfileRequestDto;
 import allG.weato.domain.member.entities.AdditionalInfo;
-import allG.weato.domain.member.entities.Level;
 import allG.weato.domain.member.entities.Member;
 import allG.weato.domain.member.entities.Profile;
 import allG.weato.domain.newsletter.entities.BookMark;
@@ -13,11 +12,9 @@ import allG.weato.domain.newsletter.entities.NewsletterLike;
 import allG.weato.domain.post.entities.Post;
 import allG.weato.domain.post.entities.PostLike;
 import allG.weato.domain.post.entities.Scrap;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.*;
 

@@ -6,7 +6,7 @@ import allG.weato.domain.enums.ProviderType;
 import allG.weato.domain.enums.Role;
 import allG.weato.domain.enums.TagType;
 import allG.weato.domain.enums.Withdrawal;
-import allG.weato.domain.member.dto.update.UpdateProfileRequestDto;
+import allG.weato.domain.member.dtos.update.UpdateProfileRequestDto;
 import allG.weato.domain.newsletter.entities.BookMark;
 import allG.weato.domain.newsletter.entities.NewsletterLike;
 import allG.weato.domain.post.entities.Post;
