@@ -8,6 +8,7 @@ import allG.weato.domain.anonymousMember.dtos.update.UpdateAnonymousMemberRespon
 import allG.weato.domain.anonymousMember.entities.AnonymousMember;
 import allG.weato.domain.anonymousMember.dtos.create.CreateAnonymousMemberRequest;
 import allG.weato.dto.ResultForList;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class AnonymousMemberController {
 
     private final AnonymousMemberService amService;
 
+    @Operation(summary = "create AnonymousMember", description = "뉴스레터 전용 익명유저 생성")
     @PostMapping("/landing")
     public CreateAnonymousMemberResponse createAnonymousMember(@RequestBody @Valid CreateAnonymousMemberRequest request){
 
@@ -31,6 +33,7 @@ public class AnonymousMemberController {
         return new CreateAnonymousMemberResponse(am);
     }
 
+    @Operation(summary = "update AnonymousMember", description = "익명 유저 정보 수정")
     @PatchMapping("/landing/{id}")
     public UpdateAnonymousMemberResponse updateAnonymousMember(@PathVariable("id")Long id,
                                                                @RequestBody @Valid UpdateAnonymousMemberRequest request){
@@ -41,6 +44,7 @@ public class AnonymousMemberController {
         return new UpdateAnonymousMemberResponse(am);
     }
 
+    @Operation(summary = "Retrieve all AnonymousMembers", description = "익명 유저 전체 조회")
     @GetMapping("/landing")
     public ResultForList getAllAm(){
         List<AnonymousMember> allAm = amService.findAllAm();
@@ -51,6 +55,7 @@ public class AnonymousMemberController {
         return new ResultForList(result);
     }
 
+    @Operation(summary = "Retrieve specific AnonymousMember", description = "id를 통한 익명유저 조회")
     @GetMapping("/landing/{id}")
     public DetailRetrieveAnonymousMember getDetailAm(@PathVariable("id")Long id){
         AnonymousMember am = amService.findById(id);
