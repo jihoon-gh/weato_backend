@@ -3,14 +3,15 @@ package allG.weato.domain.member.dtos.create;
 import lombok.Data;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 public class CreateMemberRequest {
 
-    @Valid
+    @NotEmpty
     private String nickname;
 
-    @Valid
+    @NotEmpty
     private String newsletterEmail;
 
     private Boolean drug;

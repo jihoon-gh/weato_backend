@@ -8,6 +8,8 @@ import allG.weato.domain.anonymousMember.dtos.update.UpdateAnonymousMemberRespon
 import allG.weato.domain.anonymousMember.entities.AnonymousMember;
 import allG.weato.domain.anonymousMember.dtos.create.CreateAnonymousMemberRequest;
 import allG.weato.dto.ResultForList;
+import allG.weato.validation.CommonErrorCode;
+import allG.weato.validation.RestException;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,9 @@ public class AnonymousMemberController {
     @PostMapping("/landing")
     public CreateAnonymousMemberResponse createAnonymousMember(@RequestBody @Valid CreateAnonymousMemberRequest request){
 
+        if(!amService.checkDuplication(request.getNewsletterEmail())){
+            throw new RestException(CommonErrorCode.INVALID_PARAMETER);
+        }
         AnonymousMember am = new AnonymousMember(request);
         amService.saveAnonymousMember(am);
 

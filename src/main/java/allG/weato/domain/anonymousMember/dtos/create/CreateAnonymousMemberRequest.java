@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -14,6 +15,8 @@ public class CreateAnonymousMemberRequest {
 
     @NotEmpty
     private String name;
+
+    @Email
     @NotEmpty
     private String newsletterEmail;
 

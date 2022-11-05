@@ -56,4 +56,5 @@ public class AnonymousMemberTest {
         assertThat(am.getName()).isEqualTo("test");
         assertThat(am.getTagTypeList().size()).isEqualTo(3);
     }
+
 }
