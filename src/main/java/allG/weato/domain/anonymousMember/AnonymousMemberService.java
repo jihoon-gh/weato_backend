@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +35,17 @@ public class AnonymousMemberService {
 
     public List<AnonymousMember> findAllAm(){
         return amRepository.findAll();
+    }
+
+    public Boolean checkDuplication(String newsletterEmail){
+        List<String> existEmailList = amRepository.findAll()
+                .stream()
+                .map(a->a.getNewsletterEmail())
+                .collect(Collectors.toList());
+        if(existEmailList.contains(newsletterEmail)){
+            return false;
+        }
+        return true;
     }
 
 

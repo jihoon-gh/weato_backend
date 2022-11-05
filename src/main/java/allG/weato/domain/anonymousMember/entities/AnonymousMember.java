@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class AnonymousMember {
     private Long id;
 
     private String name;
+
     private String newsletterEmail;
 
     @ElementCollection
